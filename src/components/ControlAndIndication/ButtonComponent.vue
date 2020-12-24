@@ -52,20 +52,32 @@ export default {
         const three = Math.floor((Math.random() * 1000000) + 1) + ''
         return 'id' + one + two + three
       })(),
-      isBtnActive: false
+
+    }
+  },
+  props: {
+    isBtnActive: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
     btnClick: function () {
       // let radius = !this.isBtnActive ? 30 : 35
+
+      // this.isBtnActive = !this.isBtnActive
+      // this.$emit('update:isBtnActive', !this.isBtnActive)
+      this.$emit('btnClick', !this.isBtnActive)
+    }
+  },
+  watch: {
+    isBtnActive () {
       gsap.set('#' + 'btn-' + this.Id, {transformOrigin: '50% 50%'})
-      if (!this.isBtnActive) {
-        gsap.to('#' + 'btn-' + this.Id, {duration: 0.1, scale: 0.8})
+      if (this.isBtnActive) {
+        gsap.to('#' + 'btn-' + this.Id, {duration: 0.3, scale: 0.8})
       } else {
-        gsap.to('#' + 'btn-' + this.Id, {duration: 0.1, scale: 1})
+        gsap.to('#' + 'btn-' + this.Id, {duration: 0.3, scale: 1})
       }
-      this.isBtnActive = !this.isBtnActive
-      this.$emit('btnClick', this.isBtnActive)
     }
   }
 }

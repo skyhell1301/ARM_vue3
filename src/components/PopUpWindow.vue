@@ -3,7 +3,7 @@
     :id="windowId"
     class="vue-window-modal"
     style="z-index: 9999"
-    @mouseover.once="addLiseners"
+    @mouseover.once="addListeners"
     v-bind:style="{backgroundColor}">
     <div :id="windowId + '-' + 'header'" class="vue-window-modal-header" @dblclick="setSizeWindow">
       <h2 class="title">{{ title }}</h2>
@@ -70,6 +70,10 @@ export default {
     }
   },
   props: {
+    nameStatus: {
+      type: String,
+      default: ''
+    },
     active: {
       type: Boolean,
       default: true
@@ -428,7 +432,7 @@ export default {
       this.getThisWindowAndHeaderElements().window.style.width = this.widthWindow + 'px'
       this.updateSizeStatus()
     },
-    addLiseners () {
+    addListeners () {
       this.dragElement()
       this.getThisWindowAndHeaderElements().window.addEventListener('mousedown', () => {
         this.sendWindowToHighest()
@@ -437,7 +441,7 @@ export default {
     disponse () {
       this.$emit('clickClose')
       //this.$destroy()
-      this.$el.parentNode.removeChild(this.$el)
+      this.$store.dispatch(this.nameStatus)
       return false
     }
   },

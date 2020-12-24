@@ -4,13 +4,13 @@
 <!--    <iframe class="clock" src="http://localhost:8080/#/clock"></iframe>-->
     <div class="crash">
       <div class="crash-title">АВАРИЯ</div>
-      <ButtonComponent class="btn-1"></ButtonComponent>
+      <ButtonComponent class="btn-1" @btnClick="testChange" :is-btn-active="antStatus"></ButtonComponent>
       <EmergencySignalComponent class="signal-bell" status="ok"></EmergencySignalComponent>
     </div>
     <ControlPanelComponent></ControlPanelComponent>
     <div class="control-background">
       <div class="ind-title">ЗЕМНАЯ СТАНЦИЯ</div>
-      <ButtonComponent class="btn-2" @btnClick="testVar1=!testVar1"></ButtonComponent>
+      <ButtonComponent class="btn-2"></ButtonComponent>
       <StatusIndicatorComponent class="ind-1" :is-active="testVar1"></StatusIndicatorComponent>
     </div>
     <div class="control-background">
@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import ButtonComponent from './ButtonComponent'
 import EmergencySignalComponent from './EmergencySignalComponent'
 import StatusIndicatorComponent from './StatusIndicatorComponent'
@@ -56,7 +57,18 @@ export default {
     }
   },
   methods: {
-  }
+    testChange(val) {
+      this.$store.dispatch('test/changeAntennaSystemStatus', val)
+    }
+  },
+  watch: {
+  },
+  computed: mapState({
+    antStatus: state => state.test.antennaSystemStatus
+  })
+      // {
+      // return this.$store.state.antennaSystemStatus
+    // })
 }
 </script>
 

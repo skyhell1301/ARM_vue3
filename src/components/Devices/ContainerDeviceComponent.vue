@@ -220,7 +220,7 @@
         </pattern>
       </defs>
     </svg>
-    <DeviceDisplayComponent id="antenna-system-id" title-device="АНТЕННАЯ СИСТЕМА" class="antenna-system-device" :connection-interface-active="false">
+    <DeviceDisplayComponent id="antenna-system-id" title-device="АНТЕННАЯ СИСТЕМА" class="antenna-system-device" :connection-interface-active="false" @dblclick="antennaDialogOpen">
       <DisplayParametersComponent :device-data="antennaDeviceData"></DisplayParametersComponent>
     </DeviceDisplayComponent>
     <DeviceDisplayComponent id="test-translyator-id" title-device="ТЕСТ-ТРАНСЛЯТОР" class="test-translyator-device">
@@ -816,6 +816,9 @@ export default {
         }
         this.inputValue = JSON.parse(e.data)
       }
+    },
+    antennaDialogOpen () {
+      this.$store.commit('changeAntennaSystemStatus', !this.$store.state.antennaSystemStatus)
     }
   },
   mounted () {

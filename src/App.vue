@@ -1,15 +1,18 @@
-<template>
+<template id="kek">
   <NavMenuComponent class="container-nav-menu"></NavMenuComponent>
   <ContainerDeviceComponent class="container-device"></ContainerDeviceComponent>
   <ContainerControlAndIndicationComponent class="container-control-and-indication"></ContainerControlAndIndicationComponent>
+  <AntennaSystemDialog v-if="this.$store.state.test.antennaSystemStatus"></AntennaSystemDialog>
 </template>
 <script>
 import ContainerDeviceComponent from './components/Devices/ContainerDeviceComponent.vue'
 import ContainerControlAndIndicationComponent from './components/ControlAndIndication/ContainerControlAndIndicationComponent.vue'
 import NavMenuComponent from './components/Menu/NavMenuComponent.vue'
+import AntennaSystemDialog from "@/components/SettingsDialogs/AntennaSystemDialog";
 export default {
   name: 'App',
   components: {
+    AntennaSystemDialog,
     NavMenuComponent,
     ContainerControlAndIndicationComponent,
     ContainerDeviceComponent

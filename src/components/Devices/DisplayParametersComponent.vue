@@ -13,9 +13,6 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import PopUpWindow from '../PopUpWindow'
-
 export default {
   name: 'DisplayParametersComponent',
   data () {
@@ -43,15 +40,17 @@ export default {
   methods: {
     openWindow () {
       if (!this.isOpenWindow) {
-        let popWin = new Vue(PopUpWindow)
-        popWin.$root.active = true
-        popWin.$root.title = this.titleDevice
-        popWin.$on('clickClose', this.updateWindowStatus)
-        popWin.$mount()
-        let content = document.getElementById('Parameters-' + this.ID).cloneNode(true)
-        popWin.$el.getElementsByClassName('content-clot').item(0).append(content)
-        document.getElementById('app').appendChild(popWin.$el)
-        this.updateWindowStatus()
+        // const popWin = createApp({})
+        // popWin.component(PopUpWindow)
+        // console.log(popWin)
+        // popWin.$root.active = true
+        // popWin.$root.title = this.titleDevice
+        // popWin.$on('clickClose', this.updateWindowStatus)
+        // popWin.mount()
+        // let content = document.getElementById('Parameters-' + this.ID).cloneNode(true)
+        // popWin.$el.getElementsByClassName('content-clot').item(0).append(content)
+        // document.getElementById('app').appendChild(popWin)
+        // this.updateWindowStatus()
       }
     },
     reFontSize () {
