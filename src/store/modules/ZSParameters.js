@@ -8,7 +8,7 @@ const mutations = {
         state.allParameters = payload
         state.antennaParametersById1 = payload.antennaDeviceDataById[1]
         state.antennaParametersById2 = payload.antennaDeviceDataById[2]
-        // console.log(payload)
+        // console.log(state.antennaParametersById2)
     }
 }
 const getters = {

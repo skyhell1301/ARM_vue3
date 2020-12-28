@@ -221,36 +221,36 @@
       </defs>
     </svg>
     <DeviceDisplayComponent id="antenna-system-id" title-device="АНТЕННАЯ СИСТЕМА" class="antenna-system-device" :connection-interface-active="false" @dblclick="antennaDialogOpen">
-      <DisplayParametersComponent :device-data="antennaDeviceData"></DisplayParametersComponent>
+      <DisplayParametersComponent :device-data="antennaParameter"></DisplayParametersComponent>
     </DeviceDisplayComponent>
     <DeviceDisplayComponent id="test-translyator-id" title-device="ТЕСТ-ТРАНСЛЯТОР" class="test-translyator-device">
-      <DisplayParametersComponent :device-data="testTranslyatorDeviceData">
+      <DisplayParametersComponent>
         <button style="height: 60%; width: 60%; align-self: center; justify-self: center; font-size: .9em" @click="continueAnimation('TestTranslyatorToSwitch_1Line')">Анимация</button>
       </DisplayParametersComponent>
     </DeviceDisplayComponent>
     <DeviceDisplayComponent id="amplifier-device-1-id" title-device="УМ #1" class="amplifier-device-1" @dblclick="amplifierDialogOpen">
-      <DisplayParametersComponent :device-data="amplifier1DeviceData1"></DisplayParametersComponent>
+      <DisplayParametersComponent></DisplayParametersComponent>
     </DeviceDisplayComponent>
     <DeviceDisplayComponent id="amplifier-device-2-id" title-device="УМ #2" class="amplifier-device-2" @dblclick="amplifierDialogOpen">
-      <DisplayParametersComponent :device-data="amplifier1DeviceData2"></DisplayParametersComponent>
+      <DisplayParametersComponent></DisplayParametersComponent>
     </DeviceDisplayComponent>
     <DeviceDisplayComponent id="MSHU-device-id-1" title-device="МШУ #1" class="MSHU-device-1">
-      <DisplayParametersComponent :device-data="MSHUDeviceData1"></DisplayParametersComponent>
+      <DisplayParametersComponent></DisplayParametersComponent>
     </DeviceDisplayComponent>
     <DeviceDisplayComponent id="MSHU-device-id-2" title-device="МШУ #2" class="MSHU-device-2">
-      <DisplayParametersComponent :device-data="MSHUDeviceData2"></DisplayParametersComponent>
+      <DisplayParametersComponent></DisplayParametersComponent>
     </DeviceDisplayComponent>
     <DeviceDisplayComponent id="up-converter-id-1" title-device="КОНВЕРТЕР ВВЕРХ #1" class="up-converter-1">
-      <DisplayParametersComponent :device-data="upConverterDeviceData1"></DisplayParametersComponent>
+      <DisplayParametersComponent></DisplayParametersComponent>
     </DeviceDisplayComponent>
     <DeviceDisplayComponent id="up-converter-id-2" title-device="КОНВЕРТЕР ВВЕРХ #2" class="up-converter-2">
-      <DisplayParametersComponent :device-data="upConverterDeviceData2"></DisplayParametersComponent>
+      <DisplayParametersComponent></DisplayParametersComponent>
     </DeviceDisplayComponent>
     <DeviceDisplayComponent id="down-converter-id-1" title-device="КОНВЕРТЕР ВНИЗ #1" class="down-converter-1">
-      <DisplayParametersComponent :device-data="downConverterDeviceData1"></DisplayParametersComponent>
+      <DisplayParametersComponent></DisplayParametersComponent>
     </DeviceDisplayComponent>
     <DeviceDisplayComponent id="down-converter-id-2" title-device="КОНВЕРТЕР ВНИЗ #2" class="down-converter-2">
-      <DisplayParametersComponent :device-data="downConverterDeviceData2"></DisplayParametersComponent>
+      <DisplayParametersComponent></DisplayParametersComponent>
     </DeviceDisplayComponent>
     <DeviceDisplayComponent id="up-matrix-id" title-device="Матрица 8х8 вверх" class="up-matrix">
       <div style="height: 100px; width: 100%"></div>
@@ -304,6 +304,7 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 import DeviceDisplayComponent from './DeviceDisplayComponent'
 import ConnectionLineComponent from './ConnectionLineComponent'
 import DisplayParametersComponent from './DisplayParametersComponent'
@@ -783,7 +784,10 @@ export default {
       this.$store.dispatch('dialogStatus/changeAmplifierDialogStatus', !this.$store.state.dialogStatus.amplifierDialogStatus)
     }
   },
-  mounted () {
+  computed: {
+    ...mapState({
+      antennaParameter: state => state.ZSParameters.antennaParametersById1
+    })
   }
 }
 </script>

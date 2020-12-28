@@ -1,12 +1,12 @@
 <template>
-  <div class="wrapper_parameters" @dblclick="openWindow"
+  <div class="wrapper_parameters"
        :id="'Parameters-' + ID"
   >
     <div class="table_parameters"
-         v-for="param in deviceData.deviceParameters"
+         v-for="param in deviceData"
          :key="param.id">
-      <div class="param">{{ param.nameParameter }}</div>
-      <div class="value">{{ param.valueParameter }}</div>
+      <div class="param">{{  }}</div>
+      <div class="value">{{ param }}</div>
     </div>
     <slot></slot>
   </div>
@@ -23,7 +23,7 @@ export default {
         const three = Math.floor((Math.random() * 1000000) + 1) + ''
         return 'id' + one + two + three
       })(),
-      titleDevice: this.deviceData.title,
+      titleDevice: 'test',
       isOpenWindow: false,
       fz: 14
     }
@@ -38,21 +38,6 @@ export default {
     }
   },
   methods: {
-    openWindow () {
-      if (!this.isOpenWindow) {
-        // const popWin = createApp({})
-        // popWin.component(PopUpWindow)
-        // console.log(popWin)
-        // popWin.$root.active = true
-        // popWin.$root.title = this.titleDevice
-        // popWin.$on('clickClose', this.updateWindowStatus)
-        // popWin.mount()
-        // let content = document.getElementById('Parameters-' + this.ID).cloneNode(true)
-        // popWin.$el.getElementsByClassName('content-clot').item(0).append(content)
-        // document.getElementById('app').appendChild(popWin)
-        // this.updateWindowStatus()
-      }
-    },
     reFontSize () {
       this.fz = this.$el.getBoundingClientRect().height * this.fontSizeCoefficient
     },
@@ -61,6 +46,9 @@ export default {
     }
   },
   mounted () {
+  },
+  updated() {
+    console.log(Object.keys(this.deviceData))
   }
 }
 </script>
