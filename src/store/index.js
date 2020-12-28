@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
 import dialogStatusModule from './modules/dialogsStatusModule'
+import ZSParameters from "@/store/modules/ZSParameters";
 
 export default createStore({
   state: {
@@ -12,6 +13,7 @@ export default createStore({
 
   },
   modules: {
-    test: dialogStatusModule
+    dialogStatus: dialogStatusModule,
+    ZSParameters: ZSParameters
   }
 })

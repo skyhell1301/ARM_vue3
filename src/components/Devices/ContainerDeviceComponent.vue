@@ -228,10 +228,10 @@
         <button style="height: 60%; width: 60%; align-self: center; justify-self: center; font-size: .9em" @click="continueAnimation('TestTranslyatorToSwitch_1Line')">Анимация</button>
       </DisplayParametersComponent>
     </DeviceDisplayComponent>
-    <DeviceDisplayComponent id="amplifier-device-1-id" title-device="УМ #1" class="amplifier-device-1">
+    <DeviceDisplayComponent id="amplifier-device-1-id" title-device="УМ #1" class="amplifier-device-1" @dblclick="amplifierDialogOpen">
       <DisplayParametersComponent :device-data="amplifier1DeviceData1"></DisplayParametersComponent>
     </DeviceDisplayComponent>
-    <DeviceDisplayComponent id="amplifier-device-2-id" title-device="УМ #2" class="amplifier-device-2">
+    <DeviceDisplayComponent id="amplifier-device-2-id" title-device="УМ #2" class="amplifier-device-2" @dblclick="amplifierDialogOpen">
       <DisplayParametersComponent :device-data="amplifier1DeviceData2"></DisplayParametersComponent>
     </DeviceDisplayComponent>
     <DeviceDisplayComponent id="MSHU-device-id-1" title-device="МШУ #1" class="MSHU-device-1">
@@ -267,7 +267,7 @@
     <DeviceDisplayComponent id="spectrum-analyzer-id" title-device="Анализатор спектра" class="spectrum-analyzer">
       <SpectrumAnalyserDisplayComponent/>
     </DeviceDisplayComponent>
-    <StandAntannaSystemComponent id="as-stoyka-id" class="as-stoyka"></StandAntannaSystemComponent>
+    <StandAntennaSystemComponent id="as-stoyka-id" class="as-stoyka"></StandAntennaSystemComponent>
     <SwitchComponent id="switch-id-1" class="switch-1"
                      @onComplete="continueAnimation('switch_1ToAmplifier_1Line')"
                      ref="switch_1"
@@ -310,7 +310,7 @@ import DisplayParametersComponent from './DisplayParametersComponent'
 import SwitchComponent from './SwitchComponent'
 import GroundComponent from './GroundComponent'
 import SpectrumAnalyserDisplayComponent from './SpectrumAnalyserDisplayComponent'
-import StandAntannaSystemComponent from './StandAntannaSystemComponent'
+import StandAntennaSystemComponent from './StandAntennaSystemComponent'
 
 export default {
   name: 'ContainerDeviceComponent',
@@ -763,7 +763,7 @@ export default {
     }
   },
   components: {
-    StandAntannaSystemComponent,
+    StandAntennaSystemComponent,
     SpectrumAnalyserDisplayComponent,
     GroundComponent,
     DeviceDisplayComponent,
@@ -775,54 +775,15 @@ export default {
     continueAnimation (ref) {
       this.$refs[ref].startAnimation()
     },
-    getWebSocketData () {
-      let context = this
-      // Create a new WebSocket.
-      let socket = new WebSocket('ws://10.10.0.16:8080')
-      socket.onmessage = function (e) {
-        let text = JSON.parse(e.data)
-        if (text.DeviceParameters !== null && text.DeviceParameters !== undefined) {
-          context.inputValue = text.DeviceParameters
-          if (context.inputValue.antennaDeviceData !== null && context.inputValue.antennaDeviceData !== undefined) {
-            context.antennaDeviceData = context.inputValue.antennaDeviceData
-          }
-          if (context.inputValue.testTranslyatorDeviceData !== null && context.inputValue.testTranslyatorDeviceData !== undefined) {
-            context.testTranslyatorDeviceData = context.inputValue.testTranslyatorDeviceData
-          }
-          if (context.inputValue.amplifier1DeviceData1 !== null && context.inputValue.amplifier1DeviceData1 !== undefined) {
-            context.amplifier1DeviceData1 = context.inputValue.amplifier1DeviceData1
-          }
-          if (context.inputValue.amplifier1DeviceData2 !== null && context.inputValue.amplifier1DeviceData2 !== undefined) {
-            context.amplifier1DeviceData2 = context.inputValue.amplifier1DeviceData2
-          }
-          if (context.inputValue.MSHUDeviceData1 !== null && context.inputValue.MSHUDeviceData1 !== undefined) {
-            context.MSHUDeviceData1 = context.inputValue.MSHUDeviceData1
-          }
-          if (context.inputValue.MSHUDeviceData2 !== null && context.inputValue.MSHUDeviceData2 !== undefined) {
-            context.MSHUDeviceData2 = context.inputValue.MSHUDeviceData2
-          }
-          if (context.inputValue.upConverterDeviceData1 !== null && context.inputValue.upConverterDeviceData1 !== undefined) {
-            context.upConverterDeviceData1 = context.inputValue.upConverterDeviceData1
-          }
-          if (context.inputValue.upConverterDeviceData2 !== null && context.inputValue.upConverterDeviceData2 !== undefined) {
-            context.upConverterDeviceData2 = context.inputValue.upConverterDeviceData2
-          }
-          if (context.inputValue.downConverterDeviceData1 !== null && context.inputValue.downConverterDeviceData1 !== undefined) {
-            context.downConverterDeviceData1 = context.inputValue.downConverterDeviceData1
-          }
-          if (context.inputValue.downConverterDeviceData2 !== null && context.inputValue.downConverterDeviceData2 !== undefined) {
-            context.downConverterDeviceData2 = context.inputValue.downConverterDeviceData2
-          }
-        }
-        this.inputValue = JSON.parse(e.data)
-      }
-    },
+
     antennaDialogOpen () {
-      this.$store.commit('changeAntennaSystemStatus', !this.$store.state.antennaSystemStatus)
+      this.$store.dispatch('dialogStatus/changeAntennaSystemDialogStatus', !this.$store.state.dialogStatus.antennaSystemDialogStatus)
+    },
+    amplifierDialogOpen () {
+      this.$store.dispatch('dialogStatus/changeAmplifierDialogStatus', !this.$store.state.dialogStatus.amplifierDialogStatus)
     }
   },
   mounted () {
-    this.getWebSocketData()
   }
 }
 </script>

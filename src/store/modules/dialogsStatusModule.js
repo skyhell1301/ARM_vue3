@@ -1,17 +1,24 @@
 const state = ()=> ({
-    antennaSystemStatus: false
+    antennaSystemDialogStatus: false,
+    amplifierDialogStatus: false
 })
 const mutations = {
-    changeAntennaSystemStatus (state, payload) {
-        state.antennaSystemStatus = payload
-    }
+    changeAntennaSystemDialogStatus (state, payload) {
+        state.antennaSystemDialogStatus = payload
+    },
+    changeAmplifierDialogStatus (state, payload) {
+        state.amplifierDialogStatus = payload
+    },
 }
 const getters = {
 }
 const actions = {
-    changeAntennaSystemStatus ({commit}, payload) {
-        commit('changeAntennaSystemStatus', payload)
-    }
+    changeAntennaSystemDialogStatus ({commit}, payload) {
+        commit('changeAntennaSystemDialogStatus', payload)
+    },
+    changeAmplifierDialogStatus ({commit}, payload) {
+        commit('changeAmplifierDialogStatus', payload)
+    },
 }
 export default {
     namespaced: true,

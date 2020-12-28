@@ -17,7 +17,7 @@
         <OperabilityIcon class="item-icon"></OperabilityIcon>
         <div class="item-title">Работоспособность оборудования</div>
       </div>
-      <div class="setting-item">
+      <div class="setting-item" @click="dialogOpen('changeAntennaSystemDialogStatus')">
         <AntennaIcon class="item-icon"></AntennaIcon>
         <div class="item-title">Антенная система</div>
       </div>
@@ -69,11 +69,11 @@
         <ArrowDownFIcon class="item-icon"></ArrowDownFIcon>
         <div class="item-title">Конвертер вниз 2</div>
       </div>
-      <div class="setting-item">
+      <div class="setting-item" @click="dialogOpen('changeAmplifierDialogStatus')">
         <AmplifierIcon class="item-icon"></AmplifierIcon>
         <div class="item-title">УМ вверх 1</div>
       </div>
-      <div class="setting-item">
+      <div class="setting-item" @click="dialogOpen('changeAmplifierDialogStatus')">
         <AmplifierIcon class="item-icon"></AmplifierIcon>
         <div class="item-title">УМ вверх 2</div>
       </div>
@@ -202,7 +202,11 @@ export default {
     MenuItemComponent,
     PCIcon
   },
-  methods: {}
+  methods: {
+    dialogOpen (name) {
+      this.$store.dispatch('dialogStatus/' + name, true)
+    }
+  }
 }
 </script>
 

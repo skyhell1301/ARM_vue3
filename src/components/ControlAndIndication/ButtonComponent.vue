@@ -63,10 +63,6 @@ export default {
   },
   methods: {
     btnClick: function () {
-      // let radius = !this.isBtnActive ? 30 : 35
-
-      // this.isBtnActive = !this.isBtnActive
-      // this.$emit('update:isBtnActive', !this.isBtnActive)
       this.$emit('btnClick', !this.isBtnActive)
     }
   },

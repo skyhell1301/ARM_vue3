@@ -1,7 +1,7 @@
 <template>
   <div class="container-control-and-indication">
     <iframe class="clock" src="http://10.10.0.16/clock/index.html"></iframe>
-<!--    <iframe class="clock" src="http://localhost:8080/#/clock"></iframe>-->
+<!--    <iframe class="clock"></iframe>-->
     <div class="crash">
       <div class="crash-title">АВАРИЯ</div>
       <ButtonComponent class="btn-1" @btnClick="testChange" :is-btn-active="antStatus"></ButtonComponent>
@@ -58,17 +58,16 @@ export default {
   },
   methods: {
     testChange(val) {
-      this.$store.dispatch('test/changeAntennaSystemStatus', val)
+      this.$store.dispatch('dialogStatus/changeAntennaSystemDialogStatus', val)
     }
   },
   watch: {
   },
-  computed: mapState({
-    antStatus: state => state.test.antennaSystemStatus
-  })
-      // {
-      // return this.$store.state.antennaSystemStatus
-    // })
+  computed: {
+    ...mapState({
+      antStatus: state => state.dialogStatus.antennaSystemDialogStatus
+    })
+  }
 }
 </script>
 

@@ -1,5 +1,5 @@
 <template>
-  <PopUpWindow name-status="test/changeAntennaSystemStatus">
+  <PopUpWindow name-status="dialogStatus/changeAntennaSystemDialogStatus">
     <div class="ass"> Антенная система</div>
   </PopUpWindow>
 </template>
