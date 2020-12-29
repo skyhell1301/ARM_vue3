@@ -1,20 +1,24 @@
 <template>
   <PopUpWindow name-status="dialogStatus/changeAntennaSystemDialogStatus">
-    <div class="ass"> Антенная система</div>
+    <DisplayParametersComponent :device-data="antennaParameter"></DisplayParametersComponent>
   </PopUpWindow>
 </template>
 
 <script>
+import {mapState} from 'vuex'
 import PopUpWindow from "@/components/PopUpWindow";
+import DisplayParametersComponent from "@/components/Devices/DisplayParametersComponent";
 export default {
   name: 'AntennaSystemDialog',
-  components: {PopUpWindow}
+  components: {DisplayParametersComponent, PopUpWindow},
+  computed: {
+    ...mapState({
+        antennaParameter: state => state.ZSParameters.antennaParametersById1
+    })
+  }
 }
 </script>
 
 <style scoped>
-.ass {
-  width: 300px;
-  height: 300px;
-}
+
 </style>

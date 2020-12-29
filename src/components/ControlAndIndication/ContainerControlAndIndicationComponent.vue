@@ -1,6 +1,15 @@
 <template>
   <div class="container-control-and-indication">
+    <window-portal :open="true">
+      <div class="control-background">
+        <div class="ind-title">БОРТОВАЯ ТЕЛЕМЕТРИЯ</div>
+        <ButtonComponent class="btn-2" @btnClick="testVar2=!testVar2"></ButtonComponent>
+        <StatusIndicatorComponent class="ind-1" :is-active="testVar2"></StatusIndicatorComponent>
+      </div>
+    </window-portal>
     <iframe class="clock" src="http://10.10.0.16/clock/index.html"></iframe>
+<!--    <iframe class="clock" src="/test"></iframe>-->
+<!--    <object class="clock"><ButtonComponent></ButtonComponent></object>-->
 <!--    <iframe class="clock"></iframe>-->
     <div class="crash">
       <div class="crash-title">АВАРИЯ</div>
@@ -38,9 +47,11 @@ import ControlPanelComponent from './ControlPanelComponent'
 import ConnectPanelComponent from './ConnectPanelComponent'
 import TargetDesignationPanelComponent from './TargetDesignationPanelComponent'
 import ProtocolButtonComponent from './ProtocolButtonComponent'
+import WindowPortal from "@/components/windowPortal";
 export default {
   name: 'ContainerControlAndIndicationComponent',
   components: {
+    WindowPortal,
     ProtocolButtonComponent,
     TargetDesignationPanelComponent,
     ConnectPanelComponent,
@@ -51,7 +62,7 @@ export default {
   },
   data () {
     return {
-      testVar1: false,
+      testVar1: ButtonComponent,
       testVar2: false,
       testVar3: false
     }

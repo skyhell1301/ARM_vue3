@@ -3,10 +3,10 @@
        :id="'Parameters-' + ID"
   >
     <div class="table_parameters"
-         v-for="param in deviceData"
+         v-for="param in dataArray"
          :key="param.id">
-      <div class="param">{{  }}</div>
-      <div class="value">{{ param }}</div>
+      <div class="param">{{ param.nameParameter }}</div>
+      <div class="value">{{ param.valueParameter }}</div>
     </div>
     <slot></slot>
   </div>
@@ -23,9 +23,8 @@ export default {
         const three = Math.floor((Math.random() * 1000000) + 1) + ''
         return 'id' + one + two + three
       })(),
-      titleDevice: 'test',
-      isOpenWindow: false,
-      fz: 14
+      titleDevice: 'title',
+      dataArray: [],
     }
   },
   props: {
@@ -38,17 +37,24 @@ export default {
     }
   },
   methods: {
-    reFontSize () {
-      this.fz = this.$el.getBoundingClientRect().height * this.fontSizeCoefficient
-    },
-    updateWindowStatus () {
-      this.isOpenWindow = !this.isOpenWindow
+    updateData () {
+      this.dataArray = []
+      for(let i in this.deviceData) {
+        if (i !== 'title' && i !== 'modes' && i !== 'id') {
+          let ob = {nameParameter: i, valueParameter: this.deviceData[i]}
+          this.dataArray.push(ob)
+        }
+      }
+
     }
   },
   mounted () {
+    this.updateData()
   },
-  updated() {
-    console.log(Object.keys(this.deviceData))
+  watch: {
+    deviceData () {
+      this.updateData()
+    }
   }
 }
 </script>
