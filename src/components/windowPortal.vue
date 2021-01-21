@@ -1,11 +1,10 @@
 <template>
-  <div v-if="open">
-    <slot />
+  <div :id="windowId" class="container-window-portal" v-if="open">
+    <slot/>
   </div>
 </template>
 
 <script>
-
 export default {
   name: 'windowPortal',
   props: {
@@ -17,6 +16,12 @@ export default {
   data() {
     return {
       windowRef: null,
+      windowId: (function () {
+        const one = Math.floor((Math.random() * 1000000) + 1) + ''
+        const two = Math.floor((Math.random() * 1000000) + 1) + ''
+        const three = Math.floor((Math.random() * 1000000) + 1) + ''
+        return 'id_window-' + one + two + three
+      })()
     }
   },
   watch: {
@@ -30,13 +35,14 @@ export default {
   },
   methods: {
     openPortal() {
-      console.log('kek')
-      // window.open("", "", "width=600,height=400,left=200,top=200")
-      this.windowRef = window.open("", "", "width=600,height=400,left=200,top=200");
+      let params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=600,height=600`;
+      this.windowRef = window.open("", "", params);
       this.windowRef.addEventListener('beforeunload', this.closePortal);
       // magic!
       this.windowRef.document.body.appendChild(this.$el);
       this.copyStyles(window.document, this.windowRef.document);
+      // console.log(window.document.getElementsByTagName('script'))
+      // this.copyScripts(window.document, this.windowRef.document);
     },
     closePortal() {
       if(this.windowRef) {
@@ -81,6 +87,8 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style>
+.container-window-portal {
+  font-size: 7vmax;
+}
 </style>

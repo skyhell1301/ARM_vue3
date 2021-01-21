@@ -15,7 +15,7 @@
         </feMerge>
       </filter>
     </svg>
-    <svg class="arrows" :id="'arrows-' + Id" viewBox="0 0 80 80" width="100%" height="100%" fill="#285876">
+    <svg class="arrows" :class="{'arrows-rotate' : isActive}" :id="'arrows-' + Id" viewBox="0 0 80 80" width="100%" height="100%" fill="#285876">
       <path d="M 61 37 L 40 39 L 46 32 C 46 32 40 23 31.057 21.06 C 28.581 20.523 24 21 24 21 C 24 21 31.989 15 37 15 C 47 15 54 23 54 23 L 59 17 Z M 18 43 L 39 41 L 33 48 C 33 48 39 57 47.943 58.94 C 50.419 59.477 55 59 55 59 C 55 59 47.011 65 42 65 C 32 65 25 57 25 57 L 20 63 Z"></path>
     </svg>
   </div>
@@ -47,17 +47,17 @@ export default {
     }
   },
   watch: {
-    isActive () {
-      if (this.isActive) {
-        this.startAnimation()
-      } else {
-        this.stopAnimation()
-      }
-    }
+    // isActive () {
+    //   if (this.isActive) {
+    //     this.startAnimation()
+    //   } else {
+    //     this.stopAnimation()
+    //   }
+    // }
   },
   methods: {
     startAnimation () {
-      gsap.to('#arrows-' + this.Id, {duration: 4, rotate: 360, repeat: -1, ease: 'linear'})
+      gsap.to('.arrows-rotate', {duration: 4, rotate: 360, repeat: -1, ease: 'linear'})
     },
     stopAnimation () {
       gsap.killTweensOf('#arrows-' + this.Id)
@@ -65,7 +65,7 @@ export default {
     }
   },
   mounted () {
-    gsap.set('#arrows-' + this.Id, {transformOrigin: '50% 50%'})
+    // gsap.set('.arrows-rotate' + this.Id, {transformOrigin: '50% 50%'})
     // this.startAnimation()
   }
 }
@@ -83,6 +83,10 @@ export default {
   grid-column: 1;
   grid-row: 1;
 }
+.arrows-rotate {
+  animation:spin 4s linear infinite;
+}
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 .color-warning {
   fill: #fcff27;
 }

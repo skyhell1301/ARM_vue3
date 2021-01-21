@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import {gsap} from 'gsap'
+// import {gsap} from 'gsap'
 export default {
   name: 'ButtonComponent',
   data () {
@@ -67,14 +67,14 @@ export default {
     }
   },
   watch: {
-    isBtnActive () {
-      gsap.set('#' + 'btn-' + this.Id, {transformOrigin: '50% 50%'})
-      if (this.isBtnActive) {
-        gsap.to('#' + 'btn-' + this.Id, {duration: 0.3, scale: 0.8})
-      } else {
-        gsap.to('#' + 'btn-' + this.Id, {duration: 0.3, scale: 1})
-      }
-    }
+    // isBtnActive () {
+    //   gsap.set('#' + 'btn-' + this.Id, {transformOrigin: '50% 50%'})
+    //   if (this.isBtnActive) {
+    //     gsap.to('#' + 'btn-' + this.Id, {duration: 0.3, scale: 0.8})
+    //   } else {
+    //     gsap.to('#' + 'btn-' + this.Id, {duration: 0.3, scale: 1})
+    //   }
+    // }
   }
 }
 </script>
