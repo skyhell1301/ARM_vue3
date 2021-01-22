@@ -62,8 +62,9 @@ export default {
     }
   },
   methods: {
-    btnClick: function () {
-      this.$emit('btnClick', !this.isBtnActive)
+    btnClick () {
+      console.log("click")
+      this.$emit('btnClick')
     }
   },
   watch: {

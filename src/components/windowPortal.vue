@@ -1,94 +1,103 @@
 <template>
-  <div :id="windowId" class="container-window-portal" v-if="open">
+  <div
+      style="z-index: 1"
+      v-if="open"
+      v-show="windowLoaded"
+  >
     <slot/>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'windowPortal',
   props: {
     open: {
       type: Boolean,
       default: false,
-    }
+    },
+    width: {
+      type: Number,
+      default: 600,
+    },
+    height: {
+      type: Number,
+      default: 400,
+    },
+    left: {
+      type: Number,
+      default: 200,
+    },
+    top: {
+      type: Number,
+      default: 200,
+    },
+    noStyle: {
+      type: Boolean,
+      default: false,
+    },
   },
-  data() {
+  data () {
     return {
       windowRef: null,
-      windowId: (function () {
-        const one = Math.floor((Math.random() * 1000000) + 1) + ''
-        const two = Math.floor((Math.random() * 1000000) + 1) + ''
-        const three = Math.floor((Math.random() * 1000000) + 1) + ''
-        return 'id_window-' + one + two + three
-      })()
+      windowLoaded: false,
     }
   },
   watch: {
-    open(newOpen) {
-      if(newOpen) {
-        this.openPortal();
+    open (newOpen) {
+      if (newOpen) {
+        this.openPortal()
       } else {
-        this.closePortal();
+        this.closePortal()
       }
+    },
+  },
+  mounted () {
+    if (this.open) {
+      this.openPortal()
     }
+    window.addEventListener('beforeunload', this.closePortal)
+  },
+  beforeUnmount () {
+    this.closePortal()
+    window.removeEventListener('beforeunload', this.closePortal)
   },
   methods: {
-    openPortal() {
-      let params = `scrollbars=no,resizable=no,status=no,location=no,toolbar=no,menubar=no,width=600,height=600`;
-      this.windowRef = window.open("", "", params);
-      this.windowRef.addEventListener('beforeunload', this.closePortal);
-      // magic!
-      this.windowRef.document.body.appendChild(this.$el);
-      this.copyStyles(window.document, this.windowRef.document);
-      // console.log(window.document.getElementsByTagName('script'))
-      // this.copyScripts(window.document, this.windowRef.document);
-    },
-    closePortal() {
-      if(this.windowRef) {
-        this.windowRef.close();
-        this.windowRef = null;
-        this.$emit('close');
-      }
-    },
-    copyStyles(sourceDoc, targetDoc) {
-      Array.from(sourceDoc.styleSheets).forEach(styleSheet => {
-        if (styleSheet.cssRules) {
-          // for <style> elements
-          const newStyleEl = sourceDoc.createElement("style");
-
-          Array.from(styleSheet.cssRules).forEach(cssRule => {
-            // write the text of each rule into the body of the style element
-            newStyleEl.appendChild(sourceDoc.createTextNode(cssRule.cssText));
-          });
-
-          targetDoc.head.appendChild(newStyleEl);
-        } else if (styleSheet.href) {
-          // for <link> elements loading CSS from a URL
-          const newLinkEl = sourceDoc.createElement("link");
-
-          newLinkEl.rel = "stylesheet";
-          newLinkEl.href = styleSheet.href;
-          targetDoc.head.appendChild(newLinkEl);
+    openPortal () {
+      if (this.windowRef) return
+      const { width, height, left, top } = this
+      // Open a nonexistent page to replace the content later
+      const windowPath = window.location.origin + window.location.pathname + '_window'
+      this.windowRef = window.open(windowPath, '', `width=${width},height=${height},left=${left},top=${top}`)
+      this.windowRef.addEventListener('beforeunload', this.closePortal)
+      this.windowRef.addEventListener('load', () => {
+        this.windowLoaded = true
+        // Clear any existing content
+        this.windowRef.document.body.innerHTML = ''
+        this.windowRef.document.title = document.title
+        // Move the component into the window
+        const app = document.createElement('div')
+        app.id = 'window'
+        app.appendChild(this.$el)
+        this.windowRef.document.body.appendChild(app)
+        this.$emit('update:open', true)
+        this.$emit('opened', this.windowRef)
+        // Clone style nodes
+        if (!this.noStyle) {
+          for (const el of document.head.querySelectorAll('style, link[rel=stylesheet]')) {
+            const clone = el.cloneNode(true)
+            this.windowRef.document.head.appendChild(clone)
+          }
         }
-      });
-    }
+      })
+    },
+    closePortal () {
+      if (!this.windowRef) return
+      this.windowLoaded = false
+      this.windowRef.close()
+      this.windowRef = null
+      this.$emit('update:open', false)
+      this.$emit('closed')
+    },
   },
-  mounted() {
-    if(this.open) {
-      this.openPortal();
-    }
-  },
-  beforeUnmount() {
-    if (this.windowRef) {
-      this.closePortal();
-    }
-  }
 }
 </script>
-
-<style>
-.container-window-portal {
-  font-size: 7vmax;
-}
-</style>

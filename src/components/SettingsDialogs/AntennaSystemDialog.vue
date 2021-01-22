@@ -1,44 +1,50 @@
 <template>
-  <window-portal class="test" :open="antennaSystemDialogStatus" @close="closeDialog">
+  <input type="checkbox" v-model="rotateVar">
+  <button :class="{'arrows-rotate' : rotateVar}" @click="testMethod">Кручусь</button>
 <!--    <DisplayParametersComponent style="display: none" :device-data="antennaParameter"></DisplayParametersComponent>-->
-    <div style="height: 300px">
-      <ButtonComponent style="width: 100px; height: 100px; z-index: 20" @btnClick="testMethod"></ButtonComponent>
-      <button @click="testMethod">Click</button>
-      <StatusIndicatorComponent :is-active="rotateVar" style="width: 100px; height: 100px;"></StatusIndicatorComponent>
-    </div>
-  </window-portal>
+<!--    <div style="height: 300px; width: 300px">-->
+<!--  <ButtonComponent style="width: 100px; height: 100px; z-index: 20" @btnClick="testMethod"></ButtonComponent>-->
+<!--      <StatusIndicatorComponent :is-active="rotateVar" style="width: 100px; height: 100px;"></StatusIndicatorComponent>-->
+<!--    </div>-->
+
 </template>
 
 <script>
 import {mapState} from 'vuex'
-import WindowPortal from "@/components/windowPortal";
-import ButtonComponent from "@/components/ControlAndIndication/ButtonComponent";
-import StatusIndicatorComponent from "@/components/ControlAndIndication/StatusIndicatorComponent";
+// import ButtonComponent from "@/components/ControlAndIndication/ButtonComponent";
+// import StatusIndicatorComponent from "@/components/ControlAndIndication/StatusIndicatorComponent";
 // import DisplayParametersComponent from "@/components/Devices/DisplayParametersComponent";
 export default {
   name: 'AntennaSystemDialog',
   data () {
     return {
-      rotateVar: false
+      rotateVar: false,
     }
   },
   components: {
     // DisplayParametersComponent,
-    StatusIndicatorComponent, ButtonComponent, WindowPortal},
-  methods: {
-    closeDialog () {
-      this.$store.dispatch('dialogStatus/changeAntennaSystemDialogStatus', !this.$store.state.dialogStatus.antennaSystemDialogStatus)
+    // StatusIndicatorComponent,
+    // ButtonComponent
     },
+  methods: {
+
     testMethod () {
+      // console.log('test')
       this.rotateVar=!this.rotateVar
-      console.log(this.rotateVar)
+
+      // this.$store.dispatch('dialogStatus/changeAmplifierDialogStatus', !this.$store.state.dialogStatus.amplifierDialogStatus)
     }
   },
+  mounted() {
+  },
   computed: {
+
     ...mapState({
-      antennaSystemDialogStatus: state => state.dialogStatus.antennaSystemDialogStatus,
+
       antennaParameter: state => state.ZSParameters.antennaParametersById1
     })
+  },
+  beforeUnmount() {
   }
 }
 </script>
@@ -50,4 +56,9 @@ export default {
   width: 100%;
   height: 100%;
 }
+
+.arrows-rotate {
+  animation:spin 4s linear infinite;
+}
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 </style>

@@ -56,8 +56,8 @@ export default {
     }
   },
   methods: {
-    testChange(val) {
-      this.$store.dispatch('dialogStatus/changeAntennaSystemDialogStatus', val)
+    testChange() {
+      this.$store.dispatch('dialogStatus/changeAntennaSystemDialogStatus', !this.antStatus)
     }
   },
   watch: {

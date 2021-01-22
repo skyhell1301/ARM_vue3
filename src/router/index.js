@@ -1,8 +1,10 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import ButtonComponent from "@/components/ControlAndIndication/ButtonComponent";
+import App from "@/App";
 
 const routes = [
-  { path: '/test', component: ButtonComponent },
+  { name: 'test', path: '/test', component: ButtonComponent },
+  { name: 'app', path: '/', component: App },
 ]
 
 const router = createRouter({

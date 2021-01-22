@@ -4,7 +4,12 @@
   <ContainerControlAndIndicationComponent class="container-control-and-indication"></ContainerControlAndIndicationComponent>
 <!--  <AntennaSystemDialog v-if="antennaSystemDialogStatus"></AntennaSystemDialog>-->
   <AmplifierDialog v-if="amplifierDialogStatus"></AmplifierDialog>
-  <AntennaSystemDialog style="position: absolute"></AntennaSystemDialog>
+  <window-portal :open="antennaSystemDialogStatus"
+                 :left="600"
+                 :top="600"
+                 @closed="closeDialog">
+    <AntennaSystemDialog></AntennaSystemDialog>
+  </window-portal>
 </template>
 <script>
 import {mapState} from 'vuex'
@@ -14,6 +19,7 @@ import ContainerControlAndIndicationComponent from './components/ControlAndIndic
 import NavMenuComponent from './components/Menu/NavMenuComponent.vue'
 import AntennaSystemDialog from "@/components/SettingsDialogs/AntennaSystemDialog";
 import AmplifierDialog from "@/components/SettingsDialogs/AmplifierDialog";
+import WindowPortal from "@/components/windowPortal";
 export default {
   name: 'App',
   data () {
@@ -22,6 +28,7 @@ export default {
     }
   },
   components: {
+    WindowPortal,
     AmplifierDialog,
     AntennaSystemDialog,
     NavMenuComponent,
@@ -30,10 +37,14 @@ export default {
   },
   computed: {
     ...mapState({
-      amplifierDialogStatus: state => state.dialogStatus.amplifierDialogStatus
+      amplifierDialogStatus: state => state.dialogStatus.amplifierDialogStatus,
+      antennaSystemDialogStatus: state => state.dialogStatus.antennaSystemDialogStatus,
     })
   },
   methods: {
+    closeDialog () {
+      this.$store.dispatch('dialogStatus/changeAntennaSystemDialogStatus', !this.$store.state.dialogStatus.antennaSystemDialogStatus)
+    },
     sendMessage: function (message) {
       console.log(this.webSocketConnection)
       this.webSocketConnection.send(message)
