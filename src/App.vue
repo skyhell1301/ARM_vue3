@@ -2,24 +2,16 @@
   <NavMenuComponent class="container-nav-menu"></NavMenuComponent>
   <ContainerDeviceComponent class="container-device"></ContainerDeviceComponent>
   <ContainerControlAndIndicationComponent class="container-control-and-indication"></ContainerControlAndIndicationComponent>
-<!--  <AntennaSystemDialog v-if="antennaSystemDialogStatus"></AntennaSystemDialog>-->
-  <AmplifierDialog v-if="amplifierDialogStatus"></AmplifierDialog>
-  <window-portal :open="antennaSystemDialogStatus"
-                 :left="600"
-                 :top="600"
-                 @closed="closeDialog">
-    <AntennaSystemDialog></AntennaSystemDialog>
-  </window-portal>
+  <DialogsContainer ></DialogsContainer>
 </template>
+
 <script>
-import {mapState} from 'vuex'
 import store from './store'
 import ContainerDeviceComponent from './components/Devices/ContainerDeviceComponent.vue'
 import ContainerControlAndIndicationComponent from './components/ControlAndIndication/ContainerControlAndIndicationComponent.vue'
 import NavMenuComponent from './components/Menu/NavMenuComponent.vue'
-import AntennaSystemDialog from "@/components/SettingsDialogs/AntennaSystemDialog";
-import AmplifierDialog from "@/components/SettingsDialogs/AmplifierDialog";
-import WindowPortal from "@/components/windowPortal";
+import DialogsContainer from "@/components/Dialogs/DialogsContainer";
+import ConnectToWebSocket from "@/components/ConnectToWebSocket";
 export default {
   name: 'App',
   data () {
@@ -28,43 +20,19 @@ export default {
     }
   },
   components: {
-    WindowPortal,
-    AmplifierDialog,
-    AntennaSystemDialog,
+    DialogsContainer,
     NavMenuComponent,
     ContainerControlAndIndicationComponent,
     ContainerDeviceComponent
   },
-  computed: {
-    ...mapState({
-      amplifierDialogStatus: state => state.dialogStatus.amplifierDialogStatus,
-      antennaSystemDialogStatus: state => state.dialogStatus.antennaSystemDialogStatus,
-    })
-  },
+
   methods: {
-    closeDialog () {
-      this.$store.dispatch('dialogStatus/changeAntennaSystemDialogStatus', !this.$store.state.dialogStatus.antennaSystemDialogStatus)
-    },
-    sendMessage: function (message) {
-      console.log(this.webSocketConnection)
-      this.webSocketConnection.send(message)
+    connectToWS (wsUrl) {
+      ConnectToWebSocket.methods.connectToWS(wsUrl, store)
     }
   },
   created() {
-    // Create a new WebSocket.
-    console.log('Starting Connection to WebSocket Server')
-    this.webSocketConnection = new WebSocket('ws://10.10.0.16:8081')
-    this.webSocketConnection.onopen = function (event) {
-      console.log(event)
-      console.log('Successfully connected to WebSocket Server')
-    }
 
-    this.webSocketConnection.onmessage = function (event) {
-      let parameters = JSON.parse(event.data).DeviceParameters
-      if (parameters !== null && parameters !== undefined) {
-        store.dispatch('ZSParameters/parametersUpdate', parameters)
-      }
-    }
   }
 }
 </script>
@@ -112,4 +80,5 @@ body {
   grid-column-end: 3;
   z-index: 2;
 }
+
 </style>

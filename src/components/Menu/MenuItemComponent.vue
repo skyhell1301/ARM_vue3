@@ -14,7 +14,6 @@
 </template>
 
 <script>
-import ClickOutside from 'vue-click-outside'
 export default {
   name: 'MenuItemComponent',
   data () {
@@ -52,9 +51,6 @@ export default {
         this.contentOpen = false
       }
     }
-  },
-  directives: {
-    ClickOutside
   }
 }
 </script>

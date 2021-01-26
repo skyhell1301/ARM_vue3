@@ -32,6 +32,7 @@
     </div>
   </div>
 </template>
+
 <script>
 const styleMapping = {
   y: {

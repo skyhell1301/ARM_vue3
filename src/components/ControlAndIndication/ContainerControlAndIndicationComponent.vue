@@ -3,23 +3,23 @@
     <iframe class="clock" src="http://10.10.0.16/clock/index.html"></iframe>
     <div class="crash">
       <div class="crash-title">АВАРИЯ</div>
-      <ButtonComponent class="btn-1" @btnClick="testChange" :is-btn-active="antStatus"></ButtonComponent>
+      <ButtonComponent class="btn-1" :active-status="antStatus" @btnClick="testChange"></ButtonComponent>
       <EmergencySignalComponent class="signal-bell" status="ok"></EmergencySignalComponent>
     </div>
     <ControlPanelComponent></ControlPanelComponent>
     <div class="control-background">
       <div class="ind-title">ЗЕМНАЯ СТАНЦИЯ</div>
-      <ButtonComponent class="btn-2"></ButtonComponent>
+      <ButtonComponent class="btn-2" v-model:active-status="testVar1"></ButtonComponent>
       <StatusIndicatorComponent class="ind-1" :is-active="testVar1"></StatusIndicatorComponent>
     </div>
     <div class="control-background">
       <div class="ind-title">БОРТОВАЯ ТЕЛЕМЕТРИЯ</div>
-      <ButtonComponent class="btn-2" :is-btn-active="testVar2" @btnClick="testVar2=!testVar2"></ButtonComponent>
+      <ButtonComponent class="btn-2" v-model:active-status="testVar2"></ButtonComponent>
       <StatusIndicatorComponent class="ind-1" :is-active="testVar2"></StatusIndicatorComponent>
     </div>
     <div class="control-background">
       <div class="ind-title">АНТЕННАЯ СИСТЕМА</div>
-      <ButtonComponent class="btn-2" @btnClick="testVar3=!testVar3"></ButtonComponent>
+      <ButtonComponent class="btn-2" v-model:active-status="testVar3"></ButtonComponent>
       <StatusIndicatorComponent class="ind-1" :is-active="testVar3"></StatusIndicatorComponent>
     </div>
     <ConnectPanelComponent></ConnectPanelComponent>

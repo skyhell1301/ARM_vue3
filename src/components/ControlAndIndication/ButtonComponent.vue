@@ -31,7 +31,7 @@
       </defs>
       <circle class="background-circle-1" r="40px" cx="40" cy="40"></circle>
       <circle class="background-circle-2" r="37px" cx="40" cy="40"></circle>
-      <g :id="'btn-' + Id" class="button-circle" @click="btnClick">
+      <g :id="'btn-' + Id" ref="btnRef" class="button-circle" :class="{'pressed-button':btnStatus}" >
         <circle r="35px" cx="40" cy="40" ></circle>
         <path style="stroke-linejoin: round; fill: rgb(255, 255, 255); stroke: rgb(95, 119, 208); stroke-width: 0.5px;" d="M 38 18 L 42 18 L 42 42 L 38 42 L 38 18 Z M 33 30 C 33 30 28 34 28 40 C 28 46 31.394 52 40 52 C 48.606 52 52 46 52 40 C 52 34 47 30 47 30 L 50 27 C 50 27 56 31 56 40 C 56 52 46 56 40 56 C 34 56 24 52 24 40 C 24 31 30 27 30 27 L 33 30 Z"></path>
         <path class="flare" d="M 40 13 C 58 13 65 23 66 27 C 67 34 60 36 60 36 C 55 37 46.741 33 40 33 C 33.259 33 25 37 20 36 C 20 36 13 35 14 27 C 15 23 22 13 40 13 Z"></path>
@@ -41,7 +41,6 @@
 </template>
 
 <script>
-// import {gsap} from 'gsap'
 export default {
   name: 'ButtonComponent',
   data () {
@@ -52,30 +51,29 @@ export default {
         const three = Math.floor((Math.random() * 1000000) + 1) + ''
         return 'id' + one + two + three
       })(),
-
+      btnStatus: false
     }
   },
   props: {
-    isBtnActive: {
+    activeStatus: {
       type: Boolean,
       default: false
     }
   },
   methods: {
     btnClick () {
-      console.log("click")
+      this.$emit('update:activeStatus', !this.activeStatus)
       this.$emit('btnClick')
+      this.btnStatus = !this.btnStatus
     }
   },
   watch: {
-    // isBtnActive () {
-    //   gsap.set('#' + 'btn-' + this.Id, {transformOrigin: '50% 50%'})
-    //   if (this.isBtnActive) {
-    //     gsap.to('#' + 'btn-' + this.Id, {duration: 0.3, scale: 0.8})
-    //   } else {
-    //     gsap.to('#' + 'btn-' + this.Id, {duration: 0.3, scale: 1})
-    //   }
-    // }
+    activeStatus () {
+      this.btnStatus = this.activeStatus
+    }
+  },
+  mounted() {
+    this.$refs.btnRef.addEventListener('click', this.btnClick)
   }
 }
 </script>
@@ -95,6 +93,8 @@ export default {
 }
 
 .button-circle {
+  transform-origin: 50% 50%;
+  transition: all .3s;
   cursor: pointer;
   fill: #285876;
 }
@@ -102,5 +102,16 @@ export default {
 .flare {
   fill: url(#Gradient-3);
   filter: url(#blur);
+}
+.pressed-button {
+  transform: scale(.8);
+}
+@keyframes press {
+  0% {
+    transform: scale(1);
+  }
+  100%{
+    transform: scale(.8);
+  }
 }
 </style>

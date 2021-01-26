@@ -1,6 +1,7 @@
 import { createStore } from 'vuex'
 import dialogStatusModule from './modules/dialogsStatusModule'
 import ZSParameters from "@/store/modules/ZSParameters";
+import BEParameters from "@/store/modules/BEParameters";
 
 export default createStore({
   state: {
@@ -14,6 +15,7 @@ export default createStore({
   },
   modules: {
     dialogStatus: dialogStatusModule,
-    ZSParameters: ZSParameters
+    ZSParameters: ZSParameters,
+    backEndParameters: BEParameters
   }
 })

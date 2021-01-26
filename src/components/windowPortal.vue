@@ -1,10 +1,10 @@
 <template>
   <div
-      style="z-index: 1"
+      class="window-portal-class"
       v-if="open"
       v-show="windowLoaded"
   >
-    <slot/>
+      <slot/>
   </div>
 </template>
 
@@ -35,6 +35,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    target: {
+      type: String,
+      default: '_blank'
+    }
   },
   data () {
     return {
@@ -67,7 +71,7 @@ export default {
       const { width, height, left, top } = this
       // Open a nonexistent page to replace the content later
       const windowPath = window.location.origin + window.location.pathname + '_window'
-      this.windowRef = window.open(windowPath, '', `width=${width},height=${height},left=${left},top=${top}`)
+      this.windowRef = window.open(windowPath, this.target, `width=${width},height=${height},left=${left},top=${top}`)
       this.windowRef.addEventListener('beforeunload', this.closePortal)
       this.windowRef.addEventListener('load', () => {
         this.windowLoaded = true
@@ -75,12 +79,12 @@ export default {
         this.windowRef.document.body.innerHTML = ''
         this.windowRef.document.title = document.title
         // Move the component into the window
-        const app = document.createElement('div')
-        app.id = 'window'
-        app.appendChild(this.$el)
-        this.windowRef.document.body.appendChild(app)
+        this.windowRef.document.body.appendChild(this.$el)
+        // this.windowRef.document.body.appendChild(this.$el)
+
         this.$emit('update:open', true)
         this.$emit('opened', this.windowRef)
+
         // Clone style nodes
         if (!this.noStyle) {
           for (const el of document.head.querySelectorAll('style, link[rel=stylesheet]')) {
@@ -101,3 +105,10 @@ export default {
   },
 }
 </script>
+
+<style type="text/css">
+.window-portal-class {
+  width: 100%;
+  height: 100%;
+}
+</style>

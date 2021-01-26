@@ -109,7 +109,7 @@
       </div>
     </MenuItemComponent>
     <MenuItemComponent title-menu-item="Настройки">
-      <div class="setting-item">
+      <div class="setting-item" @click="dialogOpen('changeSettingDialogStatus')">
         <GearIcon class="item-icon"></GearIcon>
         <div class="item-title">Настройки программы</div>
       </div>
