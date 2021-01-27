@@ -7,6 +7,7 @@ module.exports = {
         port: 8081,
         host: '0.0.0.0',
         hot: true,
+        clientLogLevel: 'info'
     },
     configureWebpack: {
         plugins: [
@@ -15,5 +16,10 @@ module.exports = {
                 template: 'public/index.html'
             })
         ]
+    },
+    pwa: {
+       manifestOptions: {
+           icons: []
+       }
     }
 }

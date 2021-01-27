@@ -14,11 +14,7 @@ import DialogsContainer from "@/components/Dialogs/DialogsContainer";
 import ConnectToWebSocket from "@/components/ConnectToWebSocket";
 export default {
   name: 'App',
-  data () {
-    return {
-      webSocketConnection: null
-    }
-  },
+
   components: {
     DialogsContainer,
     NavMenuComponent,
@@ -27,8 +23,11 @@ export default {
   },
 
   methods: {
-    connectToWS (wsUrl) {
+    newConnectToWS (wsUrl) {
       ConnectToWebSocket.methods.connectToWS(wsUrl, store)
+    },
+    closeConnectToWS (wsUrl) {
+      ConnectToWebSocket.methods.closeConnectToWS(wsUrl, store)
     }
   },
   created() {

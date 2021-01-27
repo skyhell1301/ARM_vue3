@@ -38,6 +38,10 @@ export default {
     target: {
       type: String,
       default: '_blank'
+    },
+    title: {
+      type: String,
+      default: 'ARM'
     }
   },
   data () {
@@ -70,14 +74,15 @@ export default {
       if (this.windowRef) return
       const { width, height, left, top } = this
       // Open a nonexistent page to replace the content later
-      const windowPath = window.location.origin + window.location.pathname + '_window'
+      // const windowPath = window.location.origin + window.location.pathname + '_window'
+      const windowPath = 'window'
       this.windowRef = window.open(windowPath, this.target, `width=${width},height=${height},left=${left},top=${top}`)
       this.windowRef.addEventListener('beforeunload', this.closePortal)
       this.windowRef.addEventListener('load', () => {
         this.windowLoaded = true
         // Clear any existing content
         this.windowRef.document.body.innerHTML = ''
-        this.windowRef.document.title = document.title
+        this.windowRef.document.title = this.title
         // Move the component into the window
         this.windowRef.document.body.appendChild(this.$el)
         // this.windowRef.document.body.appendChild(this.$el)

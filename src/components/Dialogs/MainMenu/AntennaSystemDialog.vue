@@ -49,20 +49,19 @@ export default {
           sendsWorkmode = a.workmode
         }
       }
-      // console.log(this.selectedMode)
       let obj = {
         id: 1,
         workmode: sendsWorkmode
       }
-      this.saveDevice('http://yii-site/nomenklatura/smotrantennaupdate/' + obj.id, 'POST', null, 'qqq', JSON.stringify(obj))
+      this.sendMessage('http://yii-site/nomenklatura/smotrantennaupdate/' + obj.id, 'POST', null, 'qqq', JSON.stringify(obj))
     },
-    saveDevice(urlApi, method, caller, jwttok, body) {
+    sendMessage(urlApi, method, caller, jwttok, body) {
       if (jwttok != 'undefined') {
-        var myHeaders = new Headers();
+        let myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
         myHeaders.append("Authorization", jwttok);
 
-        var requestOptions = {
+        let requestOptions = {
           method: method,
           headers: myHeaders,
           body: body,
@@ -73,12 +72,10 @@ export default {
             .then(response => response.json())
             .then(result => {
               if (result.token != 'undefined') {
-                //console.log(result);
                 if (caller != null & caller != 'undefined') caller(result);
               }
             })
             .catch(error => {
-              // alert('Ошибка');
               console.log('error', error);
             });
       }
@@ -90,7 +87,6 @@ export default {
     })
   },
   mounted() {
-    console.log(this.antennaParameter)
   }
 }
 </script>

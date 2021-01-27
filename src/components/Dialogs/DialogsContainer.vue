@@ -3,6 +3,7 @@
     <window-portal :open="antennaSystemDialogStatus"
                    :left="600"
                    :top="600"
+                   :title="'Антенная система'"
                    @closed="closeDialog('AntennaSystem')">
       <AntennaSystemDialog></AntennaSystemDialog>
     </window-portal>
@@ -15,6 +16,7 @@
     <window-portal :open="settingDialogStatus"
                    :left="600"
                    :top="600"
+                   :title="'Настройки'"
                    @closed="closeDialog('Setting')">
       <SettingDialog></SettingDialog>
     </window-portal>
@@ -26,7 +28,7 @@ import WindowPortal from "@/components/windowPortal";
 import AntennaSystemDialog from "@/components/Dialogs/MainMenu/AntennaSystemDialog";
 import AmplifierDialog from "@/components/Dialogs/Devices/AmplifierDialog";
 import {mapState} from "vuex";
-import SettingDialog from "@/components/Dialogs/Setting/SettingDialog";
+import SettingDialog from "@/components/Dialogs/Setting/ConnectionDialog";
 export default {
   name: 'DialogsContainer',
   components: {
