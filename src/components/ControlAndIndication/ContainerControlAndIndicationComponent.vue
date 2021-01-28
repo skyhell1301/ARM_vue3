@@ -1,6 +1,7 @@
 <template>
   <div class="container-control-and-indication">
-    <iframe class="clock" src="http://10.10.0.16/clock/index.html"></iframe>
+<!--    <iframe class="clock" src="http://10.10.0.16/clock/index.html"></iframe>-->
+    <clock-component class="clock"></clock-component>
     <div class="crash">
       <div class="crash-title">АВАРИЯ</div>
       <ButtonComponent class="btn-1" :active-status="antStatus" @btnClick="testChange"></ButtonComponent>
@@ -24,7 +25,7 @@
     </div>
     <ConnectPanelComponent></ConnectPanelComponent>
     <TargetDesignationPanelComponent></TargetDesignationPanelComponent>
-    <ProtocolButtonComponent></ProtocolButtonComponent>
+    <ProtocolButtonComponent @click="openProtocolDialog"></ProtocolButtonComponent>
   </div>
 </template>
 
@@ -37,9 +38,11 @@ import ControlPanelComponent from './ControlPanelComponent'
 import ConnectPanelComponent from './ConnectPanelComponent'
 import TargetDesignationPanelComponent from './TargetDesignationPanelComponent'
 import ProtocolButtonComponent from './ProtocolButtonComponent'
+import ClockComponent from "@/components/ControlAndIndication/ClockComponent";
 export default {
   name: 'ContainerControlAndIndicationComponent',
   components: {
+    ClockComponent,
     ProtocolButtonComponent,
     TargetDesignationPanelComponent,
     ConnectPanelComponent,
@@ -58,13 +61,17 @@ export default {
   methods: {
     testChange() {
       this.$store.dispatch('dialogStatus/changeAntennaSystemDialogStatus', !this.antStatus)
+    },
+    openProtocolDialog() {
+      this.$store.dispatch('dialogStatus/changeProtocolDialogStatus', !this.protocolDialogStatus)
     }
   },
   watch: {
   },
   computed: {
     ...mapState({
-      antStatus: state => state.dialogStatus.antennaSystemDialogStatus
+      antStatus: state => state.dialogStatus.antennaSystemDialogStatus,
+      protocolDialogStatus: state => state.dialogStatus.protocolDialogStatus
     })
   }
 }

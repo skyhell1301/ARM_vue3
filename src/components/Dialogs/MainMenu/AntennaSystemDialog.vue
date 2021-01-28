@@ -16,7 +16,7 @@
 <script>
 import {mapState} from 'vuex'
 import DisplayParametersComponent from "@/components/Devices/DisplayParametersComponent";
-import CustomButton from "@/components/CustomButton";
+import CustomButton from "@/components/ComponentsForPopupWindow/CustomButton";
 
 export default {
   name: 'AntennaSystemDialog',

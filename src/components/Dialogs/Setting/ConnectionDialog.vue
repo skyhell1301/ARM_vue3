@@ -2,37 +2,41 @@
   <div class="container-setting">
     <div class="control-elements-connection">
       <div>WebSocket url</div>
-      <input type="text" v-model="wsUrl">
+      <input type="text" v-model="wsUrl" autocomplete="on">
       <custom-button @buttonClick="connectWS">Соединение</custom-button>
       <custom-button @buttonClick="closeConnectWS">Закрыть соединение</custom-button>
     </div>
     <div class="info-message" :class="{'message-error-status': message.status === 'error'}">{{message.message}}</div>
-    <div style="align-self: end">Список подключений WebSocket</div>
-    <div class="connection-table" style="align-self: end">
-      <div class="cell-connection-table">URL</div>
-      <div class="cell-connection-table">Метка жизни</div>
-    </div>
-    <div v-for="ws in connectWSList"
-          :key="ws.url"
-         class="connection-table"
-    >
-      <div class="cell-connection-table">{{ws.url}}</div>
-      <div class="cell-connection-table">{{ws.lifeMark}}</div>
+    <div class="connection-table-title">Список подключений WebSocket</div>
+    <div class="table-container">
+      <div class="connection-table" style="align-self: end">
+        <div class="cell-connection-table">URL</div>
+        <div class="cell-connection-table">Метка жизни</div>
+      </div>
+      <div v-for="ws in connectWSList"
+            :key="ws.id"
+           class="connection-table"
+      >
+        <custom-div class="cell-connection-table" @divClick="wsUrl = ws.userUrl">{{ws.userUrl}}</custom-div>
+        <div class="cell-connection-table">{{ws.lifeMark}}</div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import CustomButton from "@/components/CustomButton";
+import CustomButton from "@/components/ComponentsForPopupWindow/CustomButton";
 import {mapState} from "vuex";
+import CustomDiv from "@/components/ComponentsForPopupWindow/CustomDiv";
 export default {
   name: 'SettingDialog',
   components: {
+    CustomDiv,
     CustomButton
   },
   data () {
     return {
-      wsUrl: '10.10.0.16:8081'
+      wsUrl: '10.10.0.122:8081/name',
     }
   },
   methods: {
@@ -41,13 +45,14 @@ export default {
     },
     closeConnectWS () {
       this.$root.closeConnectToWS(this.wsUrl)
-    }
+    },
   },
   computed: {
     ...mapState({
-      connectWSList: state => state.connectionList.webSocketConnectionList,
-      message: state => state.connectionList.infoMessage,
-    })
+      connectWSList: state => state.wsConnectionList.webSocketConnectionList,
+      message: state => state.wsConnectionList.infoMessage,
+    }),
+
   }
 }
 </script>
@@ -57,31 +62,49 @@ export default {
 .container-setting {
   width: 100%;
   height: 100%;
-  grid-template-rows: 20% 10% 5% 5% 60%;
-  display: grid;
+  display: flex;
+  flex-direction: column;
   justify-items: center;
   align-items: center;
 }
-
-.connection-table {
-  display: grid;
-  grid-template-columns: 50% 50%;
-  width: 80%;
-  align-self: start;
-  text-align: center;
-}
-
-.cell-connection-table {
-  border: 1px black solid;
-
+.control-elements-connection {
+  margin: 20px;
 }
 
 .info-message {
+  margin: 20px;
   text-align: center;
   color: green;
 }
 
 .message-error-status {
   color: red;
+}
+
+.connection-table-title {
+}
+
+.table-container {
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+}
+
+.connection-table {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  width: 100%;
+  text-align: center;
+}
+
+.cell-connection-table {
+  width: 100%;
+  height: 100%;
+  justify-self: center;
+  align-self: center;
+  cursor: pointer;
+  border: 1px black solid;
+
 }
 </style>

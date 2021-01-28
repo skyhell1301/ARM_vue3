@@ -8,9 +8,10 @@ const state = () => ({
 })
 const mutations = {
     newConnectionToWS(state, payload) {
+        // console.log(state.webSocketConnectionList)
         let pushAllowed = true
         state.webSocketConnectionList.forEach(function (item) {
-            if (payload.url === item.url) {
+            if (payload.realUrl === item.realUrl) {
                 pushAllowed = false
             }
         })
@@ -20,16 +21,18 @@ const mutations = {
     },
     lifeMarkUpdate(state, payload) {
         let pattern = /(\d{2})\.(\d{2})\.(\d{4})/
+        let date = new Date(payload.lifeMark.replace(pattern, '$3-$2-$1'))
+        // console.log(date)
         state.webSocketConnectionList.forEach(function (item) {
-            if (payload.url === item.url) {
-                item.lifeMark = new Date(payload.lifeMark.replace(pattern, '$3-$2-$1'))
+            if (payload.userUrl === item.userUrl) {
+                item.lifeMark = date.toString()
             }
         })
     },
     closeConnectionToWS(state, payload) {
         let index = null
         for (let i = 0; i < state.webSocketConnectionList.length; i++) {
-            if (state.webSocketConnectionList[i].url === payload) {
+            if (state.webSocketConnectionList[i].realUrl === payload) {
                 index = i
                 break
             }
@@ -46,7 +49,7 @@ const mutations = {
 const getters = {
     getLifeMarkWS(state, url) {
         for (let conn of state.webSocketConnectionList) {
-            if (conn.url === url) {
+            if (conn.userUrl === url) {
                 return conn
             } else {
              return null
@@ -56,7 +59,7 @@ const getters = {
     getWebSocket: state => url => {
         let ws = null
         state.webSocketConnectionList.forEach(function (item) {
-            if (item.url === url) {
+            if (item.userUrl === url) {
                 ws = item.ws
             }
         })

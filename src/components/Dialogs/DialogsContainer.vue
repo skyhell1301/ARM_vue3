@@ -20,18 +20,29 @@
                    @closed="closeDialog('Setting')">
       <SettingDialog></SettingDialog>
     </window-portal>
+    <window-portal :open="protocolDialogStatus"
+                   :left="600"
+                   :top="600"
+                   :width="1280"
+                   :height="720"
+                   :title="'Протокол'"
+                   @closed="closeDialog('Protocol')">
+      <protocol-dialog></protocol-dialog>
+    </window-portal>
   </div>
 </template>
 
 <script>
-import WindowPortal from "@/components/windowPortal";
+import WindowPortal from "@/components/windowPortalComponent";
 import AntennaSystemDialog from "@/components/Dialogs/MainMenu/AntennaSystemDialog";
 import AmplifierDialog from "@/components/Dialogs/Devices/AmplifierDialog";
 import {mapState} from "vuex";
 import SettingDialog from "@/components/Dialogs/Setting/ConnectionDialog";
+import ProtocolDialog from "@/components/Dialogs/Protocols/ProtocolDialog";
 export default {
   name: 'DialogsContainer',
   components: {
+    ProtocolDialog,
     SettingDialog,
     AmplifierDialog,
     AntennaSystemDialog,
@@ -42,11 +53,15 @@ export default {
       this.$store.dispatch('dialogStatus/change' + dialog + 'DialogStatus', false)
     },
   },
+  updated() {
+    console.log('защёл')
+  },
   computed: {
     ...mapState({
       amplifierDialogStatus: state => state.dialogStatus.amplifierDialogStatus,
       antennaSystemDialogStatus: state => state.dialogStatus.antennaSystemDialogStatus,
       settingDialogStatus: state => state.dialogStatus.settingDialogStatus,
+      protocolDialogStatus: state => state.dialogStatus.protocolDialogStatus,
     })
   }
 }

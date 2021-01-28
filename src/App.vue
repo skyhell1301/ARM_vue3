@@ -21,7 +21,6 @@ export default {
     ContainerControlAndIndicationComponent,
     ContainerDeviceComponent
   },
-
   methods: {
     newConnectToWS (wsUrl) {
       ConnectToWebSocket.methods.connectToWS(wsUrl, store)

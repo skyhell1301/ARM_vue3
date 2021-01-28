@@ -54,6 +54,7 @@ export default {
     open (newOpen) {
       if (newOpen) {
         this.openPortal()
+        this.windowRef.focus()
       } else {
         this.closePortal()
       }
@@ -97,15 +98,20 @@ export default {
             this.windowRef.document.head.appendChild(clone)
           }
         }
+
+        this.$store.dispatch('windowsControl/addWindow', this.windowRef)
+        console.log(this.$store.state.windowsControl.windowsList)
       })
     },
     closePortal () {
       if (!this.windowRef) return
       this.windowLoaded = false
+      this.$store.dispatch('windowsControl/closeWindow', this.windowRef)
       this.windowRef.close()
       this.windowRef = null
       this.$emit('update:open', false)
       this.$emit('closed')
+      console.log(this.$store.state.windowsControl.windowsList)
     },
   },
 }

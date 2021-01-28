@@ -5,7 +5,6 @@ module.exports = {
     devServer: {
         index: 'index.html',
         port: 8081,
-        host: '0.0.0.0',
         hot: true,
         clientLogLevel: 'info'
     },

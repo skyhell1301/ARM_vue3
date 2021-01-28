@@ -1,7 +1,8 @@
 const state = ()=> ({
     antennaSystemDialogStatus: false,
     amplifierDialogStatus: false,
-    settingDialogStatus: false
+    settingDialogStatus: false,
+    protocolDialogStatus: false
 })
 const mutations = {
     changeAntennaSystemDialogStatus (state, payload) {
@@ -12,6 +13,9 @@ const mutations = {
     },
     changeSettingDialogStatus (state, payload) {
         state.settingDialogStatus = payload
+    },
+    changeProtocolDialogStatus (state, payload) {
+        state.protocolDialogStatus = payload
     },
 }
 const getters = {
@@ -25,6 +29,9 @@ const actions = {
     },
     changeSettingDialogStatus ({commit}, payload) {
         commit('changeSettingDialogStatus', payload)
+    },
+    changeProtocolDialogStatus ({commit}, payload) {
+        commit('changeProtocolDialogStatus', payload)
     },
 }
 export default {

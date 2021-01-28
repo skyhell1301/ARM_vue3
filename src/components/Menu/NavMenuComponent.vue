@@ -99,7 +99,7 @@
       </div>
     </MenuItemComponent>
     <MenuItemComponent title-menu-item="Протоколы">
-      <div class="setting-item">
+      <div class="setting-item" @click="dialogOpen('changeProtocolDialogStatus')">
         <ProtocolIcon class="item-icon"></ProtocolIcon>
         <div class="item-title">Протокол</div>
       </div>
