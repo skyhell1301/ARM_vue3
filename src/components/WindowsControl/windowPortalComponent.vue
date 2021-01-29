@@ -15,6 +15,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    focus: {
+      type: Boolean,
+      default: false,
+    },
     width: {
       type: Number,
       default: 600,
@@ -48,16 +52,19 @@ export default {
     return {
       windowRef: null,
       windowLoaded: false,
+      focusStatus: false
     }
   },
   watch: {
     open (newOpen) {
       if (newOpen) {
         this.openPortal()
-        this.windowRef.focus()
       } else {
         this.closePortal()
       }
+    },
+    focus () {
+      this.updateFocus()
     },
   },
   mounted () {
@@ -71,6 +78,12 @@ export default {
     window.removeEventListener('beforeunload', this.closePortal)
   },
   methods: {
+    updateFocus () {
+      if(this.focus !== this.focusStatus) {
+        this.focusStatus = this.focus
+        this.windowRef.focus()
+      }
+    },
     openPortal () {
       if (this.windowRef) return
       const { width, height, left, top } = this
@@ -81,12 +94,13 @@ export default {
       this.windowRef.addEventListener('beforeunload', this.closePortal)
       this.windowRef.addEventListener('load', () => {
         this.windowLoaded = true
+
         // Clear any existing content
         this.windowRef.document.body.innerHTML = ''
         this.windowRef.document.title = this.title
+
         // Move the component into the window
         this.windowRef.document.body.appendChild(this.$el)
-        // this.windowRef.document.body.appendChild(this.$el)
 
         this.$emit('update:open', true)
         this.$emit('opened', this.windowRef)
@@ -98,9 +112,7 @@ export default {
             this.windowRef.document.head.appendChild(clone)
           }
         }
-
         this.$store.dispatch('windowsControl/addWindow', this.windowRef)
-        console.log(this.$store.state.windowsControl.windowsList)
       })
     },
     closePortal () {
@@ -111,7 +123,6 @@ export default {
       this.windowRef = null
       this.$emit('update:open', false)
       this.$emit('closed')
-      console.log(this.$store.state.windowsControl.windowsList)
     },
   },
 }

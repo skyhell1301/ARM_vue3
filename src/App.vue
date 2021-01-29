@@ -1,21 +1,26 @@
 <template>
-  <NavMenuComponent class="container-nav-menu"></NavMenuComponent>
+  <div class="menu-container">
+    <NavMenuComponent class="container-nav-menu"></NavMenuComponent>
+  </div>
   <ContainerDeviceComponent class="container-device"></ContainerDeviceComponent>
   <ContainerControlAndIndicationComponent class="container-control-and-indication"></ContainerControlAndIndicationComponent>
+  <WindowsPanelComponent class="container-window-panel"></WindowsPanelComponent>
   <DialogsContainer ></DialogsContainer>
 </template>
 
 <script>
 import store from './store'
-import ContainerDeviceComponent from './components/Devices/ContainerDeviceComponent.vue'
-import ContainerControlAndIndicationComponent from './components/ControlAndIndication/ContainerControlAndIndicationComponent.vue'
-import NavMenuComponent from './components/Menu/NavMenuComponent.vue'
+import ContainerDeviceComponent from './components/DevicesPanel/ContainerDeviceComponent.vue'
+import ContainerControlAndIndicationComponent from './components/ControlAndIndicationPanel/ContainerControlAndIndicationComponent.vue'
+import NavMenuComponent from './components/MenuPanel/NavMenuComponent.vue'
 import DialogsContainer from "@/components/Dialogs/DialogsContainer";
 import ConnectToWebSocket from "@/components/ConnectToWebSocket";
+import WindowsPanelComponent from "@/components/WindowsControl/WindowsPanel";
 export default {
   name: 'App',
 
   components: {
+    WindowsPanelComponent,
     DialogsContainer,
     NavMenuComponent,
     ContainerControlAndIndicationComponent,
@@ -59,6 +64,21 @@ body {
   font-size: 1vmax;
 }
 
+.menu-container {
+  display: grid;
+  grid-row: 1;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  z-index: 2;
+  width: 100%;
+  height: 95%;
+
+}
+.container-nav-menu {
+  min-width: 50%;
+  max-height: 100%;
+}
+
 .container-device {
   grid-column: 2;
   grid-row: 2;
@@ -72,11 +92,9 @@ body {
   z-index: 1;
 }
 
-.container-nav-menu {
-  grid-row: 1;
+.container-window-panel {
+  grid-row: 3;
   grid-column-start: 1;
   grid-column-end: 3;
-  z-index: 2;
 }
-
 </style>

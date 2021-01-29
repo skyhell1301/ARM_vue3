@@ -4,28 +4,28 @@
     <clock-component class="clock"></clock-component>
     <div class="crash">
       <div class="crash-title">АВАРИЯ</div>
-      <ButtonComponent class="btn-1" :active-status="antStatus" @btnClick="testChange"></ButtonComponent>
+      <ButtonComponent class="btn-1" :active-status="antStatus.status" @btnClick="testChange"></ButtonComponent>
       <EmergencySignalComponent class="signal-bell" status="ok"></EmergencySignalComponent>
     </div>
-    <ControlPanelComponent></ControlPanelComponent>
-    <div class="control-background">
+    <ControlPanelComponent style="grid-row: 5; width: 95%"></ControlPanelComponent>
+    <div class="control-background" style="grid-row: 7;">
       <div class="ind-title">ЗЕМНАЯ СТАНЦИЯ</div>
       <ButtonComponent class="btn-2" v-model:active-status="testVar1"></ButtonComponent>
       <StatusIndicatorComponent class="ind-1" :is-active="testVar1"></StatusIndicatorComponent>
     </div>
-    <div class="control-background">
+    <div class="control-background" style="grid-row: 9;">
       <div class="ind-title">БОРТОВАЯ ТЕЛЕМЕТРИЯ</div>
       <ButtonComponent class="btn-2" v-model:active-status="testVar2"></ButtonComponent>
       <StatusIndicatorComponent class="ind-1" :is-active="testVar2"></StatusIndicatorComponent>
     </div>
-    <div class="control-background">
+    <div class="control-background" style="grid-row: 11;">
       <div class="ind-title">АНТЕННАЯ СИСТЕМА</div>
       <ButtonComponent class="btn-2" v-model:active-status="testVar3"></ButtonComponent>
       <StatusIndicatorComponent class="ind-1" :is-active="testVar3"></StatusIndicatorComponent>
     </div>
-    <ConnectPanelComponent></ConnectPanelComponent>
-    <TargetDesignationPanelComponent></TargetDesignationPanelComponent>
-    <ProtocolButtonComponent @click="openProtocolDialog"></ProtocolButtonComponent>
+    <ConnectPanelComponent style="width: 95%; grid-row: 13;"></ConnectPanelComponent>
+    <TargetDesignationPanelComponent style="width: 95%; grid-row: 15;"></TargetDesignationPanelComponent>
+    <ProtocolButtonComponent style="width: 95%; grid-row: 17;" @click="openProtocolDialog"></ProtocolButtonComponent>
   </div>
 </template>
 
@@ -38,7 +38,7 @@ import ControlPanelComponent from './ControlPanelComponent'
 import ConnectPanelComponent from './ConnectPanelComponent'
 import TargetDesignationPanelComponent from './TargetDesignationPanelComponent'
 import ProtocolButtonComponent from './ProtocolButtonComponent'
-import ClockComponent from "@/components/ControlAndIndication/ClockComponent";
+import ClockComponent from "@/components/ControlAndIndicationPanel/ClockComponent";
 export default {
   name: 'ContainerControlAndIndicationComponent',
   components: {
@@ -60,10 +60,10 @@ export default {
   },
   methods: {
     testChange() {
-      this.$store.dispatch('dialogStatus/changeAntennaSystemDialogStatus', !this.antStatus)
+      this.$store.dispatch('dialogStatus/changeAntennaSystemDialogStatus', !this.antStatus.status)
     },
     openProtocolDialog() {
-      this.$store.dispatch('dialogStatus/changeProtocolDialogStatus', !this.protocolDialogStatus)
+      this.$store.dispatch('dialogStatus/changeProtocolDialogStatus', true)
     }
   },
   watch: {
@@ -83,7 +83,7 @@ export default {
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-rows: 7% 10% 15% 8% 8% 8% 30% 10% 4%;
+  grid-template-rows: 7.3% .4% 9.5% .4% 14.5% .4% 7.5% .4% 7.5% .4% 7.5% .4% 29.5% .4% 9.5% .4% 4%;
   justify-items: center;
   align-items: center;
   font-weight: bold;
@@ -100,10 +100,11 @@ export default {
   grid-template-columns: 45% 55%;
   grid-template-rows: 20% 80%;
   width: 95%;
-  height: 95%;
+  height: 100%;
   border: 1px black solid;
   border-radius: 7px;
   background: linear-gradient(180deg, #f6f1f5 0%, #f6f1f5 40%, #e2e2e1 50%, #fcf7fb 100%);
+  grid-row: 3;
 }
 
 .btn-1 {
@@ -135,7 +136,7 @@ export default {
   grid-template-columns: 50% 50%;
   grid-template-rows: 30% 70%;
   width: 95%;
-  height: 95%;
+  height: 100%;
   border: 1px black solid;
   border-radius: 7px;
   background: linear-gradient(180deg, #f6f1f5 0%, #f6f1f5 40%, #e2e2e1 50%, #fcf7fb 100%);

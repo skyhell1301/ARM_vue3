@@ -590,13 +590,13 @@ export default {
   box-shadow: 0 0 1px rgba(0,0,0,0.5);
 }
 .size-btn {
-  background-image: url('../assets/images/stopsquarebuttonformediainterface_87472.png');
+  background-image: url('../../assets/images/stopsquarebuttonformediainterface_87472.png');
   background-size: 13px 13px;
   background-repeat: no-repeat;
   background-position: center;
 }
 .close-btn {
-  background-image: url('../assets/images/cancel_close_delete_exit_logout_remove_x_icon_123217.png');
+  background-image: url('../../assets/images/cancel_close_delete_exit_logout_remove_x_icon_123217.png');
   background-size: 15px 15px;
   background-repeat: no-repeat;
   background-position: center;

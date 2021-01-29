@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import ButtonComponent from "@/components/ControlAndIndication/ButtonComponent";
-import StatusIndicatorComponent from "@/components/ControlAndIndication/StatusIndicatorComponent";
+import ButtonComponent from "@/components/ControlAndIndicationPanel/ButtonComponent";
+import StatusIndicatorComponent from "@/components/ControlAndIndicationPanel/StatusIndicatorComponent";
 export default {
   name: 'AmplifierDialog',
   components: {StatusIndicatorComponent, ButtonComponent},

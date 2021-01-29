@@ -34,8 +34,8 @@ export default {
   display: grid;
   grid-template-columns: 50% 50%;
   grid-template-rows: 14% 43% 43%;
-  width: 95%;
-  height: 95%;
+  width: 100%;
+  height: 100%;
   border: 1px black solid;
   border-radius: 7px;
   background: linear-gradient(45deg, #f6f1f5 0%, #fcf7fb 100%);

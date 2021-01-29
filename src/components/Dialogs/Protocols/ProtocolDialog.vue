@@ -4,7 +4,7 @@
       <div class="text-content-window"
       >
         <div class="text-content"
-             v-for="item in logMessageList.slice().reverse()"
+             v-for="item in getMessageList.slice().reverse()"
              :key="item.id"
         >
           <div class="text-content-id">{{item.id}}</div>
@@ -12,26 +12,49 @@
         </div>
       </div>
     </div>
+    <div class="container-protocol-dialog-control-elements">
+      <custom-button class="protocol-dialog-button" @buttonClick="clearProtocol">Очистить протокол</custom-button>
+      <custom-button class="protocol-dialog-button" @buttonClick="reUpdate" v-if="isUpdate">Остановить обновление списка</custom-button>
+      <custom-button class="protocol-dialog-button" @buttonClick="reUpdate" v-else>Возобновить обновление списка</custom-button>
+    </div>protocol-dialog-control-elements
   </div>
 </template>
 
 <script>
-import {mapState} from "vuex";
+import CustomButton from "@/components/ComponentsForPopupWindow/CustomButton";
 
 export default {
   name: 'ProtocolDialog',
+  components: {CustomButton},
+  data () {
+    return {
+      localMessageList: [],
+      isUpdate: true,
+      unsubscribe:''
+    }
+  },
+  updated() {
+  },
   computed: {
-    ...mapState({
-      logMessageList: state => state.protocol.logMessageList,
-    })
+    getMessageList () {
+      let storeList = this.$store.state.protocol.logMessageList
+      if (this.isUpdate) {
+        this.updateLocalList(storeList)
+        return storeList
+      } else {
+        return this.localMessageList
+      }
+    }
   },
   methods: {
-    scrollToElement() {
-      const el = this.$el.getElementsByClassName('scroll-to-me')[0];
-
-      if (el) {
-        el.scrollIntoView();
-      }
+    updateLocalList (newList) {
+      this.localMessageList = newList
+    },
+    clearProtocol() {
+      this.$store.dispatch('protocol/clearProtocol')
+    },
+    reUpdate () {
+      this.isUpdate = !this.isUpdate
     }
   }
 }
@@ -42,10 +65,13 @@ export default {
   width: 100%;
   height: 100%;
   display: grid;
+  grid-template-rows: 90% 10%;
+  background: #0d394e;
+  justify-items: center;
+  align-items: center;
 }
 
 .text-content-container {
-  background: #0d394e;
   overflow:hidden;
   display: grid;
   align-items: center;
@@ -57,7 +83,7 @@ export default {
 .text-content-window {
   overflow-y:scroll;
   width: 95%;
-  height: 95%;
+  height: 98%;
   border: 1px #47d0ee solid;
   display: flex;
   flex-direction: column;
@@ -77,5 +103,26 @@ export default {
 }
 .text-content-message {
   margin: 5px;
+}
+
+.container-protocol-dialog-control-elements {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  grid-template-columns: 50% 50%;
+  width: 95%;
+}
+
+.protocol-dialog-button {
+  font-size: 1em;
+  width: 30%;
+  color: #00d6ff;
+  border: 1px solid #00d6ff;
+  border-radius: 10px;
+  background: #0d394e;
+}
+.protocol-dialog-button:hover {
+  background: #0b2a39;
+  box-shadow: 0px 0px 5px 1px rgb(28, 123, 173);
 }
 </style>

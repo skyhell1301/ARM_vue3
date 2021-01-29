@@ -11,6 +11,9 @@ const mutations = {
         }
         state.counter++
     },
+    clearProtocol(state) {
+        state.logMessageList = []
+    }
 }
 
 const getters = {
@@ -19,6 +22,9 @@ const getters = {
 const actions = {
     addLogMessage ({commit}, payload) {
         commit('addLogMessage', payload)
+    },
+    clearProtocol ({commit}) {
+        commit('clearProtocol')
     },
 }
 export default {

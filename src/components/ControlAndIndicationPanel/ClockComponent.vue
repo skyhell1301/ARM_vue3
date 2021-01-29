@@ -46,11 +46,13 @@ export default {
 }
 
 .clock-container {
+  font-weight: normal;
   overflow: hidden;
   display: grid;
   width: 100%;
   height: 100%;
   font-family: LCD;
+  font-size: 3.5em;
   color: #00d6ff;
   border-radius: 7px;
 }
@@ -87,44 +89,5 @@ export default {
 .time-back {
   opacity: .1;
 }
-@media (max-width: 3000px) {
-  .clock-container {
-    font-size: 65px;
-  }
-}
-@media (max-width: 1920px) {
-  .clock-container {
-    font-size: 65px;
-  }
-}
-@media (max-width: 1850px) {
-  .clock-container {
-    font-size: 60px;
-  }
-}
-@media (max-width: 1700px) {
-  .clock-container {
-    font-size: 55px;
-  }
-}
-@media (max-width: 1600px) {
-  .clock-container {
-    font-size: 50px;
-  }
-}
-@media (max-width: 1400px) {
-  .clock-container {
-    font-size: 45px;
-  }
-}
-@media (max-width: 1200px) {
-  .clock-container {
-    font-size: 40px;
-  }
-}
-@media (max-width: 1000px) {
-  .clock-container {
-    font-size: 35px;
-  }
-}
+
 </style>

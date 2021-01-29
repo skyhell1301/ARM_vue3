@@ -778,10 +778,10 @@ export default {
     },
 
     antennaDialogOpen () {
-      this.$store.dispatch('dialogStatus/changeAntennaSystemDialogStatus', !this.$store.state.dialogStatus.antennaSystemDialogStatus)
+      this.$store.dispatch('dialogStatus/changeAntennaSystemDialogStatus', true)
     },
     amplifierDialogOpen () {
-      this.$store.dispatch('dialogStatus/changeAmplifierDialogStatus', !this.$store.state.dialogStatus.amplifierDialogStatus)
+      this.$store.dispatch('dialogStatus/changeAmplifierDialogStatus', true)
     }
   },
   computed: {

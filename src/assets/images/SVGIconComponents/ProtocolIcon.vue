@@ -9,7 +9,3 @@ export default {
   name: 'ProtocolIcon'
 }
 </script>
-
-<style scoped>
-
-</style>

@@ -2,7 +2,7 @@
   <div class="container-setting">
     <div class="control-elements-connection">
       <div>WebSocket url</div>
-      <input type="text" v-model="wsUrl" autocomplete="on">
+      <input type="url" v-model="wsUrl" autocomplete="on">
       <custom-button @buttonClick="connectWS">Соединение</custom-button>
       <custom-button @buttonClick="closeConnectWS">Закрыть соединение</custom-button>
     </div>
@@ -36,7 +36,7 @@ export default {
   },
   data () {
     return {
-      wsUrl: '10.10.0.122:8081/name',
+      wsUrl: '10.10.0.122:8082/name1',
     }
   },
   methods: {

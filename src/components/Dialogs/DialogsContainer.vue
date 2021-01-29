@@ -1,26 +1,31 @@
 <template>
   <div class="container-dialogs">
-    <window-portal :open="antennaSystemDialogStatus"
+    <window-portal :open="antennaSystemDialogStatus.status"
+                   :focus="antennaSystemDialogStatus.focus"
                    :left="600"
                    :top="600"
                    :title="'Антенная система'"
                    @closed="closeDialog('AntennaSystem')">
       <AntennaSystemDialog></AntennaSystemDialog>
     </window-portal>
-    <window-portal :open="amplifierDialogStatus"
+    <window-portal :open="amplifierDialogStatus.status"
+                   :focus="amplifierDialogStatus.focus"
                    :left="600"
                    :top="600"
+                   :title="'Усилитель мощности'"
                    @closed="closeDialog('Amplifier')">
       <AmplifierDialog></AmplifierDialog>
     </window-portal>
-    <window-portal :open="settingDialogStatus"
+    <window-portal :open="settingDialogStatus.status"
+                   :focus="settingDialogStatus.focus"
                    :left="600"
                    :top="600"
                    :title="'Настройки'"
                    @closed="closeDialog('Setting')">
       <SettingDialog></SettingDialog>
     </window-portal>
-    <window-portal :open="protocolDialogStatus"
+    <window-portal :open="protocolDialogStatus.status"
+                   :focus="protocolDialogStatus.focus"
                    :left="600"
                    :top="600"
                    :width="1280"
@@ -33,7 +38,7 @@
 </template>
 
 <script>
-import WindowPortal from "@/components/windowPortalComponent";
+import WindowPortal from "@/components/WindowsControl/windowPortalComponent";
 import AntennaSystemDialog from "@/components/Dialogs/MainMenu/AntennaSystemDialog";
 import AmplifierDialog from "@/components/Dialogs/Devices/AmplifierDialog";
 import {mapState} from "vuex";
@@ -52,9 +57,6 @@ export default {
     closeDialog (dialog) {
       this.$store.dispatch('dialogStatus/change' + dialog + 'DialogStatus', false)
     },
-  },
-  updated() {
-    console.log('защёл')
   },
   computed: {
     ...mapState({

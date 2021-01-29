@@ -15,7 +15,7 @@
 
 <script>
 import {mapState} from 'vuex'
-import DisplayParametersComponent from "@/components/Devices/DisplayParametersComponent";
+import DisplayParametersComponent from "@/components/DevicesPanel/DisplayParametersComponent";
 import CustomButton from "@/components/ComponentsForPopupWindow/CustomButton";
 
 export default {
