@@ -3,7 +3,7 @@
        :id="'Parameters-' + ID"
   >
     <div class="table_parameters"
-         v-for="param in dataArray"
+         v-for="param in deviceData"
          :key="param.id">
       <div class="param">{{ param.nameParameter }}</div>
       <div class="value">{{ param.valueParameter }}</div>
@@ -38,18 +38,11 @@ export default {
   },
   methods: {
     updateData () {
-      this.dataArray = []
-      for(let i in this.deviceData) {
-        if (i !== 'title' && i !== 'modes' && i !== 'id') {
-          let ob = {nameParameter: i, valueParameter: this.deviceData[i]}
-          this.dataArray.push(ob)
-        }
-      }
 
     }
   },
   mounted () {
-    this.updateData()
+    // this.updateData()
   },
   watch: {
     deviceData () {

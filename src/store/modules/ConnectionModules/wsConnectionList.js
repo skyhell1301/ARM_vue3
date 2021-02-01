@@ -24,7 +24,7 @@ const mutations = {
         let date = new Date(payload.lifeMark.replace(pattern, '$3-$2-$1'))
         // console.log(date)
         state.webSocketConnectionList.forEach(function (item) {
-            if (payload.userUrl === item.userUrl) {
+            if (payload.url === item.realUrl) {
                 item.lifeMark = date.toString()
             }
         })

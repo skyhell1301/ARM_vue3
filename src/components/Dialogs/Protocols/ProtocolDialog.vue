@@ -4,7 +4,7 @@
       <div class="text-content-window"
       >
         <div class="text-content"
-             v-for="item in getMessageList.slice().reverse()"
+             v-for="item in listMessage.slice().reverse()"
              :key="item.id"
         >
           <div class="text-content-id">{{item.id}}</div>
@@ -14,21 +14,19 @@
     </div>
     <div class="container-protocol-dialog-control-elements">
       <custom-button class="protocol-dialog-button" @buttonClick="clearProtocol">Очистить протокол</custom-button>
-      <custom-button class="protocol-dialog-button" @buttonClick="reUpdate" v-if="isUpdate">Остановить обновление списка</custom-button>
-      <custom-button class="protocol-dialog-button" @buttonClick="reUpdate" v-else>Возобновить обновление списка</custom-button>
     </div>protocol-dialog-control-elements
   </div>
 </template>
 
 <script>
 import CustomButton from "@/components/ComponentsForPopupWindow/CustomButton";
+import {mapState} from "vuex";
 
 export default {
   name: 'ProtocolDialog',
   components: {CustomButton},
   data () {
     return {
-      localMessageList: [],
       isUpdate: true,
       unsubscribe:''
     }
@@ -36,25 +34,13 @@ export default {
   updated() {
   },
   computed: {
-    getMessageList () {
-      let storeList = this.$store.state.protocol.logMessageList
-      if (this.isUpdate) {
-        this.updateLocalList(storeList)
-        return storeList
-      } else {
-        return this.localMessageList
-      }
-    }
+    ...mapState ({
+      listMessage: state => state.protocol.logMessageList,
+    })
   },
   methods: {
-    updateLocalList (newList) {
-      this.localMessageList = newList
-    },
     clearProtocol() {
       this.$store.dispatch('protocol/clearProtocol')
-    },
-    reUpdate () {
-      this.isUpdate = !this.isUpdate
     }
   }
 }

@@ -16,12 +16,37 @@
                    @closed="closeDialog('Amplifier')">
       <AmplifierDialog></AmplifierDialog>
     </window-portal>
-    <window-portal :open="settingDialogStatus.status"
-                   :focus="settingDialogStatus.focus"
+    <window-portal :open="testTranslyatorDialogStatus.status"
+                   :focus="testTranslyatorDialogStatus.focus"
+                   :left="600"
+                   :top="600"
+                   :title="'Тест-транслятор'"
+                   @closed="closeDialog('TestTranslyator')">
+      <TestTranslyatorDialog></TestTranslyatorDialog>
+    </window-portal>
+    <window-portal :open="MSHUDialogStatus.status"
+                   :focus="MSHUDialogStatus.focus"
+                   :left="600"
+                   :top="600"
+                   :title="'МШУ'"
+                   @closed="closeDialog('MSHU')">
+      <MSHUDialog></MSHUDialog>
+    </window-portal>
+    <window-portal :open="upConverterDialogStatus.status"
+                   :focus="upConverterDialogStatus.focus"
+                   :left="600"
+                   :top="600"
+                   :title="'Конвертер вверх'"
+                   @closed="closeDialog('UpConverter')">
+      <UpConverterDialog></UpConverterDialog>
+    </window-portal>
+
+    <window-portal :open="LVSSettingDialogStatus.status"
+                   :focus="LVSSettingDialogStatus.focus"
                    :left="600"
                    :top="600"
                    :title="'Настройки'"
-                   @closed="closeDialog('Setting')">
+                   @closed="closeDialog('LVSSetting')">
       <SettingDialog></SettingDialog>
     </window-portal>
     <window-portal :open="protocolDialogStatus.status"
@@ -44,9 +69,15 @@ import AmplifierDialog from "@/components/Dialogs/Devices/AmplifierDialog";
 import {mapState} from "vuex";
 import SettingDialog from "@/components/Dialogs/Setting/ConnectionDialog";
 import ProtocolDialog from "@/components/Dialogs/Protocols/ProtocolDialog";
+import TestTranslyatorDialog from "@/components/Dialogs/Devices/TestTranslyatorDialog";
+import MSHUDialog from "@/components/Dialogs/Devices/MSHUDialog";
+import UpConverterDialog from "@/components/Dialogs/Devices/UpConverterDialog";
 export default {
   name: 'DialogsContainer',
   components: {
+    UpConverterDialog,
+    MSHUDialog,
+    TestTranslyatorDialog,
     ProtocolDialog,
     SettingDialog,
     AmplifierDialog,
@@ -62,7 +93,11 @@ export default {
     ...mapState({
       amplifierDialogStatus: state => state.dialogStatus.amplifierDialogStatus,
       antennaSystemDialogStatus: state => state.dialogStatus.antennaSystemDialogStatus,
-      settingDialogStatus: state => state.dialogStatus.settingDialogStatus,
+      testTranslyatorDialogStatus: state => state.dialogStatus.testTranslyatorDialogStatus,
+      MSHUDialogStatus: state => state.dialogStatus.MSHUDialogStatus,
+      upConverterDialogStatus: state => state.dialogStatus.upConverterDialogStatus,
+
+      LVSSettingDialogStatus: state => state.dialogStatus.LVSSettingDialogStatus,
       protocolDialogStatus: state => state.dialogStatus.protocolDialogStatus,
     })
   }

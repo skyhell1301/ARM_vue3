@@ -2,217 +2,219 @@
   <div class="device-container">
     <svg id="line-container-id" class="line-container" height="100%" width="100%">
       <rect width="100%" height="100%" fill="url(#grid)"></rect>
-      <connection-line-component id_1="antenna-system-id"
-                                 :connection-point_1="{side: 'left', percent: 5}"
-                                 id_2="switch-id-1"
-                                 :connection-point_2="{side: 'top', percent: 50}"
-                                 :point-edges-array="lineAntennaSystemToSwitch1"
-      >
-      </connection-line-component>
-      <connection-line-component id_1="antenna-system-id"
-                                 :connection-point_1="{side: 'left', percent: 20}"
-                                 id_2="switch-id-2"
-                                 :connection-point_2="{side: 'top', percent: 50}"
-                                 :point-edges-array="lineAntennaSystemToSwitch2"
-      >
-      </connection-line-component>
-      <connection-line-component id_1="test-translyator-id"
-                                 :connection-point_1="{side: 'left', percent: 50}"
-                                 id_2="switch-id-1"
-                                 :connection-point_2="{side: 'top', percent: 50}"
-                                 :point-edges-array="lineTestTranslyatorToSwitch1"
-                                 :active-animation="test"
-                                 :animation-duration="1.5"
-                                 @onComplete="continueAnimation('switch_1')"
-                                 ref="TestTranslyatorToSwitch_1Line"
-      >
-      </connection-line-component>
-      <connection-line-component id_1="test-translyator-id"
-                                 :connection-point_1="{side: 'right', percent: 50}"
-                                 id_2="switch-id-2"
-                                 :connection-point_2="{side: 'top', percent: 50}"
-                                 :point-edges-array="lineTestTranslyatorToSwitch2"
-      >
-      </connection-line-component>
-      <connection-line-component id_1="switch-id-1"
-                                 :connection-point_1="{side: 'left', percent: 50}"
-                                 id_2="amplifier-device-1-id"
-                                 :connection-point_2="{side: 'top', percent: 50}"
-                                 :point-edges-array="lineSwitch1ToUM1"
-                                 :animation-duration="1.5"
-                                 ref="switch_1ToAmplifier_1Line"
-      >
-      </connection-line-component>
-      <connection-line-component id_1="switch-id-1"
-                                 :connection-point_1="{side: 'left', percent: 50}"
-                                 id_2="amplifier-device-2-id"
-                                 :connection-point_2="{side: 'top', percent: 50}"
-                                 :point-edges-array="lineSwitch1ToUM2"
-                                 :animation-duration="1.5"
-                                 ref="switch_1ToAmplifier_2Line"
-      >
-      </connection-line-component>
-      <connection-line-component id_1="switch-id-2"
-                                 :connection-point_1="{side: 'left', percent: 50}"
-                                 id_2="MSHU-device-id-1"
-                                 :connection-point_2="{side: 'top', percent: 50}"
-                                 :point-edges-array="lineSwitch1ToUM1"
-      >
-      </connection-line-component>
-      <connection-line-component id_1="switch-id-2"
-                                 :connection-point_1="{side: 'left', percent: 50}"
-                                 id_2="MSHU-device-id-2"
-                                 :connection-point_2="{side: 'top', percent: 50}"
-                                 :point-edges-array="lineSwitch1ToUM2"
-      >
-      </connection-line-component>
-      <connection-line-component id_1="amplifier-device-1-id"
-                                 :connection-point_1="{side: 'bottom', percent: 50}"
-                                 id_2="switch-id-3"
-                                 :connection-point_2="{side: 'top', percent: 50}"
-                                 :point-edges-array="lineUM1ToSwitch3"
-      >
-      </connection-line-component>
-      <connection-line-component id_1="amplifier-device-2-id"
-                                 :connection-point_1="{side: 'bottom', percent: 50}"
-                                 id_2="switch-id-3"
-                                 :connection-point_2="{side: 'top', percent: 50}"
-                                 :point-edges-array="lineUM2ToSwitch3"
-      >
-      </connection-line-component>
-      <connection-line-component id_1="MSHU-device-id-1"
-                                 :connection-point_1="{side: 'bottom', percent: 50}"
-                                 id_2="switch-id-4"
-                                 :connection-point_2="{side: 'top', percent: 50}"
-                                 :point-edges-array="lineUM1ToSwitch3"
-      >
-      </connection-line-component>
-      <connection-line-component id_1="MSHU-device-id-2"
-                                 :connection-point_1="{side: 'bottom', percent: 50}"
-                                 id_2="switch-id-4"
-                                 :connection-point_2="{side: 'top', percent: 50}"
-                                 :point-edges-array="lineUM2ToSwitch3"
-      >
-      </connection-line-component>
-      <connection-line-component id_1="switch-id-3"
-                                 :connection-point_1="{side: 'left', percent: 50}"
-                                 id_2="up-converter-id-1"
-                                 :connection-point_2="{side: 'top', percent: 50}"
-                                 :point-edges-array="lineSwitch1ToUM1"
-      >
-      </connection-line-component>
-      <connection-line-component id_1="switch-id-3"
-                                 :connection-point_1="{side: 'left', percent: 50}"
-                                 id_2="up-converter-id-2"
-                                 :connection-point_2="{side: 'top', percent: 50}"
-                                 :point-edges-array="lineSwitch1ToUM2"
-      >
-      </connection-line-component>
-      <connection-line-component id_1="switch-id-4"
-                                 :connection-point_1="{side: 'left', percent: 50}"
-                                 id_2="down-converter-id-1"
-                                 :connection-point_2="{side: 'top', percent: 50}"
-                                 :point-edges-array="lineSwitch1ToUM1"
-      >
-      </connection-line-component>
-      <connection-line-component id_1="switch-id-4"
-                                 :connection-point_1="{side: 'left', percent: 50}"
-                                 id_2="down-converter-id-2"
-                                 :connection-point_2="{side: 'top', percent: 50}"
-                                 :point-edges-array="lineSwitch1ToUM2"
-      >
-      </connection-line-component>
-      <connection-line-component id_1="up-converter-id-1"
-                                 :connection-point_1="{side: 'bottom', percent: 50}"
-                                 id_2="switch-id-5"
-                                 :connection-point_2="{side: 'left', percent: 50}"
-                                 :point-edges-array="lineUpConvertor1ToSwitch5"
-      >
-      </connection-line-component>
-      <connection-line-component id_1="up-converter-id-2"
-                                 :connection-point_1="{side: 'bottom', percent: 50}"
-                                 id_2="switch-id-5"
-                                 :connection-point_2="{side: 'right', percent: 50}"
-                                 :point-edges-array="lineUpConvertor1ToSwitch5"
-      >
-      </connection-line-component>
-      <connection-line-component id_1="down-converter-id-1"
-                                 :connection-point_1="{side: 'bottom', percent: 50}"
-                                 id_2="switch-id-6"
-                                 :connection-point_2="{side: 'right', percent: 50}"
-                                 :point-edges-array="lineUpConvertor1ToSwitch5"
-      >
-      </connection-line-component>
-      <connection-line-component id_1="down-converter-id-2"
-                                 :connection-point_1="{side: 'bottom', percent: 50}"
-                                 id_2="switch-id-6"
-                                 :connection-point_2="{side: 'right', percent: 50}"
-                                 :point-edges-array="lineUpConvertor1ToSwitch5"
-      >
-      </connection-line-component>
-      <connection-line-component id_1="switch-id-5"
-                                 :connection-point_1="{side: 'bottom', percent: 50}"
-                                 id_2="up-matrix-id"
-                                 :connection-point_2="{side: 'left', percent: 50}"
-                                 :point-edges-array="lineUpConvertor1ToSwitch5"
-      >
-      </connection-line-component>
-      <connection-line-component id_1="switch-id-6"
-                                 :connection-point_1="{side: 'bottom', percent: 50}"
-                                 id_2="down-matrix-id"
-                                 :connection-point_2="{side: 'bottom', percent: 80}"
-                                 :point-edges-array="lineSwitch6ToDownMatrix"
-      >
-      </connection-line-component>
-      <connection-line-component id_1="up-matrix-id"
-                                 :connection-point_1="{side: 'bottom', percent: 20}"
-                                 id_2="cortex-id-1"
-                                 :connection-point_2="{side: 'top', percent: 35}"
-                                 :point-edges-array="lineUpMatrixToCortex1"
-      >
-      </connection-line-component>
-      <connection-line-component id_1="up-matrix-id"
-                                 :connection-point_1="{side: 'bottom', percent: 80}"
-                                 id_2="cortex-id-2"
-                                 :connection-point_2="{side: 'top', percent: 35}"
-                                 :point-edges-array="lineUpMatrixToCortex2"
-      >
-      </connection-line-component>
-      <connection-line-component id_1="down-matrix-id"
-                                 :connection-point_1="{side: 'left', percent: 45}"
-                                 id_2="cortex-id-1"
-                                 :connection-point_2="{side: 'top', percent: 65}"
-                                 :point-edges-array="lineDownMatrixToCortex1"
-      >
-      </connection-line-component>
-      <connection-line-component id_1="down-matrix-id"
-                                 :connection-point_1="{side: 'left', percent: 55}"
-                                 id_2="cortex-id-2"
-                                 :connection-point_2="{side: 'top', percent: 65}"
-                                 :point-edges-array="lineDownMatrixToCortex2"
-      >
-      </connection-line-component>
-      <connection-line-component id_1="down-matrix-id"
-                                 :connection-point_1="{side: 'left', percent: 65}"
-                                 id_2="spectrum-analyzer-id"
-                                 :connection-point_2="{side: 'top', percent: 50}"
-                                 :point-edges-array="lineDownMatrixToSpectrumAnalyser"
-      >
-      </connection-line-component>
-      <connection-line-component id_1="down-matrix-id"
-                                 :connection-point_1="{side: 'left', percent: 75}"
-                                 id_2="as-stoyka-id"
-                                 :connection-point_2="{side: 'bottom', percent: 50}"
-                                 :point-edges-array="lineDownMatrixToASStoyka"
-      >
-      </connection-line-component>
-      <connection-line-component id_1="down-matrix-id"
-                                 :connection-point_1="{side: 'left', percent: 35}"
-                                 id_2="down-matrix-id"
-                                 :connection-point_2="{side: 'bottom', percent: 35}"
-                                 :point-edges-array="lineDownMatrixToDownMatrix"
-      >
-      </connection-line-component>
+      <g id="schemas-lines">
+        <connection-line-component id_1="antenna-system-id"
+                                   :connection-point_1="{side: 'left', percent: 5}"
+                                   id_2="switch-id-1"
+                                   :connection-point_2="{side: 'top', percent: 50}"
+                                   :point-edges-array="lineAntennaSystemToSwitch1"
+        >
+        </connection-line-component>
+        <connection-line-component id_1="antenna-system-id"
+                                   :connection-point_1="{side: 'left', percent: 20}"
+                                   id_2="switch-id-2"
+                                   :connection-point_2="{side: 'top', percent: 50}"
+                                   :point-edges-array="lineAntennaSystemToSwitch2"
+        >
+        </connection-line-component>
+        <connection-line-component id_1="test-translyator-id"
+                                   :connection-point_1="{side: 'left', percent: 50}"
+                                   id_2="switch-id-1"
+                                   :connection-point_2="{side: 'top', percent: 50}"
+                                   :point-edges-array="lineTestTranslyatorToSwitch1"
+                                   :active-animation="test"
+                                   :animation-duration="1.5"
+                                   @onComplete="continueAnimation('switch_1')"
+                                   ref="TestTranslyatorToSwitch_1Line"
+        >
+        </connection-line-component>
+        <connection-line-component id_1="test-translyator-id"
+                                   :connection-point_1="{side: 'right', percent: 50}"
+                                   id_2="switch-id-2"
+                                   :connection-point_2="{side: 'top', percent: 50}"
+                                   :point-edges-array="lineTestTranslyatorToSwitch2"
+        >
+        </connection-line-component>
+        <connection-line-component id_1="switch-id-1"
+                                   :connection-point_1="{side: 'left', percent: 50}"
+                                   id_2="amplifier-device-1-id"
+                                   :connection-point_2="{side: 'top', percent: 50}"
+                                   :point-edges-array="lineSwitch1ToUM1"
+                                   :animation-duration="1.5"
+                                   ref="switch_1ToAmplifier_1Line"
+        >
+        </connection-line-component>
+        <connection-line-component id_1="switch-id-1"
+                                   :connection-point_1="{side: 'left', percent: 50}"
+                                   id_2="amplifier-device-2-id"
+                                   :connection-point_2="{side: 'top', percent: 50}"
+                                   :point-edges-array="lineSwitch1ToUM2"
+                                   :animation-duration="1.5"
+                                   ref="switch_1ToAmplifier_2Line"
+        >
+        </connection-line-component>
+        <connection-line-component id_1="switch-id-2"
+                                   :connection-point_1="{side: 'left', percent: 50}"
+                                   id_2="MSHU-device-id-1"
+                                   :connection-point_2="{side: 'top', percent: 50}"
+                                   :point-edges-array="lineSwitch1ToUM1"
+        >
+        </connection-line-component>
+        <connection-line-component id_1="switch-id-2"
+                                   :connection-point_1="{side: 'left', percent: 50}"
+                                   id_2="MSHU-device-id-2"
+                                   :connection-point_2="{side: 'top', percent: 50}"
+                                   :point-edges-array="lineSwitch1ToUM2"
+        >
+        </connection-line-component>
+        <connection-line-component id_1="amplifier-device-1-id"
+                                   :connection-point_1="{side: 'bottom', percent: 50}"
+                                   id_2="switch-id-3"
+                                   :connection-point_2="{side: 'top', percent: 50}"
+                                   :point-edges-array="lineUM1ToSwitch3"
+        >
+        </connection-line-component>
+        <connection-line-component id_1="amplifier-device-2-id"
+                                   :connection-point_1="{side: 'bottom', percent: 50}"
+                                   id_2="switch-id-3"
+                                   :connection-point_2="{side: 'top', percent: 50}"
+                                   :point-edges-array="lineUM2ToSwitch3"
+        >
+        </connection-line-component>
+        <connection-line-component id_1="MSHU-device-id-1"
+                                   :connection-point_1="{side: 'bottom', percent: 50}"
+                                   id_2="switch-id-4"
+                                   :connection-point_2="{side: 'top', percent: 50}"
+                                   :point-edges-array="lineUM1ToSwitch3"
+        >
+        </connection-line-component>
+        <connection-line-component id_1="MSHU-device-id-2"
+                                   :connection-point_1="{side: 'bottom', percent: 50}"
+                                   id_2="switch-id-4"
+                                   :connection-point_2="{side: 'top', percent: 50}"
+                                   :point-edges-array="lineUM2ToSwitch3"
+        >
+        </connection-line-component>
+        <connection-line-component id_1="switch-id-3"
+                                   :connection-point_1="{side: 'left', percent: 50}"
+                                   id_2="up-converter-id-1"
+                                   :connection-point_2="{side: 'top', percent: 50}"
+                                   :point-edges-array="lineSwitch1ToUM1"
+        >
+        </connection-line-component>
+        <connection-line-component id_1="switch-id-3"
+                                   :connection-point_1="{side: 'left', percent: 50}"
+                                   id_2="up-converter-id-2"
+                                   :connection-point_2="{side: 'top', percent: 50}"
+                                   :point-edges-array="lineSwitch1ToUM2"
+        >
+        </connection-line-component>
+        <connection-line-component id_1="switch-id-4"
+                                   :connection-point_1="{side: 'left', percent: 50}"
+                                   id_2="down-converter-id-1"
+                                   :connection-point_2="{side: 'top', percent: 50}"
+                                   :point-edges-array="lineSwitch1ToUM1"
+        >
+        </connection-line-component>
+        <connection-line-component id_1="switch-id-4"
+                                   :connection-point_1="{side: 'left', percent: 50}"
+                                   id_2="down-converter-id-2"
+                                   :connection-point_2="{side: 'top', percent: 50}"
+                                   :point-edges-array="lineSwitch1ToUM2"
+        >
+        </connection-line-component>
+        <connection-line-component id_1="up-converter-id-1"
+                                   :connection-point_1="{side: 'bottom', percent: 50}"
+                                   id_2="switch-id-5"
+                                   :connection-point_2="{side: 'left', percent: 50}"
+                                   :point-edges-array="lineUpConvertor1ToSwitch5"
+        >
+        </connection-line-component>
+        <connection-line-component id_1="up-converter-id-2"
+                                   :connection-point_1="{side: 'bottom', percent: 50}"
+                                   id_2="switch-id-5"
+                                   :connection-point_2="{side: 'right', percent: 50}"
+                                   :point-edges-array="lineUpConvertor1ToSwitch5"
+        >
+        </connection-line-component>
+        <connection-line-component id_1="down-converter-id-1"
+                                   :connection-point_1="{side: 'bottom', percent: 50}"
+                                   id_2="switch-id-6"
+                                   :connection-point_2="{side: 'right', percent: 50}"
+                                   :point-edges-array="lineUpConvertor1ToSwitch5"
+        >
+        </connection-line-component>
+        <connection-line-component id_1="down-converter-id-2"
+                                   :connection-point_1="{side: 'bottom', percent: 50}"
+                                   id_2="switch-id-6"
+                                   :connection-point_2="{side: 'right', percent: 50}"
+                                   :point-edges-array="lineUpConvertor1ToSwitch5"
+        >
+        </connection-line-component>
+        <connection-line-component id_1="switch-id-5"
+                                   :connection-point_1="{side: 'bottom', percent: 50}"
+                                   id_2="up-matrix-id"
+                                   :connection-point_2="{side: 'left', percent: 50}"
+                                   :point-edges-array="lineUpConvertor1ToSwitch5"
+        >
+        </connection-line-component>
+        <connection-line-component id_1="switch-id-6"
+                                   :connection-point_1="{side: 'bottom', percent: 50}"
+                                   id_2="down-matrix-id"
+                                   :connection-point_2="{side: 'bottom', percent: 80}"
+                                   :point-edges-array="lineSwitch6ToDownMatrix"
+        >
+        </connection-line-component>
+        <connection-line-component id_1="up-matrix-id"
+                                   :connection-point_1="{side: 'bottom', percent: 20}"
+                                   id_2="cortex-id-1"
+                                   :connection-point_2="{side: 'top', percent: 35}"
+                                   :point-edges-array="lineUpMatrixToCortex1"
+        >
+        </connection-line-component>
+        <connection-line-component id_1="up-matrix-id"
+                                   :connection-point_1="{side: 'bottom', percent: 80}"
+                                   id_2="cortex-id-2"
+                                   :connection-point_2="{side: 'top', percent: 35}"
+                                   :point-edges-array="lineUpMatrixToCortex2"
+        >
+        </connection-line-component>
+        <connection-line-component id_1="down-matrix-id"
+                                   :connection-point_1="{side: 'left', percent: 45}"
+                                   id_2="cortex-id-1"
+                                   :connection-point_2="{side: 'top', percent: 65}"
+                                   :point-edges-array="lineDownMatrixToCortex1"
+        >
+        </connection-line-component>
+        <connection-line-component id_1="down-matrix-id"
+                                   :connection-point_1="{side: 'left', percent: 55}"
+                                   id_2="cortex-id-2"
+                                   :connection-point_2="{side: 'top', percent: 65}"
+                                   :point-edges-array="lineDownMatrixToCortex2"
+        >
+        </connection-line-component>
+        <connection-line-component id_1="down-matrix-id"
+                                   :connection-point_1="{side: 'left', percent: 65}"
+                                   id_2="spectrum-analyzer-id"
+                                   :connection-point_2="{side: 'top', percent: 50}"
+                                   :point-edges-array="lineDownMatrixToSpectrumAnalyser"
+        >
+        </connection-line-component>
+        <connection-line-component id_1="down-matrix-id"
+                                   :connection-point_1="{side: 'left', percent: 75}"
+                                   id_2="as-stoyka-id"
+                                   :connection-point_2="{side: 'bottom', percent: 50}"
+                                   :point-edges-array="lineDownMatrixToASStoyka"
+        >
+        </connection-line-component>
+        <connection-line-component id_1="down-matrix-id"
+                                   :connection-point_1="{side: 'left', percent: 35}"
+                                   id_2="down-matrix-id"
+                                   :connection-point_2="{side: 'bottom', percent: 35}"
+                                   :point-edges-array="lineDownMatrixToDownMatrix"
+        >
+        </connection-line-component>
+      </g>
       <defs>
         <pattern id="grid" patternUnits="userSpaceOnUse" width="10" height="10" patternTransform="rotate(0)">
           <line x1="0" y1="0" x2="10" y2="0" stroke="#ccc"/>
@@ -220,31 +222,30 @@
         </pattern>
       </defs>
     </svg>
-    <DeviceDisplayComponent id="antenna-system-id" title-device="АНТЕННАЯ СИСТЕМА" class="antenna-system-device" :connection-interface-active="false" @dblclick="antennaDialogOpen">
+    <DeviceDisplayComponent id="antenna-system-id" title-device="АНТЕННАЯ СИСТЕМА" class="antenna-system-device"
+                            :connection-interface-active="false" @dblclick="dialogOpen('AntennaSystem')">
       <DisplayParametersComponent :device-data="antennaParameter"></DisplayParametersComponent>
     </DeviceDisplayComponent>
-    <DeviceDisplayComponent id="test-translyator-id" title-device="ТЕСТ-ТРАНСЛЯТОР" class="test-translyator-device">
-      <DisplayParametersComponent>
-        <button style="height: 60%; width: 60%; align-self: center; justify-self: center; font-size: .9em" @click="continueAnimation('TestTranslyatorToSwitch_1Line')">Анимация</button>
-      </DisplayParametersComponent>
+    <DeviceDisplayComponent id="test-translyator-id" title-device="ТЕСТ-ТРАНСЛЯТОР" class="test-translyator-device" @dblclick="dialogOpen('TestTranslyator')">
+      <DisplayParametersComponent :device-data="testTranslyatorDeviceData"></DisplayParametersComponent>
     </DeviceDisplayComponent>
-    <DeviceDisplayComponent id="amplifier-device-1-id" title-device="УМ #1" class="amplifier-device-1" @dblclick="amplifierDialogOpen">
-      <DisplayParametersComponent></DisplayParametersComponent>
+    <DeviceDisplayComponent id="amplifier-device-1-id" title-device="УМ #1" class="amplifier-device-1" @dblclick="dialogOpen('Amplifier')">
+      <DisplayParametersComponent :device-data="amplifier1DeviceById1"></DisplayParametersComponent>
     </DeviceDisplayComponent>
-    <DeviceDisplayComponent id="amplifier-device-2-id" title-device="УМ #2" class="amplifier-device-2" @dblclick="amplifierDialogOpen">
-      <DisplayParametersComponent></DisplayParametersComponent>
+    <DeviceDisplayComponent id="amplifier-device-2-id" title-device="УМ #2" class="amplifier-device-2" @dblclick="dialogOpen('Amplifier')">
+      <DisplayParametersComponent :device-data="amplifier1DeviceById2"></DisplayParametersComponent>
     </DeviceDisplayComponent>
-    <DeviceDisplayComponent id="MSHU-device-id-1" title-device="МШУ #1" class="MSHU-device-1">
-      <DisplayParametersComponent></DisplayParametersComponent>
+    <DeviceDisplayComponent id="MSHU-device-id-1" title-device="МШУ #1" class="MSHU-device-1" @dblclick="dialogOpen('MSHU')">
+      <DisplayParametersComponent :device-data="MSHUDeviceData1"></DisplayParametersComponent>
     </DeviceDisplayComponent>
-    <DeviceDisplayComponent id="MSHU-device-id-2" title-device="МШУ #2" class="MSHU-device-2">
-      <DisplayParametersComponent></DisplayParametersComponent>
+    <DeviceDisplayComponent id="MSHU-device-id-2" title-device="МШУ #2" class="MSHU-device-2" @dblclick="dialogOpen('MSHU')">
+      <DisplayParametersComponent :device-data="MSHUDeviceData2"></DisplayParametersComponent>
     </DeviceDisplayComponent>
-    <DeviceDisplayComponent id="up-converter-id-1" title-device="КОНВЕРТЕР ВВЕРХ #1" class="up-converter-1">
-      <DisplayParametersComponent></DisplayParametersComponent>
+    <DeviceDisplayComponent id="up-converter-id-1" title-device="КОНВЕРТЕР ВВЕРХ #1" class="up-converter-1" @dblclick="dialogOpen('UpConverter')">
+      <DisplayParametersComponent :device-data="upConverterDeviceData1"></DisplayParametersComponent>
     </DeviceDisplayComponent>
-    <DeviceDisplayComponent id="up-converter-id-2" title-device="КОНВЕРТЕР ВВЕРХ #2" class="up-converter-2">
-      <DisplayParametersComponent></DisplayParametersComponent>
+    <DeviceDisplayComponent id="up-converter-id-2" title-device="КОНВЕРТЕР ВВЕРХ #2" class="up-converter-2" @dblclick="dialogOpen('UpConverter')">
+      <DisplayParametersComponent :device-data="upConverterDeviceData2"></DisplayParametersComponent>
     </DeviceDisplayComponent>
     <DeviceDisplayComponent id="down-converter-id-1" title-device="КОНВЕРТЕР ВНИЗ #1" class="down-converter-1">
       <DisplayParametersComponent></DisplayParametersComponent>
@@ -319,30 +320,6 @@ export default {
     return {
       inputValue: '',
       test: false,
-      antennaDeviceData: {
-        deviceParameters: [
-          {
-            nameParameter: 'Сигнал',
-            valueParameter: '100 дБ'
-          },
-          {
-            nameParameter: 'Азимут',
-            valueParameter: '100град'
-          },
-          {
-            nameParameter: 'Угол места',
-            valueParameter: '45 град'
-          },
-          {
-            nameParameter: 'Сканер',
-            valueParameter: 'Вкл'
-          },
-          {
-            nameParameter: 'Режим',
-            valueParameter: 'Автомат'
-          }],
-        title: 'АНТЕННАЯ СИСТЕМА'
-      },
       lineAntennaSystemToSwitch1: [
         {
           direction: 'left',
@@ -607,158 +584,6 @@ export default {
           value: 122
         }
       ],
-      testTranslyatorDeviceData: {
-        deviceParameters: [
-          {
-            nameParameter: 'Частота (МГц)',
-            valueParameter: '100'
-          },
-          {
-            nameParameter: 'Ослабление (дБ)',
-            valueParameter: '20'
-          },
-          {
-            nameParameter: 'ВЧ выход',
-            valueParameter: '1'
-          }],
-        title: 'ТЕСТ-ТРАНСЛЯТОР'
-      },
-      amplifier1DeviceData1: {
-        deviceParameters: [
-          {
-            nameParameter: 'Режим',
-            valueParameter: 'Токовый'
-          },
-          {
-            nameParameter: 'Вых. мощность (Вт)',
-            valueParameter: '120'
-          },
-          {
-            nameParameter: 'Запрет несущей',
-            valueParameter: 'Нет'
-          },
-          {
-            nameParameter: 't °C(вх,вых Δ)',
-            valueParameter: '67'
-          }],
-        title: 'УМ #1'
-      },
-      amplifier1DeviceData2: {
-        deviceParameters: [
-          {
-            nameParameter: 'Режим',
-            valueParameter: 'Ключевой'
-          },
-          {
-            nameParameter: 'Вых. мощность (Вт)',
-            valueParameter: '100'
-          },
-          {
-            nameParameter: 'Запрет несущей',
-            valueParameter: 'Есть'
-          },
-          {
-            nameParameter: 't °C(вх,вых Δ)',
-            valueParameter: '75'
-          }],
-        title: 'УМ #2'
-      },
-      MSHUDeviceData1: {
-        deviceParameters: [
-          {
-            nameParameter: 'Значение тока (мА)',
-            valueParameter: '100'
-          },
-          {
-            nameParameter: 'Пределы тока (мА)',
-            valueParameter: '1000'
-          },
-          {
-            nameParameter: 'Напряжение A (В)',
-            valueParameter: '220'
-          },
-          {
-            nameParameter: 'Напряжение B (В)',
-            valueParameter: '200'
-          }],
-        title: 'МШУ #1'
-      },
-      MSHUDeviceData2: {
-        deviceParameters: [
-          {
-            nameParameter: 'Значение тока (мА)',
-            valueParameter: '200'
-          },
-          {
-            nameParameter: 'Пределы тока (мА)',
-            valueParameter: '2000'
-          },
-          {
-            nameParameter: 'Напряжение A (В)',
-            valueParameter: '226'
-          },
-          {
-            nameParameter: 'Напряжение B (В)',
-            valueParameter: '213'
-          }],
-        title: 'МШУ #2'
-      },
-      upConverterDeviceData1: {
-        deviceParameters: [
-          {
-            nameParameter: 'Частота (МГц)',
-            valueParameter: '200'
-          },
-          {
-            nameParameter: 'Ослабление (дБ)',
-            valueParameter: '25'
-          },
-          {
-            nameParameter: 'ВЧ выход',
-            valueParameter: '2'
-          }],
-        title: 'КОНВЕРТЕР ВВЕРХ #1'
-      },
-      upConverterDeviceData2: {
-        deviceParameters: [
-          {
-            nameParameter: 'Частота (МГц)',
-            valueParameter: '300'
-          },
-          {
-            nameParameter: 'Ослабление (дБ)',
-            valueParameter: '15'
-          },
-          {
-            nameParameter: 'ВЧ выход',
-            valueParameter: '1'
-          }],
-        title: 'КОНВЕРТЕР ВВЕРХ #2'
-      },
-      downConverterDeviceData1: {
-        deviceParameters: [
-          {
-            nameParameter: 'Частота (МГц)',
-            valueParameter: '450'
-          },
-          {
-            nameParameter: 'Ослабление (дБ)',
-            valueParameter: '15'
-          }],
-        title: 'КОНВЕРТЕР ВНИЗ #1'
-      },
-      downConverterDeviceData2: {
-        deviceParameters: [
-          {
-            nameParameter: 'Частота (МГц)',
-            valueParameter: '300'
-          },
-          {
-            nameParameter: 'Ослабление (дБ)',
-            valueParameter: '7'
-          }],
-        title: 'КОНВЕРТЕР ВНИЗ #1'
-      },
       nodes: '',
       template: ''
     }
@@ -773,12 +598,8 @@ export default {
     SwitchComponent
   },
   methods: {
-    continueAnimation (ref) {
-      this.$refs[ref].startAnimation()
-    },
-
-    antennaDialogOpen () {
-      this.$store.dispatch('dialogStatus/changeAntennaSystemDialogStatus', true)
+    dialogOpen (dialogName) {
+      this.$store.dispatch('dialogStatus/change' + dialogName + 'DialogStatus', true)
     },
     amplifierDialogOpen () {
       this.$store.dispatch('dialogStatus/changeAmplifierDialogStatus', true)
@@ -786,7 +607,16 @@ export default {
   },
   computed: {
     ...mapState({
-      antennaParameter: state => state.ZSParameters.antennaParametersById1
+      antennaParameter: state => state.ZSParameters.antennaParametersById1,
+      amplifier1DeviceById1: state => state.ZSParameters.amplifier1DeviceById1,
+      amplifier1DeviceById2: state => state.ZSParameters.amplifier1DeviceById2,
+      MSHUDeviceData1: state => state.ZSParameters.MSHUDeviceData1,
+      MSHUDeviceData2: state => state.ZSParameters.MSHUDeviceData2,
+      downConverterDeviceData1: state => state.ZSParameters.downConverterDeviceData1,
+      downConverterDeviceData2: state => state.ZSParameters.downConverterDeviceData2,
+      testTranslyatorDeviceData: state => state.ZSParameters.testTranslyatorDeviceData,
+      upConverterDeviceData1: state => state.ZSParameters.upConverterDeviceData1,
+      upConverterDeviceData2: state => state.ZSParameters.upConverterDeviceData2,
     })
   }
 }

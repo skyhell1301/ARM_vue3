@@ -1,8 +1,12 @@
 const state = ()=> ({
     antennaSystemDialogStatus: {status: false, focus: false},
     amplifierDialogStatus: {status: false, focus: false},
-    settingDialogStatus: {status: false, focus: false},
-    protocolDialogStatus: {status: false, focus: false}
+    testTranslyatorDialogStatus: {status: false, focus: false},
+    MSHUDialogStatus: {status: false, focus: false},
+    upConverterDialogStatus: {status: false, focus: false},
+
+    LVSSettingDialogStatus: {status: false, focus: false},
+    protocolDialogStatus: {status: false, focus: false},
 })
 const mutations = {
     changeAntennaSystemDialogStatus (state, payload) {
@@ -19,11 +23,34 @@ const mutations = {
             state.amplifierDialogStatus.status = payload
         }
     },
-    changeSettingDialogStatus (state, payload) {
-        if(state.settingDialogStatus.status === true && payload === true) {
-            state.settingDialogStatus.focus = !state.settingDialogStatus.focus
+    changeTestTranslyatorDialogStatus (state, payload) {
+        if(state.testTranslyatorDialogStatus.status === true && payload === true) {
+            state.testTranslyatorDialogStatus.focus = !state.testTranslyatorDialogStatus.focus
         } else {
-            state.settingDialogStatus.status = payload
+            state.testTranslyatorDialogStatus.status = payload
+        }
+    },
+    changeMSHUDialogStatus (state, payload) {
+        if(state.MSHUDialogStatus.status === true && payload === true) {
+            state.MSHUDialogStatus.focus = !state.MSHUDialogStatus.focus
+        } else {
+            state.MSHUDialogStatus.status = payload
+        }
+    },
+    changeUpConverterDialogStatus (state, payload) {
+        if(state.upConverterDialogStatus.status === true && payload === true) {
+            state.upConverterDialogStatus.focus = !state.upConverterDialogStatus.focus
+        } else {
+            state.upConverterDialogStatus.status = payload
+        }
+    },
+
+
+    changeLVSSettingDialogStatus (state, payload) {
+        if(state.LVSSettingDialogStatus.status === true && payload === true) {
+            state.LVSSettingDialogStatus.focus = !state.LVSSettingDialogStatus.focus
+        } else {
+            state.LVSSettingDialogStatus.status = payload
         }
     },
     changeProtocolDialogStatus (state, payload) {
@@ -43,12 +70,24 @@ const actions = {
     changeAmplifierDialogStatus ({commit}, payload) {
         commit('changeAmplifierDialogStatus', payload)
     },
-    changeSettingDialogStatus ({commit}, payload) {
-        commit('changeSettingDialogStatus', payload)
+    changeTestTranslyatorDialogStatus ({commit}, payload) {
+        commit('changeTestTranslyatorDialogStatus', payload)
+    },
+    changeMSHUDialogStatus ({commit}, payload) {
+        commit('changeMSHUDialogStatus', payload)
+    },
+    changeUpConverterDialogStatus ({commit}, payload) {
+        commit('changeUpConverterDialogStatus', payload)
+    },
+
+    changeLVSSettingDialogStatus ({commit}, payload) {
+        commit('changeLVSSettingDialogStatus', payload)
     },
     changeProtocolDialogStatus ({commit}, payload) {
         commit('changeProtocolDialogStatus', payload)
     },
+
+
 }
 export default {
     namespaced: true,

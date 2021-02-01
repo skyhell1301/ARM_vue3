@@ -10,8 +10,8 @@
     <ControlPanelComponent style="grid-row: 5; width: 95%"></ControlPanelComponent>
     <div class="control-background" style="grid-row: 7;">
       <div class="ind-title">ЗЕМНАЯ СТАНЦИЯ</div>
-      <ButtonComponent class="btn-2" v-model:active-status="testVar1"></ButtonComponent>
-      <StatusIndicatorComponent class="ind-1" :is-active="testVar1"></StatusIndicatorComponent>
+      <ButtonComponent class="btn-2" v-model:active-status="ZSMonitoringStatus"></ButtonComponent>
+      <StatusIndicatorComponent class="ind-1" :is-active="ZSMonitoringStatus"></StatusIndicatorComponent>
     </div>
     <div class="control-background" style="grid-row: 9;">
       <div class="ind-title">БОРТОВАЯ ТЕЛЕМЕТРИЯ</div>
@@ -53,7 +53,7 @@ export default {
   },
   data () {
     return {
-      testVar1: false,
+      ZSMonitoringStatus: false,
       testVar2: false,
       testVar3: false
     }
@@ -64,9 +64,48 @@ export default {
     },
     openProtocolDialog() {
       this.$store.dispatch('dialogStatus/changeProtocolDialogStatus', true)
+    },
+    sendZSMonitoringStatus() {
+      let message = {
+        state: 'Off'
+      }
+      // this.sendMessage('http://10.10.0.122:8082/monitoring/state', 'POST', null, 'qqq', JSON.stringify(message))
+      this.sendMessage('http://10.10.0.99:8080/devices/mon', 'POST', null, null, JSON.stringify(message))
+    },
+    sendMessage(urlApi, method, caller, jwttok, body) {
+      if (jwttok != 'undefined') {
+        let myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", jwttok);
+
+        let requestOptions = {
+          method: method,
+          headers: myHeaders,
+          body: body,
+          redirect: 'follow'
+        };
+
+        fetch(urlApi, requestOptions)
+            .then(response => {
+              console.log('response: ', response.text())
+            })
+            .then(result => {
+              console.log('result: ', result)
+              if (result.token != 'undefined') {
+                if (caller != null & caller != 'undefined') caller(result);
+              }
+            })
+            .catch(error => {
+              console.log('error: ', error);
+              this.ZSMonitoringStatus = false
+            });
+      }
     }
   },
   watch: {
+    ZSMonitoringStatus () {
+      this.sendZSMonitoringStatus()
+    }
   },
   computed: {
     ...mapState({

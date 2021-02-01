@@ -13,7 +13,7 @@ const mutations = {
     },
     clearProtocol(state) {
         state.logMessageList = []
-    }
+    },
 }
 
 const getters = {

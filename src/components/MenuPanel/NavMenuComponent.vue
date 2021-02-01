@@ -109,11 +109,11 @@
       </div>
     </MenuItemComponent>
     <MenuItemComponent title-menu-item="Настройки">
-      <div class="setting-item" @click="dialogOpen('changeSettingDialogStatus')">
+      <div class="setting-item">
         <GearIcon class="item-icon"></GearIcon>
         <div class="item-title">Настройки программы</div>
       </div>
-      <div class="setting-item">
+      <div class="setting-item" @click="dialogOpen('changeLVSSettingDialogStatus')">
         <LocalNetworkIcon class="item-icon"></LocalNetworkIcon>
         <div class="item-title">Настройки ЛВС</div>
       </div>
