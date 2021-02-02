@@ -1,6 +1,5 @@
 <template>
   <div class="container-control-and-indication">
-<!--    <iframe class="clock" src="http://10.10.0.16/clock/index.html"></iframe>-->
     <clock-component class="clock"></clock-component>
     <div class="crash">
       <div class="crash-title">АВАРИЯ</div>
@@ -67,16 +66,18 @@ export default {
     },
     sendZSMonitoringStatus() {
       let message = {
-        state: 'Off'
+        state: 'On'
       }
       // this.sendMessage('http://10.10.0.122:8082/monitoring/state', 'POST', null, 'qqq', JSON.stringify(message))
-      this.sendMessage('http://10.10.0.99:8080/devices/mon', 'POST', null, null, JSON.stringify(message))
+      if (this.ZSMonitoringStatus) {
+        this.sendMessage('http://10.10.0.99:8080/devices/mon', 'POST', null, null, JSON.stringify(message))
+      }
     },
     sendMessage(urlApi, method, caller, jwttok, body) {
       if (jwttok != 'undefined') {
         let myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Authorization", jwttok);
+        // myHeaders.append("Authorization", jwttok);
 
         let requestOptions = {
           method: method,
@@ -88,12 +89,14 @@ export default {
         fetch(urlApi, requestOptions)
             .then(response => {
               console.log('response: ', response.text())
+              console.log('response: ', response.status)
+              console.log('response: ', response.ok)
             })
             .then(result => {
               console.log('result: ', result)
-              if (result.token != 'undefined') {
-                if (caller != null & caller != 'undefined') caller(result);
-              }
+              // if (result.token != 'undefined') {
+              //   if (caller != null & caller != 'undefined') caller(result);
+              // }
             })
             .catch(error => {
               console.log('error: ', error);

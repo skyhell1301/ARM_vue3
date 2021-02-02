@@ -1,5 +1,5 @@
 import { createStore } from 'vuex'
-import dialogStatusModule from './modules/ApplicationModules/DialogsModules/dialogsStatusModule'
+import dialogStatus from './modules/ApplicationModules/DialogsModules/dialogsStatus'
 import ZSParameters from "@/store/modules/ZSParameters";
 import wsConnectionList from "@/store/modules/ConnectionModules/wsConnectionList";
 import protocolModule from "@/store/modules/protocolModule";
@@ -16,7 +16,7 @@ export default createStore({
 
   },
   modules: {
-    dialogStatus: dialogStatusModule,
+    dialogStatus: dialogStatus,
     ZSParameters: ZSParameters,
     wsConnectionList: wsConnectionList,
     protocol: protocolModule,

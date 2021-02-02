@@ -7,7 +7,7 @@
 
 <script>
 import {mapState} from 'vuex'
-import DisplayParametersComponent from "@/components/DevicesPanel/DisplayParametersComponent";
+import DisplayParametersComponent from "@/components/DevicesPanel/DysplayParametersComponents/DisplayParametersComponent";
 
 export default {
   name: 'AmplifierDialog',

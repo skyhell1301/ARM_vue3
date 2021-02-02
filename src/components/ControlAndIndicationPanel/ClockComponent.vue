@@ -9,7 +9,6 @@
 </template>
 
 <script>
-import {gsap} from 'gsap'
 export default {
   name: 'ClockComponent',
   data () {
@@ -33,7 +32,7 @@ export default {
   },
   mounted () {
     this.timer = setInterval(this.updateTime, 1000)
-    gsap.to('#rotate-background', {duration: 10, repeat: -1, rotation: 360, ease: 'linear'})
+    // gsap.to('#rotate-background', {duration: 10, repeat: -1, rotation: 360, ease: 'linear'})
   }
 }
 </script>
@@ -57,15 +56,17 @@ export default {
   border-radius: 7px;
 }
 .rotate-background {
+  animation: gradient-rotate 10s linear infinite;
   z-index: 1;
   grid-row: 1;
   grid-column: 1;
-  width: 200%;
+  width: 800%;
   height: 800%;
   justify-self: center;
   align-self: center;
-  background:  linear-gradient(to right, rgba(13,57,78,1) 0%, rgba(13,57,78,1) 45%, rgba(0,213,255,0.98) 49%, rgba(0,213,255,1) 51%, rgba(13,57,78,0.98) 55%, rgba(13,57,78,0.96) 100%);
+  background:  linear-gradient(to right, rgba(13,57,78,1) 0%, rgba(13,57,78,1) 49%, rgba(0,213,255,0.98) 50%, rgba(0,213,255,1) 51%, rgba(13,57,78,0.98) 52%, rgba(13,57,78,0.96) 100%);
 }
+@keyframes gradient-rotate { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 .background-clock {
   box-shadow: inset 0px 0px 8px -1px #47d0ee;
   z-index: 2;

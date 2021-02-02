@@ -23,32 +23,14 @@ export default {
         const three = Math.floor((Math.random() * 1000000) + 1) + ''
         return 'id' + one + two + three
       })(),
-      titleDevice: 'title',
-      dataArray: [],
+      dataArray: null,
     }
   },
   props: {
     deviceData: {
       type: Object
     },
-    fontSizeCoefficient: {
-      type: Number,
-      default: 0.09
-    }
   },
-  methods: {
-    updateData () {
-
-    }
-  },
-  mounted () {
-    // this.updateData()
-  },
-  watch: {
-    deviceData () {
-      this.updateData()
-    }
-  }
 }
 </script>
 

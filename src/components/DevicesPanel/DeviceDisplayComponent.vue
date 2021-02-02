@@ -10,9 +10,14 @@
       </svg>
     </div>
     <div class="device_body">
-      <div class="device_body__header">
+      <div class="device-body-header">
+        <div class="title-device-background">
+          <div class="title_device">
+            {{titleDevice}}
+          </div>
+        </div>
+        <GearIcon @click="clickSettingButton" v-if="settingsButton" class="device-btn-setting"/>
       </div>
-      <div class="title_device">{{titleDevice}}</div>
       <div class="device_display">
         <slot></slot>
       </div>
@@ -22,8 +27,10 @@
 
 <script>
 
+import GearIcon from "@/assets/images/SVGIconComponents/GearIcon";
 export default {
   name: 'DeviceDisplayComponent',
+  components: {GearIcon},
   data () {
     return {
       fz: this.fontSizeTitle,
@@ -46,33 +53,18 @@ export default {
     isReFontSize: {
       type: Boolean,
       default: true
+    },
+    settingsButton: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
-    reFontSize: function () {
-      this.fz = this.$el.getElementsByClassName('device_body__header').item(0).getBoundingClientRect().height * 0.8
-    },
-    reFontSizeInWidth: function () {
-      const WCurrentText = this.$el.getElementsByClassName('title_device').item(0).getBoundingClientRect().width
-      const HCurrentContainer = this.$el.getElementsByClassName('device_body__header').item(0).getBoundingClientRect().height
-      let Wtext = this.$el.getElementsByClassName('device_body__header').item(0).getBoundingClientRect().width * this.resizeCoefficient
-      if (Math.abs(Wtext - WCurrentText) > WCurrentText * 0.1) {
-        this.fz = Wtext > WCurrentText ? this.fz + HCurrentContainer * 0.05 : this.fz - HCurrentContainer * 0.05
-        setTimeout(this.reFontSizeInWidth, 5)
-      }
+    clickSettingButton () {
+      this.$emit('buttonClick')
     }
+
   },
-  mounted () {
-    // this.reFontSize()
-    // if (this.isReFontSize) {
-    //   this.reFontSize()
-    //   window.addEventListener('resize', this.reFontSize)
-    // }
-  },
-  beforeUnmount () {
-    window.removeEventListener('resize', this.reFontSize)
-    window.removeEventListener('resize', this.reFontSizeInWidth)
-  }
 }
 </script>
 
@@ -110,14 +102,24 @@ export default {
   background: linear-gradient(135deg, rgba(235,235,235,1) 0%, rgba(128,128,128,1) 61%, rgba(166,166,166,1) 100%);
   box-shadow: 0px 0px 5px 1px rgba(148,148,148,0.71);
 }
-.device_body__header {
+
+.device-body-header {
+  width: 100%;
+  height: 100%;
   grid-row: 1;
   grid-column: 1;
+  display: grid;
+  grid-template-columns: 90% 10%;
+  align-items: center;
+  justify-items: center;
+}
+
+.title-device-background {
   height: 65%;
-  width: 80%;
+  width: 85%;
   display: inline-block;
   align-self: center;
-  justify-self: center;
+  justify-self: end;
   border: 0.05rem solid rgba(77,83,79,0.75);
   border-radius: 7px;
   background: linear-gradient(to right, rgba(229,249,255,1) 0%, rgba(255,255,255,0.98) 47%, rgba(255,255,255,0.98) 62%, rgba(229,249,255,0.96) 100%);
@@ -133,6 +135,21 @@ export default {
   font-family: "sans-serif";
   user-select: none;
   font-size: .55em;
+  display: grid;
+  grid-template-columns: 90% 10%;
+}
+.device-btn-setting {
+  width: 60%;
+  height: 60%;
+  fill: none;
+}
+.device-btn-setting:hover {
+  cursor: pointer;
+  fill: #a8a8a8;
+}
+.device-btn-setting:active {
+  cursor: pointer;
+  fill: #e5e5e5;
 }
 .device_display {
   grid-row: 2;
@@ -142,4 +159,7 @@ export default {
   background: linear-gradient(275deg, rgb(158, 158, 158) 0%, rgb(247, 247, 247) 100%);
   box-shadow: inset 0px 0px 8px -1px rgba(51,51,51,1);
 }
+
+
+
 </style>
