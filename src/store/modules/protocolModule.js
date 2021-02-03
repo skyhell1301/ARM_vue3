@@ -1,10 +1,12 @@
 const state = ()=> ({
     logMessageList: [],
+    lastMessage: {},
     counter: 1
 })
 const mutations = {
     addLogMessage(state, payload) {
         payload.id = state.counter
+        state.lastMessage = payload
         state.logMessageList.push(payload)
         if (state.logMessageList.length > 99) {
             state.logMessageList.shift()

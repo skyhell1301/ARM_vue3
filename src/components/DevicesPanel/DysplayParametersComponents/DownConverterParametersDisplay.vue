@@ -1,5 +1,5 @@
 <template>
-  <UniversalDisplayComponent :view-fields-list="viewFields" :title="title" :input-parameters="inputParameters"></UniversalDisplayComponent>
+  <UniversalDisplayComponent :view-fields-list="viewFields" :title="title" :input-parameters="inputParameters" @openDialog="$emit('openDialog')"></UniversalDisplayComponent>
 </template>
 
 <script>

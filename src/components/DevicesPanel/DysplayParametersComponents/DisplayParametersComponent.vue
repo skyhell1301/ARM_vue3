@@ -48,21 +48,22 @@ export default {
   cursor: pointer;
   display: grid;
   grid-template-rows: 1fr;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: 65% 35%;
   font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
   text-align: left;
   align-items: center;
-  white-space: nowrap;
   width: 100%;
   height: 100%;
 }
 
 .param {
-  margin-left: 10%;
+  justify-self: start;
+  margin-left: 7px;
 }
 
 .value {
-  margin-right: 10%;
-  text-align: right;
+  margin-right: 7px;
+  justify-self: end;
+  text-align: end;
 }
 </style>

@@ -1,19 +1,14 @@
 <template>
-  <DeviceDisplayComponent :title-device="title">
-    <DisplayParametersComponent :device-data="parameters"></DisplayParametersComponent>
-  </DeviceDisplayComponent>
+  <UniversalDisplayComponent :view-fields-list="viewFields" :title="title" :input-parameters="inputParameters" @openDialog="$emit('openDialog')"></UniversalDisplayComponent>
 </template>
 
 <script>
-import DeviceDisplayComponent from "@/components/DevicesPanel/DeviceDisplayComponent";
-import DisplayParametersComponent
-  from "@/components/DevicesPanel/DysplayParametersComponents/DisplayParametersComponent";
+import UniversalDisplayComponent from "@/components/DevicesPanel/UniversalDisplayComponent";
 export default {
   name: 'TestTranslyatorParametersDisplay',
-  components: {DisplayParametersComponent, DeviceDisplayComponent},
+  components: {UniversalDisplayComponent},
   data () {
     return {
-      parameters: [],
       viewFields: ['Частота (МГц)', 'Ослабление (дБ)', 'ВЧ выход']
     }
   },
@@ -27,23 +22,6 @@ export default {
       default: null
     }
   },
-  methods: {
-    updateData () {
-      this.parameters = []
-      for(let field of this.viewFields){
-        for (let param in this.inputParameters.deviceParameters) {
-          if (this.inputParameters.deviceParameters[param].nameParameter === field) {
-            this.parameters.push(this.inputParameters.deviceParameters[param])
-          }
-        }
-      }
-    }
-  },
-  watch: {
-    inputParameters () {
-      this.updateData()
-    }
-  }
 }
 </script>
 

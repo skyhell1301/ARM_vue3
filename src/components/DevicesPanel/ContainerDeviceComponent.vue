@@ -218,20 +218,20 @@
                                     @dblclick="dialogOpen('AntennaSystem')"
                                     class="antenna-system-device"
                                     id="antenna-system-id"/>
-    <TestTranslyatorParametersDisplay id="test-translyator-id" title="ТЕСТ-ТРАНСЛЯТОР" class="test-translyator-device" @dblclick="dialogOpen('TestTranslyator')"
+    <TestTranslyatorParametersDisplay id="test-translyator-id" title="ТЕСТ-ТРАНСЛЯТОР" class="test-translyator-device" @openDialog="dialogOpen('TestTranslyator')"
                                       :input-parameters="testTranslyatorDeviceData"
     />
-    <AmplifierParametersDisplay id="amplifier-device-1-id" title="УМ #1" class="amplifier-device-1" @dblclick="dialogOpen('Amplifier')"
+    <AmplifierParametersDisplay id="amplifier-device-1-id" title="УМ #1" class="amplifier-device-1" @openDialog="dialogOpen('Amplifier')"
                                 :input-parameters="amplifier1Device1"
     />
-    <AmplifierParametersDisplay id="amplifier-device-2-id" title="УМ #2" class="amplifier-device-2" @dblclick="dialogOpen('Amplifier')"
+    <AmplifierParametersDisplay id="amplifier-device-2-id" title="УМ #2" class="amplifier-device-2" @openDialog="dialogOpen('Amplifier')"
                                 :input-parameters="amplifier1Device2"
     />
-    <MSHUParametersDisplay id="MSHU-device-id-1" title="МШУ #1" class="MSHU-device-1" @dblclick="dialogOpen('MSHU')"
-                           :input-parameters="MSHUDeviceData1"
+    <MSHUParametersDisplay id="MSHU-device-id-1" title="МШУ #1" class="MSHU-device-1" @openDialog="dialogOpen('MSHU')"
+                           :input-parameters="getMSHUParametersByNumber1"
     />
-    <MSHUParametersDisplay id="MSHU-device-id-2" title="МШУ #2" class="MSHU-device-2" @dblclick="dialogOpen('MSHU')"
-                           :input-parameters="MSHUDeviceData2"
+    <MSHUParametersDisplay id="MSHU-device-id-2" title="МШУ #2" class="MSHU-device-2" @openDialog="dialogOpen('MSHU')"
+                           :input-parameters="getMSHUParametersByNumber2"
     />
     <UpConverterParametersDisplay :input-parameters="upConverterDeviceData1" title="КОНВЕРТЕР ВВЕРХ #1"
                                   id="up-converter-id-1"
@@ -247,12 +247,8 @@
     <DownConverterParametersDisplay id="down-converter-id-2" title-device="КОНВЕРТЕР ВНИЗ #2" class="down-converter-2"
                                     :input-parameters="downConverterDeviceData2"
     />
-    <DeviceDisplayComponent id="up-matrix-id" title-device="Матрица 8х8 вверх" class="up-matrix">
-      <div style="height: 100px; width: 100%"></div>
-    </DeviceDisplayComponent>
-    <DeviceDisplayComponent id="down-matrix-id" title-device="Матрица 8х8 вниз" class="down-matrix">
-      <div style="height: 100px; width: 100%"></div>
-    </DeviceDisplayComponent>
+    <MatrixParametersDisplay id="up-matrix-id" title-device="Матрица 8х8 вверх" class="up-matrix"/>
+    <MatrixParametersDisplay id="down-matrix-id" title-device="Матрица 8х8 вниз" class="down-matrix"/>
     <DeviceDisplayComponent id="cortex-id-1" title-device="Cortex #1" class="cortex-1">
       <div style="height: 100px; width: 100%"></div>
     </DeviceDisplayComponent>
@@ -315,6 +311,7 @@ import TestTranslyatorParametersDisplay
 import MSHUParametersDisplay from "@/components/DevicesPanel/DysplayParametersComponents/MSHUParametersDisplay";
 import DownConverterParametersDisplay
   from "@/components/DevicesPanel/DysplayParametersComponents/DownConverterParametersDisplay";
+import MatrixParametersDisplay from "@/components/DevicesPanel/DysplayParametersComponents/MatrixParametersDisplay";
 
 export default {
   name: 'ContainerDeviceComponent',
@@ -591,6 +588,7 @@ export default {
     }
   },
   components: {
+    MatrixParametersDisplay,
     DownConverterParametersDisplay,
     MSHUParametersDisplay,
     TestTranslyatorParametersDisplay,
@@ -607,9 +605,6 @@ export default {
   methods: {
     dialogOpen (dialogName) {
       this.$store.dispatch('dialogStatus/change' + dialogName + 'DialogStatus', true)
-    },
-    amplifierDialogOpen () {
-      this.$store.dispatch('dialogStatus/changeAmplifierDialogStatus', true)
     }
   },
   computed: {
@@ -617,15 +612,20 @@ export default {
       antennaSystemDeviceData1: state => state.ZSParameters.antennaParameters1,
       amplifier1Device1: state => state.ZSParameters.amplifier1DeviceParameters1,
       amplifier1Device2: state => state.ZSParameters.amplifier1DeviceParameters2,
-      MSHUDeviceData1: state => state.ZSParameters.MSHUDeviceParameters1,
-      MSHUDeviceData2: state => state.ZSParameters.MSHUDeviceParameters2,
       downConverterDeviceData1: state => state.ZSParameters.downConverterDeviceParameters1,
       downConverterDeviceData2: state => state.ZSParameters.downConverterDeviceParameters2,
       testTranslyatorDeviceData: state => state.ZSParameters.testTranslyatorDeviceParameters,
       upConverterDeviceData1: state => state.ZSParameters.upConverterDeviceParameters1,
       upConverterDeviceData2: state => state.ZSParameters.upConverterDeviceParameters2,
-    })
-  }
+    }),
+
+    getMSHUParametersByNumber1 () {
+      return this.$store.getters['ZSParameters/MSHUParametersByNumber'](1)
+    },
+    getMSHUParametersByNumber2 () {
+      return this.$store.getters['ZSParameters/MSHUParametersByNumber'](2)
+    },
+  },
 }
 </script>
 
@@ -655,7 +655,7 @@ export default {
   grid-column: 6;
   grid-row: 1;
   width: 90%;
-  height: 90%;
+  height: 115%;
   align-self: start;
 }
 .test-translyator-device {
@@ -718,7 +718,7 @@ export default {
   grid-column: 3;
   grid-row: 7;
   height: 100%;
-  width: 60%;
+  width: 70%;
   justify-self: start;
   align-self: start;
 }

@@ -47,7 +47,7 @@ const mutations = {
     }
 }
 const getters = {
-    getLifeMarkWS(state, url) {
+    getLifeMarkWS: state => url => {
         for (let conn of state.webSocketConnectionList) {
             if (conn.userUrl === url) {
                 return conn

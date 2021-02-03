@@ -1,5 +1,5 @@
 <template>
-  <UniversalDisplayComponent view-fields-list="viewFields" :title="title" :input-parameters="inputParameters"></UniversalDisplayComponent>
+  <UniversalDisplayComponent :is-settings-button="false" :view-fields-list="viewFields" :title="title" :input-parameters="inputParameters" @openDialog="$emit('openDialog')"></UniversalDisplayComponent>
 </template>
 
 <script>
@@ -22,23 +22,8 @@ export default {
       default: null
     }
   },
-  methods: {
-
-  },
-  watch: {
-  },
-  computed: {
-  },
-  mounted() {
-  }
 }
 </script>
 
 <style scoped>
-.view-list-container {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 60% 40%;
-  justify-items: start;
-}
 </style>

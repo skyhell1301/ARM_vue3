@@ -34,10 +34,11 @@ export default {
 
         webSocketConnection.onmessage = function (event) {
           // console.log(event.data)
-          let logMessage = {text: event.data}
-          store.dispatch('protocol/addLogMessage', logMessage)
+          // let logMessage = {text: event.data}
+          // store.dispatch('protocol/addLogMessage', logMessage)
           let parameters = JSON.parse(event.data).DeviceParameters
           let lifeMark = JSON.parse(event.data).livetag
+          store.dispatch('protocol/addLogMessage', {text: lifeMark})
           if (parameters !== null && parameters !== undefined) {
             store.dispatch('ZSParameters/parametersUpdate', parameters)
           }

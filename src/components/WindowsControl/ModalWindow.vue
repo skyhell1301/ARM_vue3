@@ -6,9 +6,6 @@
           <div class="modal-body">
             <slot>
             </slot>
-            <button class="modal-default-button" @click="clickClose">
-              OK
-            </button>
           </div>
         </div>
       </div>
@@ -49,9 +46,9 @@ export default {
 .modal-container {
   display: flex;
   flex-direction: row;
-  width: 300px;
+  width: 500px;
   margin: 0px auto;
-  padding: 20px 30px;
+  //padding: 20px 30px;
   background-color: #fff;
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
@@ -66,7 +63,7 @@ export default {
 .modal-body {
   width: 100%;
   height: 100%;
-  margin: 20px 0;
+  margin: 15px 15px;
 }
 
 .modal-default-button {
@@ -93,7 +90,6 @@ export default {
 
 .modal-enter .modal-container,
 .modal-leave-active .modal-container {
-  -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }
 </style>

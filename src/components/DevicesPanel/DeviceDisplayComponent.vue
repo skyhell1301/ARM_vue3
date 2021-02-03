@@ -95,6 +95,7 @@ export default {
   fill: url(#my-cool-gradient);
 }
 .device_body {
+  max-width: 100%;
   width: 100%;
   height: 100%;
   display: grid;
@@ -120,6 +121,7 @@ export default {
   display: inline-block;
   align-self: center;
   justify-self: end;
+  display: grid;
   border: 0.05rem solid rgba(77,83,79,0.75);
   border-radius: 7px;
   background: linear-gradient(to right, rgba(229,249,255,1) 0%, rgba(255,255,255,0.98) 47%, rgba(255,255,255,0.98) 62%, rgba(229,249,255,0.96) 100%);
