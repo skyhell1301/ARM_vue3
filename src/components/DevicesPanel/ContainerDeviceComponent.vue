@@ -219,33 +219,33 @@
                                     class="antenna-system-device"
                                     id="antenna-system-id"/>
     <TestTranslyatorParametersDisplay id="test-translyator-id" title="ТЕСТ-ТРАНСЛЯТОР" class="test-translyator-device" @openDialog="dialogOpen('TestTranslyator')"
-                                      :input-parameters="testTranslyatorDeviceData"
+                                      :input-parameters="antennaSystemDeviceData1"
     />
     <AmplifierParametersDisplay id="amplifier-device-1-id" title="УМ #1" class="amplifier-device-1" @openDialog="dialogOpen('Amplifier')"
-                                :input-parameters="amplifier1Device1"
+                                :input-parameters="antennaSystemDeviceData1"
     />
     <AmplifierParametersDisplay id="amplifier-device-2-id" title="УМ #2" class="amplifier-device-2" @openDialog="dialogOpen('Amplifier')"
-                                :input-parameters="amplifier1Device2"
+                                :input-parameters="antennaSystemDeviceData1"
     />
     <MSHUParametersDisplay id="MSHU-device-id-1" title="МШУ #1" class="MSHU-device-1" @openDialog="dialogOpen('MSHU')"
-                           :input-parameters="getMSHUParametersByNumber1"
+                           :input-parameters="antennaSystemDeviceData1"
     />
     <MSHUParametersDisplay id="MSHU-device-id-2" title="МШУ #2" class="MSHU-device-2" @openDialog="dialogOpen('MSHU')"
-                           :input-parameters="getMSHUParametersByNumber2"
+                           :input-parameters="antennaSystemDeviceData1"
     />
-    <UpConverterParametersDisplay :input-parameters="upConverterDeviceData1" title="КОНВЕРТЕР ВВЕРХ #1"
+    <UpConverterParametersDisplay :input-parameters="antennaSystemDeviceData1" title="КОНВЕРТЕР ВВЕРХ #1"
                                   id="up-converter-id-1"
                                   class="up-converter-1"
                                   @dblclick="dialogOpen('UpConverter')"/>
-    <UpConverterParametersDisplay :input-parameters="upConverterDeviceData2" title="КОНВЕРТЕР ВВЕРХ #2"
+    <UpConverterParametersDisplay :input-parameters="antennaSystemDeviceData1" title="КОНВЕРТЕР ВВЕРХ #2"
                                   id="up-converter-id-2"
                                   class="up-converter-2"
                                   @dblclick="dialogOpen('UpConverter')"/>
     <DownConverterParametersDisplay id="down-converter-id-1" title-device="КОНВЕРТЕР ВНИЗ #1" class="down-converter-1"
-                                    :input-parameters="downConverterDeviceData1"
+                                    :input-parameters="antennaSystemDeviceData1"
     />
     <DownConverterParametersDisplay id="down-converter-id-2" title-device="КОНВЕРТЕР ВНИЗ #2" class="down-converter-2"
-                                    :input-parameters="downConverterDeviceData2"
+                                    :input-parameters="antennaSystemDeviceData1"
     />
     <MatrixParametersDisplay id="up-matrix-id" title-device="Матрица 8х8 вверх" class="up-matrix"/>
     <MatrixParametersDisplay id="down-matrix-id" title-device="Матрица 8х8 вниз" class="down-matrix"/>
@@ -609,22 +609,22 @@ export default {
   },
   computed: {
     ...mapState({
-      antennaSystemDeviceData1: state => state.ZSParameters.antennaParameters1,
-      amplifier1Device1: state => state.ZSParameters.amplifier1DeviceParameters1,
-      amplifier1Device2: state => state.ZSParameters.amplifier1DeviceParameters2,
-      downConverterDeviceData1: state => state.ZSParameters.downConverterDeviceParameters1,
-      downConverterDeviceData2: state => state.ZSParameters.downConverterDeviceParameters2,
-      testTranslyatorDeviceData: state => state.ZSParameters.testTranslyatorDeviceParameters,
-      upConverterDeviceData1: state => state.ZSParameters.upConverterDeviceParameters1,
-      upConverterDeviceData2: state => state.ZSParameters.upConverterDeviceParameters2,
+      // antennaSystemDeviceData1: state => state.ZSParameters.antennaParameters1,
+      // amplifier1Device1: state => state.ZSParameters.amplifier1DeviceParameters1,
+      // amplifier1Device2: state => state.ZSParameters.amplifier1DeviceParameters2,
+      // downConverterDeviceData1: state => state.ZSParameters.downConverterDeviceParameters1,
+      // downConverterDeviceData2: state => state.ZSParameters.downConverterDeviceParameters2,
+      // testTranslyatorDeviceData: state => state.ZSParameters.testTranslyatorDeviceParameters,
+      // upConverterDeviceData1: state => state.ZSParameters.upConverterDeviceParameters1,
+      // upConverterDeviceData2: state => state.ZSParameters.upConverterDeviceParameters2,
     }),
 
-    getMSHUParametersByNumber1 () {
-      return this.$store.getters['ZSParameters/MSHUParametersByNumber'](1)
-    },
-    getMSHUParametersByNumber2 () {
-      return this.$store.getters['ZSParameters/MSHUParametersByNumber'](2)
-    },
+    // getMSHUParametersByNumber1 () {
+    //   return this.$store.getters['ZSParameters/MSHUParametersByNumber'](1)
+    // },
+    // getMSHUParametersByNumber2 () {
+    //   return this.$store.getters['ZSParameters/MSHUParametersByNumber'](2)
+    // },
   },
 }
 </script>

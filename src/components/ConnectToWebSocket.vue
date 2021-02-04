@@ -1,17 +1,17 @@
 <script>
 export default {
   name: 'ConnectToWebSocket',
-  data () {
+  data() {
     return {
       store: null
     }
   },
   methods: {
-    connectToWS (wsUrl, store){
+    connectToWS(wsUrl, store) {
       this.store = store
       let checkWebSocketConnection = store.getters['wsConnectionList/getWebSocket'](wsUrl)
       let mes
-      if(checkWebSocketConnection === null && wsUrl !== '') {
+      if (checkWebSocketConnection === null && wsUrl !== '') {
 
         mes = 'Начало подключения к WebSocket серверу (url: ws://' + wsUrl + ')'
         console.log(mes)
@@ -33,12 +33,12 @@ export default {
         }
 
         webSocketConnection.onmessage = function (event) {
-          // console.log(event.data)
           // let logMessage = {text: event.data}
-          // store.dispatch('protocol/addLogMessage', logMessage)
+          store.dispatch('protocol/addLogMessage', {text: event.data})
           let parameters = JSON.parse(event.data).DeviceParameters
           let lifeMark = JSON.parse(event.data).livetag
-          store.dispatch('protocol/addLogMessage', {text: lifeMark})
+          // if(lifeMark !== undefined)
+          // store.dispatch('protocol/addLogMessage', {text: lifeMark})
           if (parameters !== null && parameters !== undefined) {
             store.dispatch('ZSParameters/parametersUpdate', parameters)
           }
@@ -72,7 +72,8 @@ export default {
       }
     },
 
-    closeConnectToWS (wsUrl, store) {
+
+    closeConnectToWS(wsUrl, store) {
       let webSocketConnection = store.getters['wsConnectionList/getWebSocket'](wsUrl)
       // console.log(webSocketConnection)
       if (webSocketConnection !== null) {

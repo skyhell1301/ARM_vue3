@@ -6,15 +6,18 @@ const state = ()=> ({
 const mutations = {
     addLogMessage(state, payload) {
         payload.id = state.counter
+        payload.time = new Date().toLocaleTimeString()
         state.lastMessage = payload
-        state.logMessageList.push(payload)
-        if (state.logMessageList.length > 99) {
+        if (state.logMessageList.length > 29) {
             state.logMessageList.shift()
         }
+
+        state.logMessageList.push(payload)
         state.counter++
     },
     clearProtocol(state) {
         state.logMessageList = []
+        state.counter = 1
     },
 }
 

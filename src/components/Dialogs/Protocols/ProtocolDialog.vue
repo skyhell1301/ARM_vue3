@@ -1,30 +1,24 @@
 <template>
   <div class="container-protocol-dialog">
     <div class="text-content-container">
-      <div v-if="!test" class="text-content-window"
-           ref="scrollDiv"
+      <select class="protocol-messages-list" ref="scrollDiv"
+              size="100"
+              v-model="selectMessage"
       >
-        <div class="text-content"
-             v-for="item in getMessageList"
-             :key="item.id"
-        >
-          <div class="text-content-id">
-              {{item.id}}
-          </div>
-
-          <div class="text-content-message">
-            <pre>
-              {{item.text}}
-            </pre>
-          </div>
-        </div>
-      </div>
-      <textarea class="test-text-area" v-model="getTextMessageList" v-else>
-      </textarea>
+        <transition-group name="message-list">
+          <option v-for="message in getMessageList"
+                  :key="message.id"
+                  :value="message"
+                  class="protocol-message"
+          >
+            {{ message.id + '. ' + message.time + ' ' + message.text }}
+          </option>
+        </transition-group>
+      </select>
     </div>
     <div class="container-protocol-dialog-control-elements">
       <custom-button class="protocol-dialog-button" @buttonClick="clearProtocol">Очистить протокол</custom-button>
-      <custom-button class="protocol-dialog-button" @buttonClick="scrollToElement" v-if="isUpdate">Остановить</custom-button>
+      <custom-button class="protocol-dialog-button" @buttonClick="isUpdate = false" v-if="isUpdate">Остановить</custom-button>
       <custom-button class="protocol-dialog-button" @buttonClick="isUpdate = true" v-else>Возобновить</custom-button>
     </div>protocol-dialog-control-elements
   </div>
@@ -40,65 +34,44 @@ export default {
   data () {
     return {
       isUpdate: true,
-      test: false,
       localMessageList: {},
-      localTextMessages: '',
-      updateScroll: true
+      updateScroll: true,
+      selectMessage: null
     }
   },
-
   watch: {
-  },
-  updated() {
-
-
+    selectMessage () {
+      console.log(this.selectMessage)
+    },
+    localMessageList () {
+      if(this.updateScroll) {
+        this.scrollDown()
+      }
+    }
   },
   methods: {
     scrollDown() {
       let messageDisplay = this.$refs.scrollDiv
-      console.log(messageDisplay.scrollHeight)
-      // if (messageDisplay.scrollTop === messageDisplay.scrollHeight) {
-      //   messageDisplay.scrollTop = messageDisplay.scrollHeight
-      // }
-    },
-    updateScrollStatus() {
-
+      if (messageDisplay !== undefined && this.updateScroll === true) {
+          messageDisplay.scrollTop = messageDisplay.scrollHeight + 1000
+      }
     },
     clearProtocol() {
-
       this.$store.dispatch('protocol/clearProtocol')
       this.localMessageList = {}
     },
-    updateMessageList () {
-      this.localMessageList = {}
-      // this.localMessageList = Object.assign({}, this.listMessage.slice().reverse())
+    updateLocalMessageList () {
+      this.localMessageList = null
       this.localMessageList = Object.assign({}, this.listMessage)
-      if(this.updateScroll) {
-        this.scrollDown()
-      }
-    },
-    updateTextMessages () {
 
-      this.localTextMessages += this.lastMessage.id + '.  ' + this.lastMessage.text + '\n'
-    }
-  },
-  mounted() {
-    // this.$refs.scrollDiv.scrollTop = this.$refs.scrollDiv.scrollHeight
-    this.$refs.scrollDiv.addEventListener('scroll', this.updateScrollStatus)
+    },
   },
   computed: {
-    getTextMessageList () {
-      this.updateTextMessages()
-      return this.localTextMessages
-    },
     getMessageList () {
       if(this.isUpdate) {
-        this.updateMessageList()
-        // return this.$store.state.protocol.logMessageList.slice().reverse()
-        return this.$store.state.protocol.logMessageList
-      } else {
-        return this.localMessageList
+        this.updateLocalMessageList()
       }
+      return this.localMessageList
     },
     ...mapState ({
       listMessage: state => state.protocol.logMessageList,
@@ -110,12 +83,6 @@ export default {
 </script>
 
 <style scoped>
-.test-text-area {
-  width: 98%;
-  height: 98%;
-  max-width: 98%;
-  max-height: 98%;
-}
 .container-protocol-dialog {
   width: 100%;
   height: 100%;
@@ -135,37 +102,26 @@ export default {
   height: 100%;
 }
 
-.text-content-window {
-  //direction: rtl;
-  //transform: rotate(180deg);
-  overflow-y:scroll;
-  width: 95%;
+.protocol-messages-list {
+  //overflow: auto;
+  outline: none;
+  background: #0d394e;
+  color: #47d0ee;
+  width: 98%;
   height: 98%;
-  border: 1px #47d0ee solid;
+  max-width: 98%;
+  max-height: 98%;
+}
+
+.protocol-message {
+  transition: all .5s;
   display: flex;
   flex-direction: column;
-}
-.text-content {
-  //direction: ltr;
-  //transform: rotate(180deg);
-  font-size: .9em;
-  margin-bottom: 2px;
-  color: #47d0ee;
-  border-bottom: #47d0ee .5px solid;
-  display: grid;
-  grid-template-columns: 5% 95%;
-}
-.text-content-id {
-  width: 95%;
-  height: 100%;
-  border-right: #47d0ee .5px solid;
-  text-align: center;
-}
-.text-content-message {
-  margin: 5px;
+  font-size: 1.1em;
 }
 
 .container-protocol-dialog-control-elements {
+  user-select: none;
   display: grid;
   justify-items: center;
   align-items: center;
@@ -182,7 +138,22 @@ export default {
   background: #0d394e;
 }
 .protocol-dialog-button:hover {
+  outline: none;
+  cursor: pointer;
   background: #0b2a39;
-  box-shadow: 0px 0px 5px 1px rgb(28, 123, 173);
+  box-shadow: 0 0 5px 1px rgb(28, 123, 173);
+}
+
+.message-list-leave-active {
+  opacity: 0;
+  position: absolute;
+}
+.message-list-enter-from {
+  transform: translateX(50px);
+  opacity: 0;
+}
+.message-list-leave-to {
+  transform: translateY(-30px);
+  opacity: 0;
 }
 </style>

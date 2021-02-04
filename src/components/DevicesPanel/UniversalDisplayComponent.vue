@@ -5,7 +5,7 @@
       <div class="modal-content-wrapper">
         <close-icon class="close-modal-button" @click="showModal = false"></close-icon>
         <div v-for="param in parameters"
-             :key="param.valueParameter"
+             :key="param"
              class="view-list-container"
         >
           <div class="view-list-name">{{param.nameParameter}}</div>

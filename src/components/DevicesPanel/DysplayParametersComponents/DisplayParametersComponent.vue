@@ -4,7 +4,7 @@
   >
     <div class="table_parameters"
          v-for="param in deviceData"
-         :key="param.id">
+         :key="param">
       <div class="param">{{ param.nameParameter }}</div>
       <div class="value">{{ param.valueParameter }}</div>
     </div>
