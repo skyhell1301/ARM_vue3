@@ -43,8 +43,8 @@
 
     <window-portal :open="LVSSettingDialogStatus.status"
                    :focus="LVSSettingDialogStatus.focus"
-                   :left="600"
-                   :top="600"
+                   :width="600"
+                   :height="800"
                    :title="'Настройки'"
                    @closed="closeDialog('LVSSetting')">
       <SettingDialog></SettingDialog>

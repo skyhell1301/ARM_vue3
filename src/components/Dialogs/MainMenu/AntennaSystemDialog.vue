@@ -1,11 +1,10 @@
 <template>
   <div class="antenna-device-container">
-    <display-parameters-component class="text-parameters"
-                                  :device-data="antennaParameter"></display-parameters-component>
+    <display-parameters-component style="font-size: 1em;" :device-data="antennaParameters"/>
     <div class="container-control-elements">
       <select class="control-elements" name="Режим" v-model="selectedMode">
-        <option v-for="mode in modes" :key="mode.id">
-          {{ mode.name }}
+        <option v-for="mode in workModeList" :key="mode">
+          {{ mode }}
         </option>
       </select>
       <custom-button class="control-elements" @buttonClick="sendMode">Установить режим</custom-button>
@@ -14,27 +13,16 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
 import DisplayParametersComponent from "@/components/DevicesPanel/DysplayParametersComponents/DisplayParametersComponent";
 import CustomButton from "@/components/ComponentsForPopupWindow/CustomButton";
+import {mapState} from "vuex";
 
 export default {
   name: 'AntennaSystemDialog',
   data() {
     return {
-      modes: [
-        {
-          id: 1,
-          name: 'Автомат',
-          workmode: 0
-        },
-        {
-          id: 2,
-          name: 'По программе',
-          workmode: 1
-        },
-      ],
-      selectedMode: 'Автомат'
+      selectedMode: '',
+      workModeList: ['По программе', 'Автомат']
     }
   },
   components: {
@@ -42,17 +30,15 @@ export default {
     DisplayParametersComponent,
   },
   methods: {
+    updateLocalData () {
+      console.log(this.antennaParameters)
+      if(this.antennaParameters !== undefined) {
+        this.workModeList = this.antennaParameters.workmode.val_list
+      }
+    },
     sendMode() {
-      let sendsWorkmode = null
-      for(let a of this.modes) {
-        if (a.name === this.selectedMode) {
-          sendsWorkmode = a.workmode
-        }
-      }
-      let obj = {
-        id: 1,
-        workmode: sendsWorkmode
-      }
+      let obj = {id: this.antennaParameters.id.valueParameter}
+      obj.workmode = this.antennaParameters.workmode.val_list.indexOf(this.selectedMode)
       this.sendMessage('http://yii-site/nomenklatura/smotrantennaupdate/' + obj.id, 'POST', null, 'qqq', JSON.stringify(obj))
     },
     sendMessage(urlApi, method, caller, jwttok, body) {
@@ -81,9 +67,12 @@ export default {
       }
     }
   },
+  updated() {
+    this.updateLocalData()
+  },
   computed: {
     ...mapState({
-      antennaParameter: state => state.ZSParameters.antennaParametersById1
+      antennaParameters: state => state.ZSParameters.antennaParameters1.deviceParameters
     })
   },
   mounted() {

@@ -34,6 +34,7 @@ export default {
 
         webSocketConnection.onmessage = function (event) {
           // let logMessage = {text: event.data}
+          // console.log(event.data)
           store.dispatch('protocol/addLogMessage', {text: event.data})
           let parameters = JSON.parse(event.data).DeviceParameters
           let lifeMark = JSON.parse(event.data).livetag

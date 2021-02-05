@@ -89,8 +89,9 @@ export default {
       const { width, height, left, top } = this
       // Open a nonexistent page to replace the content later
       // const windowPath = window.location.origin + window.location.pathname + '_window'
+      let params = `width=${width},height=${height},left=${left},top=${top},menubar=no,location=no,resizable=no,scrollbars=yes,status=no`
       const windowPath = 'window'
-      this.windowRef = window.open(windowPath, this.target, `width=${width},height=${height},left=${left},top=${top}`)
+      this.windowRef = window.open(windowPath, this.target, params)
       this.windowRef.addEventListener('beforeunload', this.closePortal)
       this.windowRef.addEventListener('load', () => {
         this.windowLoaded = true

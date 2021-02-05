@@ -1,5 +1,9 @@
 <template>
-  <UniversalDisplayComponent :view-fields-list="viewFields" :title="title" :input-parameters="inputParameters" @openDialog="$emit('openDialog')"></UniversalDisplayComponent>
+  <UniversalDisplayComponent :view-fields-list="viewFields"
+                             :title="title"
+                             :input-parameters="inputParameters"
+                             :dialog-name="dialogName"
+  ></UniversalDisplayComponent>
 </template>
 
 <script>
@@ -12,10 +16,6 @@ export default {
       viewFields: ['Значение ослабления', 'Вх. частота', 'Напряжение +5В', 'dac'],
     }
   },
-
-  updated() {
-    // console.log(this.inputParameters)
-  },
   props: {
     title: {
       type: String,
@@ -24,6 +24,10 @@ export default {
     inputParameters: {
       type: Object,
       default: null
+    },
+    dialogName: {
+      type: String,
+      default: 'UpConverter',
     }
   },
 }

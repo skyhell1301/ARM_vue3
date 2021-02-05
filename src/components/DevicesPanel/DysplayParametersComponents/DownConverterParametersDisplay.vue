@@ -1,5 +1,11 @@
 <template>
-  <UniversalDisplayComponent :view-fields-list="viewFields" :title="title" :input-parameters="inputParameters" @openDialog="$emit('openDialog')"></UniversalDisplayComponent>
+  <UniversalDisplayComponent :view-fields-list="viewFields"
+                             :title="title"
+                             :input-parameters="inputParameters"
+                             :dialog-name="dialogName"
+  >
+
+  </UniversalDisplayComponent>
 </template>
 
 <script>
@@ -20,6 +26,10 @@ export default {
     inputParameters: {
       type: Object,
       default: null
+    },
+    dialogName: {
+      type: String,
+      default: 'DownConverter',
     }
   }
 }

@@ -1,9 +1,10 @@
 import { createStore } from 'vuex'
 import dialogStatus from './modules/ApplicationModules/DialogsModules/dialogsStatus'
-import ZSParameters from "@/store/modules/ZSParameters";
+import ZSParameters from "@/store/modules/ZSmodules/ZSParameters";
 import wsConnectionList from "@/store/modules/ConnectionModules/wsConnectionList";
-import protocolModule from "@/store/modules/protocolModule";
+import protocolModule from "@/store/modules/ZSmodules/protocolModule";
 import windowsControl from "@/store/modules/ApplicationModules/DialogsModules/windowsControl";
+import controllerConnection from "@/store/modules/ConnectionModules/controllerConnection";
 
 export default createStore({
   state: {
@@ -20,6 +21,7 @@ export default createStore({
     ZSParameters: ZSParameters,
     wsConnectionList: wsConnectionList,
     protocol: protocolModule,
-    windowsControl: windowsControl
+    windowsControl: windowsControl,
+    controllerConnection: controllerConnection
   }
 })

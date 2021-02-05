@@ -1,6 +1,6 @@
 <template>
   <DeviceDisplayComponent :title-device="title" :settings-button="isSettingsButton" @buttonClick="openSettingMenu">
-    <DisplayParametersComponent :device-data="getViewParameters" @dblclick="$emit('openDialog')"></DisplayParametersComponent>
+    <DisplayParametersComponent :device-data="getViewParameters"  @dblclick="openDialog"></DisplayParametersComponent>
     <ModalWindow v-if="showModal">
       <div class="modal-content-wrapper">
         <close-icon class="close-modal-button" @click="showModal = false"></close-icon>
@@ -48,10 +48,16 @@ export default {
     isSettingsButton: {
       type: Boolean,
       default: true
+    },
+    dialogName: {
+      type: String,
+      default: '',
     }
-
   },
   methods: {
+    openDialog () {
+      this.$store.dispatch('dialogStatus/change' + this.dialogName + 'DialogStatus', true)
+    },
     updateData () {
       this.parameters = []
       for (let param in this.inputParameters.deviceParameters) {

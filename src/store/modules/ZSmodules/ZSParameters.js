@@ -1,15 +1,15 @@
 const state = ()=> ({
-    allParameters: null,
-    antennaParameters1: null,
-    antennaParameters2: null,
-    amplifier1DeviceParameters1: null,
-    amplifier1DeviceParameters2: null,
-    MSHUDeviceParameters: null,
-    downConverterDeviceParameters1: null,
-    downConverterDeviceParameters2: null,
-    testTranslyatorDeviceParameters: null,
-    upConverterDeviceParameters1: null,
-    upConverterDeviceParameters2: null,
+    allParameters: {},
+    antennaParameters1: {},
+    antennaParameters2: {},
+    amplifier1DeviceParameters1: {},
+    amplifier1DeviceParameters2: {},
+    MSHUDeviceParameters: {},
+    downConverterDeviceParameters1: {},
+    downConverterDeviceParameters2: {},
+    testTranslyatorDeviceParameters: {},
+    upConverterDeviceParameters1: {},
+    upConverterDeviceParameters2: {},
 })
 const mutations = {
     parametersUpdate(state, payload) {

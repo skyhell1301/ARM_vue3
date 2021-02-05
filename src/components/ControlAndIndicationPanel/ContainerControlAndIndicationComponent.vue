@@ -38,6 +38,7 @@ import ConnectPanelComponent from './ConnectPanelComponent'
 import TargetDesignationPanelComponent from './TargetDesignationPanelComponent'
 import ProtocolButtonComponent from './ProtocolButtonComponent'
 import ClockComponent from "@/components/ControlAndIndicationPanel/ClockComponent";
+import RESTRequest from "@/components/RESTRequest";
 export default {
   name: 'ContainerControlAndIndicationComponent',
   components: {
@@ -64,13 +65,13 @@ export default {
     openProtocolDialog() {
       this.$store.dispatch('dialogStatus/changeProtocolDialogStatus', true)
     },
-    sendZSMonitoringStatus() {
-      let message = {
-        state: 'On'
-      }
-      // this.sendMessage('http://10.10.0.122:8082/monitoring/state', 'POST', null, 'qqq', JSON.stringify(message))
-      if (this.ZSMonitoringStatus) {
-        this.sendMessage('http://10.10.0.99:8080/devices/mon', 'POST', null, null, JSON.stringify(message))
+    async sendZSMonitoringStatus() {
+      let message = {}
+      message.state = this.ZSMonitoringStatus ? 'On' : 'Off'
+      message.type = 'gsMonitoring'
+      let response = RESTRequest.methods.sendCommand('http://10.10.0.122:8083/monitoring/state', 'POST', null, 'qqq', JSON.stringify(message))
+      if(!response.ok) {
+        this.ZSMonitoringStatus = false
       }
     },
     sendMessage(urlApi, method, caller, jwttok, body) {

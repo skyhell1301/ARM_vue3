@@ -12,13 +12,10 @@
       </feMerge>
     </filter>
     <path filter="url(#dropshadow)" :d="pathForLine" class="path-line"/>
-    <circle :id="ID" class="motion-object" style="fill: rgba(134, 218, 82, 0.9);" cx="4" cy="4" r="4"></circle>
   </g>
 </template>
 
 <script>
-import { gsap } from 'gsap'
-import MotionPathPlugin from 'gsap/MotionPathPlugin'
 export default {
   name: 'ConnectionLineComponent',
   data () {
@@ -79,27 +76,9 @@ export default {
     pointEdgesArray: {
       type: Array
     },
-    activeAnimation: {
-      type: Boolean,
-      default: false
-    },
-    animationDuration: {
-      type: Number,
-      default: 5
-    }
-  },
-  watch: {
-    activeAnimation: function () {
-      if (this.activeAnimation) {
-        this.startAnimation()
-      } else {
-        this.stopAnimation()
-      }
-    }
   },
   methods: {
     updateLine: function () {
-      this.stopAnimation()
       let coordinate1 = this.calculateCoordinates(this.object_1, this.connectionPoint_1)
       let coordinate2 = this.calculateCoordinates(this.object_2, this.connectionPoint_2)
       this.xSvg = document.getElementById('line-container-id').getBoundingClientRect().x
@@ -112,9 +91,6 @@ export default {
       this.y2 = coordinate2.y - this.ySvg
       this.updateDeltaFlag()
       this.createPathLine()
-      if (this.activeAnimation) {
-        this.startAnimation()
-      }
     },
     calculateCoordinates (obj, point) {
       let x = obj.getBoundingClientRect().x
@@ -197,25 +173,10 @@ export default {
       this.coordinateArray.push({x: this.x2, y: this.y2})
       this.pathForLine += ' L ' + this.x2 + ' ' + this.y2
     },
-    startAnimation () {
-      let rep = this.repeatActive ? -1 : 0
-      gsap.set('#' + this.ID, {xPercent: -50, yPercent: -50, transformOrigin: '50% 50%', opacity: 1})
-      let move = gsap.to('#' + this.ID, {duration: this.animationDuration, repeat: rep, motionPath: this.pathForLine, ease: 'linear'})
-      move.eventCallback('onComplete', this.endAnimation)
-    },
-    stopAnimation () {
-      gsap.killTweensOf('#' + this.ID)
-      gsap.set('#' + this.ID, {opacity: 0})
-    },
-    endAnimation () {
-      gsap.set('#' + this.ID, {opacity: 0})
-      this.$emit('onComplete')
-    }
   },
   mounted () {
     this.object_1 = document.getElementById(this.id_1)
     this.object_2 = document.getElementById(this.id_2)
-    gsap.registerPlugin(MotionPathPlugin)
     this.updateLine()
     window.addEventListener('resize', this.updateLine)
   }
@@ -231,12 +192,5 @@ export default {
   stroke: black;
   stroke-width: 2px;
   fill: none;
-}
-
-.motion-object {
-  width: 10px;
-  height: 10px;
-  fill: hotpink;
-  border: 1px;
 }
 </style>
