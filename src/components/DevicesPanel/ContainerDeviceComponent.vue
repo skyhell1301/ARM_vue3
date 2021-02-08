@@ -287,8 +287,8 @@
     <GroundComponent class="ground-component-2"></GroundComponent>
     <GroundComponent class="ground-component-3"></GroundComponent>
     <GroundComponent class="ground-component-4"></GroundComponent>
-    <GroundComponent class="ground-component-5" :rotate-angle="180"></GroundComponent>
-    <GroundComponent class="ground-component-6" :rotate-angle="180"></GroundComponent>
+    <GroundComponent class="ground-component-5"></GroundComponent>
+    <GroundComponent class="ground-component-6"></GroundComponent>
   </div>
 </template>
 
@@ -609,21 +609,21 @@ export default {
   },
   computed: {
     ...mapState({
-      antennaSystemDeviceData1: state => state.ZSParameters.antennaParameters1,
-      amplifier1Device1: state => state.ZSParameters.amplifier1DeviceParameters1,
-      amplifier1Device2: state => state.ZSParameters.amplifier1DeviceParameters2,
-      downConverterDeviceData1: state => state.ZSParameters.downConverterDeviceParameters1,
-      downConverterDeviceData2: state => state.ZSParameters.downConverterDeviceParameters2,
-      testTranslyatorDeviceData: state => state.ZSParameters.testTranslyatorDeviceParameters,
-      upConverterDeviceData1: state => state.ZSParameters.upConverterDeviceParameters1,
-      upConverterDeviceData2: state => state.ZSParameters.upConverterDeviceParameters2,
+      antennaSystemDeviceData1: state => state.devicesParameters.antennaParameters1,
+      amplifier1Device1: state => state.devicesParameters.amplifier1DeviceParameters1,
+      amplifier1Device2: state => state.devicesParameters.amplifier1DeviceParameters2,
+      downConverterDeviceData1: state => state.devicesParameters.downConverterDeviceParameters1,
+      downConverterDeviceData2: state => state.devicesParameters.downConverterDeviceParameters2,
+      testTranslyatorDeviceData: state => state.devicesParameters.testTranslyatorDeviceParameters,
+      upConverterDeviceData1: state => state.devicesParameters.upConverterDeviceParameters1,
+      upConverterDeviceData2: state => state.devicesParameters.upConverterDeviceParameters2,
     }),
 
     getMSHUParametersByNumber1 () {
-      return this.$store.getters['ZSParameters/MSHUParametersByNumber'](1)
+      return this.$store.getters['devicesParameters/MSHUParametersByNumber'](1)
     },
     getMSHUParametersByNumber2 () {
-      return this.$store.getters['ZSParameters/MSHUParametersByNumber'](2)
+      return this.$store.getters['devicesParameters/MSHUParametersByNumber'](2)
     },
   },
 }
@@ -840,12 +840,14 @@ export default {
   grid-row: 5;
   align-self: end;
   width: 30px;
+  transform: rotate(180deg);
 }
 .ground-component-6 {
   grid-column: 5;
   grid-row: 5;
   align-self: end;
   width: 30px;
+  transform: rotate(180deg);
 }
 
 </style>

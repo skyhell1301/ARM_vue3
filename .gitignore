@@ -1,4 +1,5 @@
-
+.env
+.env.test
 # Created by https://www.toptal.com/developers/gitignore/api/vue,webstorm,vuejs
 # Edit at https://www.toptal.com/developers/gitignore?templates=vue,webstorm,vuejs
 

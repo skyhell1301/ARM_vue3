@@ -15,6 +15,7 @@ export default {
 
         mes = 'Начало подключения к WebSocket серверу (url: ws://' + wsUrl + ')'
         console.log(mes)
+        store.dispatch('protocol/addLogMessage', {text: mes})
         store.dispatch('wsConnectionList/setInfoMessage', {message: mes, status: 'ok'})
 
         let webSocketConnection = new WebSocket('ws://' + wsUrl)
@@ -22,6 +23,7 @@ export default {
         webSocketConnection.onopen = function (event) {
           mes = 'Соединение установлено c WebSocket сервером (url: ' + event.target.url + ')'
           console.log(mes)
+          store.dispatch('protocol/addLogMessage', {text: mes})
           store.dispatch('wsConnectionList/setInfoMessage', {message: mes, status: 'ok'})
           let connectWS = {
             ws: webSocketConnection,
@@ -36,15 +38,21 @@ export default {
           // let logMessage = {text: event.data}
           // console.log(event.data)
           store.dispatch('protocol/addLogMessage', {text: event.data})
-          let parameters = JSON.parse(event.data).DeviceParameters
-          let lifeMark = JSON.parse(event.data).livetag
+          // let parameters = JSON.parse(event.data).DeviceParameters
+          let ZSData =    JSON.parse(event.data)
+          let lifeMark =  JSON.parse(event.data).livetag
           // if(lifeMark !== undefined)
           // store.dispatch('protocol/addLogMessage', {text: lifeMark})
-          if (parameters !== null && parameters !== undefined) {
-            store.dispatch('ZSParameters/parametersUpdate', parameters)
-          }
+
           if (lifeMark !== null && lifeMark !== undefined) {
             store.dispatch('wsConnectionList/lifeMarkUpdate', {lifeMark: lifeMark, url: event.target.url})
+          } else  {
+            if (ZSData !== null && ZSData !== undefined) {
+              if(ZSData.DeviceParameters !== null && ZSData.DeviceParameters !== undefined ) {
+                store.dispatch('devicesParameters/parametersUpdate', ZSData.DeviceParameters)
+              }
+              store.dispatch('ZSParameters/ZSParametersUpdate', ZSData)
+            }
           }
         }
 
@@ -53,10 +61,12 @@ export default {
             mes = `Соединение закрыто чисто, код=${event.code}. Причина= ${event.reason}`
             store.dispatch('wsConnectionList/setInfoMessage', {message: mes, status: 'ok'})
             console.log(mes)
+            store.dispatch('protocol/addLogMessage', {text: mes})
           } else {
             mes = `Соединение прервано, код=${event.code}`
             store.dispatch('wsConnectionList/setInfoMessage', {message: mes, status: 'error'})
             console.log(mes)
+            store.dispatch('protocol/addLogMessage', {text: mes})
           }
           store.dispatch('wsConnectionList/closeConnectionToWS', event.target.url)
         }
@@ -65,10 +75,12 @@ export default {
           mes = 'Уже имеется подключение до данному url: ws://' + wsUrl
           store.dispatch('wsConnectionList/setInfoMessage', {message: mes, status: 'error'})
           console.log(mes)
+          store.dispatch('protocol/addLogMessage', {text: mes})
         } else {
           mes = 'Введите URL WebSocket сервера'
           store.dispatch('wsConnectionList/setInfoMessage', {message: mes, status: 'error'})
           console.log(mes)
+          store.dispatch('protocol/addLogMessage', {text: mes})
         }
       }
     },

@@ -22,7 +22,6 @@
 </template>
 
 <script>
-import {gsap} from 'gsap'
 export default {
   name: 'StatusIndicatorComponent',
   data () {
@@ -33,7 +32,6 @@ export default {
         const three = Math.floor((Math.random() * 1000000) + 1) + ''
         return 'id' + one + two + three
       })(),
-      animation: ''
     }
   },
   props: {
@@ -56,13 +54,6 @@ export default {
     // }
   },
   methods: {
-    startAnimation () {
-      gsap.to('.arrows-rotate', {duration: 4, rotate: 360, repeat: -1, ease: 'linear'})
-    },
-    stopAnimation () {
-      gsap.killTweensOf('#arrows-' + this.Id)
-      gsap.set('#arrows-' + this.Id, {rotate: 0})
-    }
   },
   mounted () {
     // gsap.set('.arrows-rotate' + this.Id, {transformOrigin: '50% 50%'})

@@ -3,14 +3,14 @@
     <clock-component class="clock"></clock-component>
     <div class="crash">
       <div class="crash-title">АВАРИЯ</div>
-      <ButtonComponent class="btn-1" :active-status="antStatus.status" @btnClick="testChange"></ButtonComponent>
+      <ButtonComponent class="btn-1"></ButtonComponent>
       <EmergencySignalComponent class="signal-bell" status="ok"></EmergencySignalComponent>
     </div>
     <ControlPanelComponent style="grid-row: 5; width: 95%"></ControlPanelComponent>
     <div class="control-background" style="grid-row: 7;">
       <div class="ind-title">ЗЕМНАЯ СТАНЦИЯ</div>
-      <ButtonComponent class="btn-2" v-model:active-status="ZSMonitoringStatus"></ButtonComponent>
-      <StatusIndicatorComponent class="ind-1" :is-active="ZSMonitoringStatus"></StatusIndicatorComponent>
+      <ButtonComponent class="btn-2" :active-status="monitoringState" @btnClick="sendZSMonitoringStatus"></ButtonComponent>
+      <StatusIndicatorComponent class="ind-1" :is-active="monitoringState"></StatusIndicatorComponent>
     </div>
     <div class="control-background" style="grid-row: 9;">
       <div class="ind-title">БОРТОВАЯ ТЕЛЕМЕТРИЯ</div>
@@ -59,62 +59,28 @@ export default {
     }
   },
   methods: {
-    testChange() {
-      this.$store.dispatch('dialogStatus/changeAntennaSystemDialogStatus', !this.antStatus.status)
-    },
     openProtocolDialog() {
       this.$store.dispatch('dialogStatus/changeProtocolDialogStatus', true)
     },
     async sendZSMonitoringStatus() {
+      let context = this
       let message = {}
-      message.state = this.ZSMonitoringStatus ? 'On' : 'Off'
+      message.state = !context.monitoringState
       message.type = 'gsMonitoring'
-      let response = RESTRequest.methods.sendCommand('http://10.10.0.122:8083/monitoring/state', 'POST', null, 'qqq', JSON.stringify(message))
-      if(!response.ok) {
-        this.ZSMonitoringStatus = false
-      }
+      let response = await RESTRequest.methods.sendCommand('http://10.10.0.122:8083/monitoring/state', 'POST', null, 'qqq', JSON.stringify(message))
+      // let response = RESTRequest.methods.sendCommand('api/monitoring/state', 'POST', null, 'qqq', JSON.stringify(message))
+      // console.log(response)
+      response.text().then(function (text) {
+        context.$store.dispatch('protocol/addLogMessage', {text: text})
+      })
     },
-    sendMessage(urlApi, method, caller, jwttok, body) {
-      if (jwttok != 'undefined') {
-        let myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-        // myHeaders.append("Authorization", jwttok);
-
-        let requestOptions = {
-          method: method,
-          headers: myHeaders,
-          body: body,
-          redirect: 'follow'
-        };
-
-        fetch(urlApi, requestOptions)
-            .then(response => {
-              console.log('response: ', response.text())
-              console.log('response: ', response.status)
-              console.log('response: ', response.ok)
-            })
-            .then(result => {
-              console.log('result: ', result)
-              // if (result.token != 'undefined') {
-              //   if (caller != null & caller != 'undefined') caller(result);
-              // }
-            })
-            .catch(error => {
-              console.log('error: ', error);
-              this.ZSMonitoringStatus = false
-            });
-      }
-    }
   },
   watch: {
-    ZSMonitoringStatus () {
-      this.sendZSMonitoringStatus()
-    }
   },
   computed: {
     ...mapState({
-      antStatus: state => state.dialogStatus.antennaSystemDialogStatus,
-      protocolDialogStatus: state => state.dialogStatus.protocolDialogStatus
+      protocolDialogStatus: state => state.dialogStatus.protocolDialogStatus,
+      monitoringState: state => state.ZSParameters.monitoringState
     })
   }
 }

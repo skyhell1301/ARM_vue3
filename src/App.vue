@@ -5,7 +5,7 @@
   <ContainerDeviceComponent class="container-device"></ContainerDeviceComponent>
   <ContainerControlAndIndicationComponent class="container-control-and-indication"></ContainerControlAndIndicationComponent>
   <WindowsPanelComponent class="container-window-panel"></WindowsPanelComponent>
-  <DialogsContainer ></DialogsContainer>
+  <DialogsContainer></DialogsContainer>
 </template>
 
 <script>
@@ -18,7 +18,11 @@ import ConnectToWebSocket from "@/components/ConnectToWebSocket";
 import WindowsPanelComponent from "@/components/WindowsControl/WindowsPanel";
 export default {
   name: 'App',
-
+  data () {
+    return {
+      mode: process.env.NODE_ENV
+    }
+  },
   components: {
     WindowsPanelComponent,
     DialogsContainer,
@@ -34,8 +38,8 @@ export default {
       ConnectToWebSocket.methods.closeConnectToWS(wsUrl, store)
     }
   },
-  created() {
-
+  mounted() {
+    ConnectToWebSocket.methods.connectToWS(process.env.VUE_APP_BASE_URL, store)
   }
 }
 </script>

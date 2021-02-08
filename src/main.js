@@ -3,8 +3,13 @@ import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
 import store from './store'
+import { makeServer } from "./server"
 
 let app = createApp(App).use(store).use(router)
+
+if (process.env.NODE_ENV === "test") {
+    makeServer()
+}
 
 //директива клика вне компонента
 app.directive('click-outside', {

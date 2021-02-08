@@ -8,7 +8,6 @@
 </template>
 
 <script>
-import { gsap } from 'gsap'
 export default {
   name: 'GroundComponent',
   data () {
@@ -28,7 +27,6 @@ export default {
     }
   },
   mounted () {
-    gsap.set('#' + 'ground-container-' + this.ID, {rotate: this.rotateAngle})
   }
 }
 </script>

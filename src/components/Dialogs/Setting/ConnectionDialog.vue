@@ -28,6 +28,7 @@
           <select class="control-elements-in-container control-elements-select" v-model="selectWSURl">
             <option>10.10.0.16:8081</option>
             <option>10.10.0.122:8083/protocol</option>
+            <option>10.10.0.122:8083/state</option>
           </select>
           <custom-button class="control-elements-in-container" @buttonClick="closeConnectWS">Закрыть соединение</custom-button>
         </div>
@@ -83,12 +84,14 @@ export default {
     async setControllerConfiguration () {
       let context = this
       this.controllerMessage.message = 'Устанавливаются значения контроллера'
+      this.$store.dispatch('protocol/addLogMessage', {text: this.controllerMessage.message})
       this.controllerMessage.status = 'ok'
       let message = {}
       message.ip = this.controllerIP
       message.port = this.controllerPort
       message.period = this.controllerPeriod
-      let response = await RESTRequest.methods.sendCommand('http://10.10.0.122:8083/settings/controller', 'POST', null, 'qqq', JSON.stringify(message))
+      let response = await RESTRequest.methods.sendCommand('http://10.10.0.122:8083/settings/controller',
+          'POST', null, 'qqq', JSON.stringify(message))
       if(response.ok){
         context.controllerMessage.message = 'Конфигурация установлена'
         context.controllerMessage.status = 'ok'

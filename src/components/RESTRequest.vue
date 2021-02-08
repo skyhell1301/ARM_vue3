@@ -16,6 +16,14 @@ export default {
         };
 
         return await fetch(urlApi, requestOptions)
+                // .then(response => {
+                //   response.json().then(function(json) {
+                //     console.log('text', json)
+                //   });
+                // })
+                // .then(error => {
+                //   return error
+                // })
       }
     }
   }
