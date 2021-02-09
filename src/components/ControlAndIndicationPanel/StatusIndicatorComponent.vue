@@ -44,21 +44,6 @@ export default {
       default: 'none'
     }
   },
-  watch: {
-    // isActive () {
-    //   if (this.isActive) {
-    //     this.startAnimation()
-    //   } else {
-    //     this.stopAnimation()
-    //   }
-    // }
-  },
-  methods: {
-  },
-  mounted () {
-    // gsap.set('.arrows-rotate' + this.Id, {transformOrigin: '50% 50%'})
-    // this.startAnimation()
-  }
 }
 </script>
 

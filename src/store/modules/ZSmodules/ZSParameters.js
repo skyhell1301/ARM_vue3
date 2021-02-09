@@ -7,7 +7,7 @@ const state = ()=> ({
 const mutations = {
     ZSParametersUpdate(state, payload) {
         state.allParameters = payload
-        state.monitoringState = state.allParameters === 'On' ? true : false
+        state.monitoringState = payload.state === 'On' ? true : false
         state.monitoringType = payload.type
     }
 }

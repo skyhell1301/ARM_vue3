@@ -2,6 +2,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
     outputDir: './build/',
+    publicPath: '/',
     devServer: {
         index: 'index.html',
         port: 8081,

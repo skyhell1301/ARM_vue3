@@ -4,7 +4,7 @@ import ZSParameters from "@/store/modules/ZSmodules/ZSParameters";
 import wsConnectionList from "@/store/modules/ConnectionModules/wsConnectionList";
 import protocolModule from "@/store/modules/ZSmodules/protocolModule";
 import windowsControl from "@/store/modules/ApplicationModules/DialogsModules/windowsControl";
-import controllerConnection from "@/store/modules/ConnectionModules/controllerConnection";
+import systemConnection from "@/store/modules/ConnectionModules/systemConnection"
 import devicesParameters from "@/store/modules/ZSmodules/devicesParameters";
 
 export default createStore({
@@ -23,7 +23,7 @@ export default createStore({
     wsConnectionList: wsConnectionList,
     protocol: protocolModule,
     windowsControl: windowsControl,
-    controllerConnection: controllerConnection,
+    systemConnection: systemConnection,
     ZSParameters: ZSParameters,
   }
 })

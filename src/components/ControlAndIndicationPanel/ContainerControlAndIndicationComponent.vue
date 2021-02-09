@@ -38,7 +38,7 @@ import ConnectPanelComponent from './ConnectPanelComponent'
 import TargetDesignationPanelComponent from './TargetDesignationPanelComponent'
 import ProtocolButtonComponent from './ProtocolButtonComponent'
 import ClockComponent from "@/components/ControlAndIndicationPanel/ClockComponent";
-import RESTRequest from "@/components/RESTRequest";
+import REST from "@/mixins/REST";
 export default {
   name: 'ContainerControlAndIndicationComponent',
   components: {
@@ -58,6 +58,7 @@ export default {
       testVar3: false
     }
   },
+  mixins: [REST],
   methods: {
     openProtocolDialog() {
       this.$store.dispatch('dialogStatus/changeProtocolDialogStatus', true)
@@ -67,11 +68,12 @@ export default {
       let message = {}
       message.state = !context.monitoringState
       message.type = 'gsMonitoring'
-      let response = await RESTRequest.methods.sendCommand('http://10.10.0.122:8083/monitoring/state', 'POST', null, 'qqq', JSON.stringify(message))
+      let response = await this.sendRESTCommand('http://10.10.0.122:8083/monitoring/state', 'POST', null, 'qqq', JSON.stringify(message))
       // let response = RESTRequest.methods.sendCommand('api/monitoring/state', 'POST', null, 'qqq', JSON.stringify(message))
       // console.log(response)
       response.text().then(function (text) {
-        context.$store.dispatch('protocol/addLogMessage', {text: text})
+        console.log(text)
+        // context.$store.dispatch('protocol/addLogMessage', {text: text})
       })
     },
   },

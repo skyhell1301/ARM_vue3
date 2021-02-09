@@ -5,11 +5,13 @@
         {{titleMenuItem}}
       </div>
     </div>
-    <transition name="menu-content-animation">
-      <div v-show="contentOpen" class="content-menu-item" @click="contentClose">
-        <slot></slot>
-      </div>
-    </transition>
+    <keep-alive>
+      <transition name="menu-content-animation">
+        <div v-show="contentOpen" class="content-menu-item" @click="contentClose">
+          <slot></slot>
+        </div>
+      </transition>
+    </keep-alive>
   </div>
 </template>
 
@@ -32,10 +34,6 @@ export default {
       type: String,
       default: 'None'
     },
-    emitId: {
-      type: String,
-      default: ''
-    }
   },
   methods: {
     clickMenuItem () {
@@ -45,13 +43,6 @@ export default {
       this.contentOpen = false
     }
   },
-  watch: {
-    emitId () {
-      if (this.emitId !== this.MenuItemId) {
-        this.contentOpen = false
-      }
-    }
-  }
 }
 </script>
 

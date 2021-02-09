@@ -14,8 +14,8 @@ import ContainerDeviceComponent from './components/DevicesPanel/ContainerDeviceC
 import ContainerControlAndIndicationComponent from './components/ControlAndIndicationPanel/ContainerControlAndIndicationComponent.vue'
 import NavMenuComponent from './components/MenuPanel/NavMenuComponent.vue'
 import DialogsContainer from "@/components/Dialogs/DialogsContainer";
-import ConnectToWebSocket from "@/components/ConnectToWebSocket";
 import WindowsPanelComponent from "@/components/WindowsControl/WindowsPanel";
+import connectToWebSocket from "@/mixins/connectToWebSocket";
 export default {
   name: 'App',
   data () {
@@ -23,6 +23,7 @@ export default {
       mode: process.env.NODE_ENV
     }
   },
+  mixins: [connectToWebSocket],
   components: {
     WindowsPanelComponent,
     DialogsContainer,
@@ -31,15 +32,10 @@ export default {
     ContainerDeviceComponent
   },
   methods: {
-    newConnectToWS (wsUrl) {
-      ConnectToWebSocket.methods.connectToWS(wsUrl, store)
-    },
-    closeConnectToWS (wsUrl) {
-      ConnectToWebSocket.methods.closeConnectToWS(wsUrl, store)
-    }
   },
   mounted() {
-    ConnectToWebSocket.methods.connectToWS(process.env.VUE_APP_BASE_URL, store)
+    this.connectToWS(process.env.VUE_APP_BASE_URL, 'ARM1', store)
+    this.connectToWS('10.10.0.122:8083/protocol', 'Protocol', store)
   }
 }
 </script>

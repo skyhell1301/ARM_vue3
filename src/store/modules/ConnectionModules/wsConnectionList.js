@@ -64,6 +64,33 @@ const getters = {
             }
         })
         return ws
+    },
+    ARM1Status: state =>{
+        let status = {connection: false, status: 'none'}
+        state.webSocketConnectionList.forEach(function (item) {
+            if (item.deviceName === 'ARM1') {
+                status.connection = true
+                status.status = item.status
+            }
+        })
+        return status
+    },
+    ARM2Status: state =>{
+        let status = {connection: false, status: 'none'}
+        state.webSocketConnectionList.forEach(function (item) {
+            if (item.deviceName === 'ARM2') {
+                status.connection = true
+                status.status = item.status
+            }
+        })
+        return status
+    },
+    getNamesConnections: state => {
+        let list = []
+        state.webSocketConnectionList.forEach(function (item) {
+            list.push(item.deviceName)
+        })
+        return list
     }
 }
 const actions = {

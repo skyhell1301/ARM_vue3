@@ -1,38 +1,30 @@
 <template>
   <div class="connect-panel">
     <div class="connect-panel-title">ПОДКЛЮЧЕНИЯ</div>
-    <div class="ARM-1 little-connect-panel">
-      <div class="ARM-1-title">АРМ 1</div>
-      <PCIcon class="connect-panel-svg" width="100%" height="90%"></PCIcon>
-    </div>
-    <div class="ARM-2 little-connect-panel">
-      <div class="ARM-2-title">АРМ 2</div>
-      <PCIcon class="connect-panel-svg" width="100%" height="90%"></PCIcon>
-    </div>
-    <div class="CONTROLLER-1 little-connect-panel">
-      <div class="CONTROLLER-1-title">КОНТРОЛЛЕР 1</div>
-      <ControllerIcon class="connect-panel-svg" width="95%" height="95%"></ControllerIcon>
-    </div>
-    <div class="CONTROLLER-2 little-connect-panel">
-      <div class="CONTROLLER-2-title">КОНТРОЛЛЕР 2</div>
-      <ControllerIcon class="connect-panel-svg" width="95%" height="95%"></ControllerIcon>
-    </div>
-    <div class="CORTEX-1 little-connect-panel">
-      <div class="CORTEX-1-title">CORTEX 1</div>
-      <CortexIcon class="connect-panel-svg" width="95%" height="95%"></CortexIcon>
-    </div>
-    <div class="CORTEX-2 little-connect-panel">
-      <div class="CORTEX-2-title">CORTEX 2</div>
-      <CortexIcon class="connect-panel-svg" width="95%" height="95%"></CortexIcon>
-    </div>
-    <div class="ARM-AS-1 little-connect-panel">
-      <div class="ARM-AS-1-title">АРМ АС 1</div>
-      <ControllerIcon class="connect-panel-svg" width="95%" height="95%"></ControllerIcon>
-    </div>
-    <div class="ARM-AS-2 little-connect-panel">
-      <div class="ARM-AS-2-title">АРМ АС 2</div>
-      <ControllerIcon class="connect-panel-svg" width="95%" height="95%"></ControllerIcon>
-    </div>
+    <LittleIndicatorPanel :connection="ARM1Status.connection" class="ARM-1 little-panel" title="АРМ 1">
+      <PCIcon class="connect-panel__icon"></PCIcon>
+    </LittleIndicatorPanel>
+    <LittleIndicatorPanel :connection="ARM2Status.connection" class="ARM-2 little-panel" title="АРМ 2">
+      <PCIcon class="connect-panel__icon"></PCIcon>
+    </LittleIndicatorPanel>
+    <LittleIndicatorPanel class="CONTROLLER-1 little-panel" title="КОНТРОЛЛЕР 2">
+      <ControllerIcon class="connect-panel__icon"></ControllerIcon>
+    </LittleIndicatorPanel>
+    <LittleIndicatorPanel class="CONTROLLER-2 little-panel" title="КОНТРОЛЛЕР 2">
+      <ControllerIcon class="connect-panel__icon"></ControllerIcon>
+    </LittleIndicatorPanel>
+    <LittleIndicatorPanel class="CORTEX-1 little-panel" title="CORTEX 1">
+      <CortexIcon class="connect-panel__icon"></CortexIcon>
+    </LittleIndicatorPanel>
+    <LittleIndicatorPanel class="CORTEX-2 little-panel" title="CORTEX 2">
+      <CortexIcon class="connect-panel__icon"></CortexIcon>
+    </LittleIndicatorPanel>
+    <LittleIndicatorPanel class="ARM-AS-1 little-panel" title="АРМ АС 1">
+      <ControllerIcon class="connect-panel__icon"></ControllerIcon>
+    </LittleIndicatorPanel>
+    <LittleIndicatorPanel class="ARM-AS-2 little-panel" title="АРМ АС 2">
+      <ControllerIcon class="connect-panel__icon"></ControllerIcon>
+    </LittleIndicatorPanel>
   </div>
 </template>
 
@@ -40,9 +32,21 @@
 import CortexIcon from '../../assets/images/SVGIconComponents/CortexIcon'
 import ControllerIcon from '../../assets/images/SVGIconComponents/ControllerIcon'
 import PCIcon from '../../assets/images/SVGIconComponents/PCIcon'
+import LittleIndicatorPanel from "@/components/ControlAndIndicationPanel/LittleIndicatorPanel";
 export default {
   name: 'ConnectPanelComponent',
-  components: {PCIcon, ControllerIcon, CortexIcon}
+  components: {LittleIndicatorPanel, PCIcon,
+    ControllerIcon,
+    CortexIcon
+  },
+  computed: {
+    ARM1Status () {
+      return this.$store.getters['wsConnectionList/ARM1Status']
+    },
+    ARM2Status () {
+      return this.$store.getters['wsConnectionList/ARM2Status']
+    },
+  }
 }
 </script>
 
@@ -65,21 +69,13 @@ export default {
   grid-column-end: 3;
 }
 
-.little-connect-panel {
-  display: grid;
-  grid-template-rows: 25% 75%;
+.little-panel {
   width: 95%;
-  height: 90%;
-  font-size: .6em;
-  border: 1px black solid;
-  border-radius: 7px;
-  background: linear-gradient(180deg, #f6f1f5 0%, #f6f1f5 40%, #e2e2e1 50%, #fcf7fb 100%);
-  justify-items: center;
-  align-items: center;
+  height: 93%;
 }
 
-.connect-panel-svg {
-  fill: #285876;
+.connect-panel__icon {
+  width: 100%;
+  height: 100%;
 }
-
 </style>
