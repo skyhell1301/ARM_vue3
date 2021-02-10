@@ -10,7 +10,7 @@
     <div class="control-background" style="grid-row: 7;">
       <div class="ind-title">ЗЕМНАЯ СТАНЦИЯ</div>
       <ButtonComponent class="btn-2" :active-status="monitoringState" @btnClick="sendZSMonitoringStatus"></ButtonComponent>
-      <StatusIndicatorComponent class="ind-1" :is-active="monitoringState"></StatusIndicatorComponent>
+      <StatusIndicatorComponent class="ind-1" :is-active="monitoringState" :status="monitoringType"></StatusIndicatorComponent>
     </div>
     <div class="control-background" style="grid-row: 9;">
       <div class="ind-title">БОРТОВАЯ ТЕЛЕМЕТРИЯ</div>
@@ -82,7 +82,8 @@ export default {
   computed: {
     ...mapState({
       protocolDialogStatus: state => state.dialogStatus.protocolDialogStatus,
-      monitoringState: state => state.ZSParameters.monitoringState
+      monitoringState: state => state.ZSParameters.monitoringState,
+      monitoringType: state => state.ZSParameters.monitoringType
     })
   }
 }

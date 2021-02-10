@@ -54,7 +54,7 @@ export default {
   grid-template-rows: 25% 75%;
   width: 100%;
   height: 100%;
-  font-size: .6em;
+  font-size: .7em;
   justify-items: center;
   align-items: center;
 }

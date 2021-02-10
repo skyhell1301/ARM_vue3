@@ -86,7 +86,7 @@ export default {
       this.showModal = true
     },
     changeViewList () {
-      if (this.localViewFields.length > 6) {
+      if (this.localViewFields.length > 5) {
         this.localViewFields.shift()
       }
       this.updateData()

@@ -1,7 +1,7 @@
 <template>
   <div class="status-indicator-container">
     <svg class="big-circle" viewBox="0 0 80 80" width="100%" height="100%" filter="url(#dropshadow-status-indicator)">
-      <circle :class="'color-' + status"  r="40px" cx="40px" cy="40px"></circle>
+      <circle :class="'color-' + status" class="circle-background" r="40px" cx="40px" cy="40px"></circle>
       <path fill="#285876" d="M 80 40 C 80 62.091 62.091 80 40 80 C 17.909 80 0 62.091 0 40 C 0 17.909 17.909 0 40 0 C 62.091 0 80 17.909 80 40 Z M 40 8 C 22.327 8 8 22.327 8 40 C 8 57.673 22.327 72 40 72 C 57.673 72 72 57.673 72 40 C 72 22.327 57.673 8 40 8 Z"></path>
       <filter id="dropshadow-status-indicator" height="130%">
         <feGaussianBlur in="SourceAlpha" stdDeviation="3"/> <!-- stdDeviation is how much to blur -->
@@ -51,11 +51,19 @@ export default {
 .status-indicator-container {
   display: grid;
 }
+
 .big-circle {
+  z-index: 1;
   grid-column: 1;
   grid-row: 1;
 }
+
+.circle-background {
+  fill: none;
+}
+
 .arrows {
+  z-index: 2;
   grid-column: 1;
   grid-row: 1;
 }
@@ -64,13 +72,13 @@ export default {
 }
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 .color-warning {
-  fill: #fcff27;
+  fill: #ffcc00;
 }
 .color-ok {
-  fill: #278d20;
+  fill: #50d044;
 }
 .color-crash {
-  fill: #f90022;
+  fill: #ff3333;
 }
 .color-none {
   fill: none;

@@ -50,15 +50,6 @@ export default {
       this.rotateValue = this.rotateValue === 90 ? 0 : 90
       // gsap.to('#' + 'rotate-' + this.ID, {duration: 1, repeat: 0, rotation: this.rotateValue})
     },
-    startAnimation () {
-      // gsap.set('#' + this.ID, {xPercent: -50, yPercent: -50, transformOrigin: '50% 50%', opacity: 1})
-      // let move = gsap.to('#' + this.ID, {duration: this.animationDuration, repeat: 0, motionPath: this.pathForLine1, ease: 'linear', runBackwards: true})
-      // move.eventCallback('onComplete', this.endAnimation)
-    },
-    endAnimation () {
-      // gsap.set('#' + this.ID, {opacity: 0})
-      this.$emit('onComplete')
-    }
   },
   mounted () {
     // gsap.registerPlugin(MotionPathPlugin)

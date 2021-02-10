@@ -1,7 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-    outputDir: './build/',
     publicPath: '/',
     devServer: {
         index: 'index.html',
@@ -19,7 +18,8 @@ module.exports = {
     },
     pwa: {
        manifestOptions: {
-           icons: []
+           icons: [],
+           content_security_policy: "default-src 'self' style-src 'self' 'unsafe-inline';"
        }
     }
 }

@@ -19,11 +19,18 @@
           {{controllerMessage.message}}
         </label>
       </div>
-      <div style="margin-bottom: 5px">WebSocket</div>
+      <div style="margin-bottom: 5px">Подключение к АРМ</div>
       <div class="web-socket__container">
         <label>URL</label>
         <div class="control-elements-connection">
-          <input class="control-elements-in-container control-elements-input" type="url" v-model="wsUrl" autocomplete="on">
+          <input class="control-elements-in-container control-elements-input" type="url" v-model="wsUrl" autocomplete="on" list="urlList">
+          <datalist id="urlList">
+            <option v-for="url in urlList"
+                    :key="url"
+            >
+              {{url}}
+            </option>
+          </datalist>
           <select ref="nameDeviceSelect" class="control-elements-in-container" style=" grid-row: 2; grid-column: 1" v-model="selectDeviceName">
             <option v-for="name in getNamesConnections"
                     :key="name.id"
@@ -32,17 +39,12 @@
             </option>
           </select>
           <custom-button class="control-elements-in-container" @buttonClick="connectWS">Соединение</custom-button>
-          <select class="control-elements-in-container control-elements-select" v-model="selectWSURl">
-            <option>10.10.0.16:8081</option>
-            <option>10.10.0.122:8083/protocol</option>
-            <option>10.10.0.122:8083/state</option>
-          </select>
           <custom-button class="control-elements-in-container" @buttonClick="closeConnectWS">Закрыть соединение</custom-button>
         </div>
       </div>
     </div>
     <div class="info-message" :class="{'message-error-status': message.status === 'error'}">{{message.message}}</div>
-    <div class="connection-table-title">Список подключений WebSocket</div>
+    <div class="connection-table-title">Список подключений</div>
     <div class="table-container">
       <div class="connection-table" style="align-self: end">
         <div class="cell-connection-table">Устройство</div>
@@ -62,9 +64,9 @@
 </template>
 
 <script>
-import CustomButton from "@/components/ComponentsForPopupWindow/CustomButton";
+import CustomButton from "@/components/CustomSimpleComponents/CustomButton";
 import {mapState} from "vuex";
-import CustomDiv from "@/components/ComponentsForPopupWindow/CustomDiv";
+import CustomDiv from "@/components/CustomSimpleComponents/CustomDiv";
 import connectToWebSocket from "@/mixins/connectToWebSocket";
 import RESTRequest from "@/mixins/REST";
 export default {
@@ -75,8 +77,10 @@ export default {
   },
   data () {
     return {
-      nameDevicesList: ['ARM1', 'ARM2'],
-      wsUrl: '10.10.0.16:8081',
+      nameDevicesList: ['ARM1', 'ARM2', 'Protocol'],
+      wsUrl: '',
+      urlList: ['10.10.0.16:8081', '10.10.0.122:8083/protocol', '10.10.0.122:8083/state'],
+      // wsUrl: '10.10.0.16:8081',
       selectDeviceName: '',
       selectWSURl: 'Выберите недавние',
       controllerIP: '10.10.0.122',
@@ -100,7 +104,7 @@ export default {
       this.closeConnectToWS(this.wsUrl, this.$store)
     },
     async setControllerConfiguration () {
-      // if(!this.connectWSList) {
+      if(this.connectWSList.length > 0) {
         let context = this
         this.controllerMessage.message = 'Устанавливаются значения контроллера'
         this.$store.dispatch('protocol/addLogMessage', {text: this.controllerMessage.message})
@@ -121,9 +125,12 @@ export default {
             context.controllerMessage.status = 'error'
           })
         }
-      // } else {
-      //   console.log('qwer')
-      // }
+      } else {
+        this.controllerMessage.message = 'Подключитесь к AРМу'
+        this.controllerMessage.status = 'error'
+        this.$store.dispatch('protocol/addLogMessage', {text: this.controllerMessage.message})
+        console.log(this.controllerMessage.message)
+      }
     },
   },
   watch: {
@@ -184,14 +191,8 @@ export default {
 .control-elements-input {
   grid-column: 1;
   grid-row: 1;
-  z-index: 2;
   width: 90%;
   height: 75%;
-}
-.control-elements-select {
-  z-index: 1;
-  grid-column: 1;
-  grid-row: 1;
 }
 
 .info-message {

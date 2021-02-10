@@ -65,6 +65,12 @@ export default {
       this.$emit('update:activeStatus', !this.activeStatus)
       this.$emit('btnClick')
       this.btnStatus = !this.btnStatus
+      let context = this
+      setTimeout( () => {
+        if(!context.activeStatus) {
+          context.btnStatus = false
+        }
+      }, 2000)
     }
   },
   watch: {

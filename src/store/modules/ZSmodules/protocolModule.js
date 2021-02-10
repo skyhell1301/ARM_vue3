@@ -8,7 +8,7 @@ const mutations = {
         payload.id = state.counter
         payload.time = new Date().toLocaleTimeString()
         state.lastMessage = payload
-        if (state.logMessageList.length > 29) {
+        if (state.logMessageList.length > 299) {
             state.logMessageList.shift()
         }
 

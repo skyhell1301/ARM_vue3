@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import CustomButton from "@/components/ComponentsForPopupWindow/CustomButton";
+import CustomButton from "@/components/CustomSimpleComponents/CustomButton";
 import {mapState} from "vuex";
 
 export default {

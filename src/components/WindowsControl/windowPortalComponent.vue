@@ -88,34 +88,37 @@ export default {
       if (this.windowRef) return
       const { width, height, left, top } = this
       // Open a nonexistent page to replace the content later
-      // const windowPath = window.location.origin + window.location.pathname + '_window'
+      const windowPath = window.location.origin + window.location.pathname
       let params = `width=${width},height=${height},left=${left},top=${top},menubar=no,location=no,resizable=no,scrollbars=yes,status=no`
       // const windowPath = 'window'
-      const windowPath = ''
-      this.windowRef = window.open(windowPath, this.target, params)
+      // const windowPath = ''
+      this.windowRef = window.open('', this.target, params)
+
       this.windowRef.addEventListener('beforeunload', this.closePortal)
-      this.windowRef.addEventListener('load', () => {
+
         this.windowLoaded = true
 
         // Clear any existing content
         this.windowRef.document.body.innerHTML = ''
         this.windowRef.document.title = this.title
 
-        // Move the component into the window
         this.windowRef.document.body.appendChild(this.$el)
 
+        // Move the component into the window
         this.$emit('update:open', true)
         this.$emit('opened', this.windowRef)
 
         // Clone style nodes
         if (!this.noStyle) {
           for (const el of document.head.querySelectorAll('style, link[rel=stylesheet]')) {
-            const clone = el.cloneNode(true)
+            let clone = el.cloneNode(true)
+            let newHref = windowPath.substring(0, windowPath.length - 1) + clone.getAttribute("href")
+            clone.setAttribute('href', newHref)
             this.windowRef.document.head.appendChild(clone)
           }
         }
         this.$store.dispatch('windowsControl/addWindow', this.windowRef)
-      })
+
     },
     closePortal () {
       if (!this.windowRef) return

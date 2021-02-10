@@ -8,7 +8,7 @@ const mutations = {
     ZSParametersUpdate(state, payload) {
         state.allParameters = payload
         state.monitoringState = payload.state === 'On' ? true : false
-        state.monitoringType = payload.type
+        state.monitoringType = state.monitoringState ? 'ok' : 'none'
     }
 }
 const getters = {

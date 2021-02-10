@@ -1,8 +1,6 @@
 export default {
     methods: {
         connectToWS(wsUrl, deviceName, store) {
-            console.log('qqqqqqqqqq')
-
             this.store = store
             let checkWebSocketConnection = store.getters['wsConnectionList/getWebSocket'](wsUrl)
             let mes
@@ -55,7 +53,7 @@ export default {
 
                 webSocketConnection.onclose = function (event) {
                     if (event.wasClean) {
-                        mes = `Соединение закрыто чисто, код=${event.code}. Причина= ${event.reason}`
+                        mes = `Соединение c ${event.target.url} закрыто чисто, код=${event.code}. Причина: ${event.reason}`
                         store.dispatch('wsConnectionList/setInfoMessage', {message: mes, status: 'ok'})
                         console.log(mes)
                         store.dispatch('protocol/addLogMessage', {text: mes})
