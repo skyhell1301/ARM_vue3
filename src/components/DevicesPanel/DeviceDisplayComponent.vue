@@ -44,7 +44,7 @@ export default {
     },
     connectionInterfaceActive: {
       type: Boolean,
-      default: true
+      default: false
     },
     fontSizeTitle: {
       type: Number,

@@ -61,7 +61,7 @@ export default {
   fill: #fcff27;
 }
 .color-ok {
-  fill: #278d20;
+  fill: #339933;
 }
 .color-crash {
   fill: #f90022;

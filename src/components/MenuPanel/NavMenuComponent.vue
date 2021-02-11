@@ -212,12 +212,12 @@ export default {
 
 <style scoped>
 .nav-menu-container {
-  background: linear-gradient(180deg, #f6f1f5 0%, #fcf7fb 100%);
+  color: var(--main-color);
+  width: 100%;
   position: relative;
-  width: 40%;
-  height: 95%;
+  background: linear-gradient(180deg, #f6f1f5 0%, #fcf7fb 100%);
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 .setting-item {

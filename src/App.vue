@@ -34,13 +34,14 @@ export default {
   methods: {
   },
   mounted() {
-    this.connectToWS(process.env.VUE_APP_BASE_URL, 'ARM1', store)
-    this.connectToWS('10.10.0.122:8083/protocol', 'Protocol', store)
+    this.connectToWS({full: process.env.VUE_APP_BASE_URL}, 'ARM1', store)
+    this.connectToWS({full: '10.10.0.122:8083/protocol'}, 'Protocol', store)
   }
 }
 </script>
 
 <style>
+@import "./assets/css/colors.css";
 body {
   overflow: hidden;
   margin: 0;
@@ -65,18 +66,18 @@ body {
 }
 
 .menu-container {
+  box-shadow: 0px 0px 5px .5px rgba(172, 172, 172, 0.8);
   display: grid;
   grid-row: 1;
   grid-column-start: 1;
   grid-column-end: 3;
   z-index: 2;
   width: 100%;
-  height: 95%;
+  height: 90%;
 
 }
 .container-nav-menu {
-  min-width: 50%;
-  max-height: 100%;
+  width: 60%;
 }
 
 .container-device {

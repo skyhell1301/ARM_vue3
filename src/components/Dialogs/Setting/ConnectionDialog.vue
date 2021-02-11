@@ -1,65 +1,95 @@
 <template>
-  <div class="container-setting">
-    <div class="control-elements-connection-container">
-      <div style="margin-bottom: 5px">Конфигурация контроллера</div>
-      <div class="controller__container">
-        <div class="controller__input-parameters">
-          <label>IP-адресс контроллера</label>
-          <input style="width: 80%; margin-bottom: 10px;" type="text" placeholder="IP-адресс контроллера" v-model="controllerIP">
-          <label>Порт контроллера</label>
-          <input style="width: 80%; margin-bottom: 10px;" type="text" placeholder="Порт контроллера" v-model="controllerPort">
-          <label>Период опроса (мс)</label>
-          <input style="width: 80%" type="number" placeholder="Период опроса (мс)" v-model="controllerPeriod">
+  <div class="LVSsettings__wrapper">
+    <div class="LVSsettings__wrapper-title">Конфигурация контроллера</div>
+    <div class="controller-connection__wrapper">
+      <div class="controller-connection__container">
+        <div class="controller-connection__inputs-container">
+          <input type="text" placeholder="IP-адресс контроллера" v-model="controllerIP">
+          <input type="number" placeholder="Порт контроллера" v-model="controllerPort">
+          <div style="display: flex; flex-direction: column">
+            <label style="justify-self: end">Период мониторинга (мс)</label>
+            <input type="number" placeholder="Период опроса (мс)" v-model="controllerPeriod">
+          </div>
         </div>
-        <custom-button style=" margin-top: 25%; width: 90%; height: 15%; justify-self: center; align-self: start; grid-column: 2; grid-row: 1;" @buttonClick="setControllerConfiguration">Установить</custom-button>
-        <label style="grid-column: 2; grid-row: 1; align-self: end; margin-bottom: 20px; justify-self: center; width: 90%;"
-               class="info-message"
-               :class="{'message-error-status': controllerMessage.status === 'error'}"
-        >
-          {{controllerMessage.message}}
-        </label>
+        <div class="controller-connection__buttons-container">
+          <custom-button @buttonClick="setControllerConfiguration">Установить</custom-button>
+          <label :class="{'message-error-status': controllerMessage.status === 'error'}"
+          >
+            {{ controllerMessage.message }}
+          </label>
+        </div>
       </div>
-      <div style="margin-bottom: 5px">Подключение к АРМ</div>
-      <div class="web-socket__container">
-        <label>URL</label>
-        <div class="control-elements-connection">
-          <input class="control-elements-in-container control-elements-input" type="url" v-model="wsUrl" autocomplete="on" list="urlList">
+    </div>
+    <div class="LVSsettings__wrapper-title">Подключение к АРМ</div>
+    <div class="arm-connection__wrapper">
+      <div class="arm-connection__container">
+        <div class="arm-connection__inputs-container">
+          <input class="arm-connection__input" type="text" v-model="wsIp" autocomplete="on" list="ipList"
+                 placeholder="Введите ip-адрес">
+          <input class="arm-connection__input" type="number" v-model="wsPort" autocomplete="on" list="portList"
+                 placeholder="Введите порт">
+          <input class="arm-connection__input" type="url" v-model="wsUrl" autocomplete="on" list="urlList"
+                 placeholder="Введите url">
           <datalist id="urlList">
             <option v-for="url in urlList"
                     :key="url"
             >
-              {{url}}
+              {{ url }}
             </option>
           </datalist>
-          <select ref="nameDeviceSelect" class="control-elements-in-container" style=" grid-row: 2; grid-column: 1" v-model="selectDeviceName">
+          <datalist id="ipList">
+            <option v-for="ip in ipList"
+                    :key="ip"
+            >
+              {{ ip }}
+            </option>
+          </datalist>
+          <datalist id="portList">
+            <option v-for="port in portList"
+                    :key="port"
+            >
+              {{ port }}
+            </option>
+          </datalist>
+          <select ref="nameDeviceSelect" class="arm-connection__select" style=" grid-row: 2; grid-column: 1"
+                  v-model="selectDeviceName">
             <option v-for="name in getNamesConnections"
                     :key="name.id"
             >
-              {{name}}
+              {{ name }}
             </option>
           </select>
-          <custom-button class="control-elements-in-container" @buttonClick="connectWS">Соединение</custom-button>
-          <custom-button class="control-elements-in-container" @buttonClick="closeConnectWS">Закрыть соединение</custom-button>
+        </div>
+        <div class="arm-connection__buttons-container">
+          <custom-button class="arm-connection__button" @buttonClick="connectWS">Соединение</custom-button>
+          <custom-button class="arm-connection__button" @buttonClick="closeConnectWS">Закрыть соединение</custom-button>
         </div>
       </div>
     </div>
-    <div class="info-message" :class="{'message-error-status': message.status === 'error'}">{{message.message}}</div>
-    <div class="connection-table-title">Список подключений</div>
-    <div class="table-container">
-      <div class="connection-table" style="align-self: end">
-        <div class="cell-connection-table">Устройство</div>
-        <div class="cell-connection-table">URL</div>
-        <div class="cell-connection-table">Метка жизни</div>
+    <div class="info-message" :class="{'message-error-status': message.status === 'error'}">{{ message.message }}</div>
+    <div class="list-connection__wrapper">
+      <div class="list-connection__title">Список подключений</div>
+      <div class="list-connection__container">
+      <div class="list-connection__table-row" style="align-self: end">
+        <div class="list-connection__cell">Устройство</div>
+        <div class="list-connection__cell">Адрес</div>
+        <div class="list-connection__cell">Метка жизни</div>
       </div>
       <div v-for="ws in connectWSList"
-            :key="ws.id"
-           class="connection-table"
+           :key="ws.id"
+           class="list-connection__table-row"
       >
-        <custom-div class="cell-connection-table" @divClick="wsUrl = ws.userUrl">{{ws.deviceName}}</custom-div>
-        <custom-div class="cell-connection-table" @divClick="wsUrl = ws.userUrl">{{ws.userUrl}}</custom-div>
-        <div class="cell-connection-table">{{ws.lifeMark}}</div>
+        <custom-div class="list-connection__cell" @divClick="wsUrl = ws.url, wsIp = ws.ip,
+        wsPort = ws.port, selectDeviceName = ws.deviceName">{{ ws.deviceName }}</custom-div>
+        <custom-div class="list-connection__cell" @divClick="wsUrl = ws.url, wsIp = ws.ip,
+        wsPort = ws.port, selectDeviceName = ws.deviceName">{{ ws.userUrl }}</custom-div>
+        <div class="list-connection__cell">{{ ws.lifeMark }}</div>
       </div>
     </div>
+    </div>
+    <input type="text" v-model="igorUrl" style="margin-top: 20px;">
+    <custom-button @buttonClick="setIgorUrl">Установить URL Игоря</custom-button>
+    <div>{{$store.state.ZSParameters.igorUrl}}</div>
   </div>
 </template>
 
@@ -69,42 +99,82 @@ import {mapState} from "vuex";
 import CustomDiv from "@/components/CustomSimpleComponents/CustomDiv";
 import connectToWebSocket from "@/mixins/connectToWebSocket";
 import RESTRequest from "@/mixins/REST";
+
 export default {
   name: 'SettingDialog',
   components: {
     CustomDiv,
     CustomButton,
   },
-  data () {
+  data() {
     return {
       nameDevicesList: ['ARM1', 'ARM2', 'Protocol'],
       wsUrl: '',
-      urlList: ['10.10.0.16:8081', '10.10.0.122:8083/protocol', '10.10.0.122:8083/state'],
-      // wsUrl: '10.10.0.16:8081',
+      wsIp: '',
+      wsPort: '',
+      ipList: ['10.10.0.16', '10.10.0.11', '10.10.0.122'],
+      portList: [8081, 8083],
+      urlList: ['/', '/state', '/protocol'],
       selectDeviceName: '',
       selectWSURl: 'Выберите недавние',
       controllerIP: '10.10.0.122',
       controllerPort: '8083',
       controllerPeriod: 1000,
-      controllerMessage: {status: 'ok', message: ''}
+      controllerMessage: {status: 'ok', message: ''},
+      igorUrl: ''
     }
   },
   mixins: [connectToWebSocket, RESTRequest],
   methods: {
-    connectWS () {
-      if(this.selectDeviceName === '') {
-        this.$store.dispatch('wsConnectionList/setInfoMessage', {message: 'Укажите усторойство подключения',status: 'error'})
+    connectWS() {
+      if (this.selectDeviceName === '') {
+        this.$store.dispatch('wsConnectionList/setInfoMessage', {
+          message: 'Укажите усторойство подключения',
+          status: 'error'
+        })
         this.$refs.nameDeviceSelect.focus()
       } else {
-        this.connectToWS(this.wsUrl, this.selectDeviceName, this.$store)
+        if(this.wsIp === '') {
+          this.$store.dispatch('wsConnectionList/setInfoMessage', {
+            message: 'Укажите IP-адрес',
+            status: 'error'
+          })
+        } else {
+          if(this.wsPort === '') {
+            this.$store.dispatch('wsConnectionList/setInfoMessage', {
+              message: 'Укажите порт',
+              status: 'error'
+            })
+        } else {
+            if(this.wsUrl === '') {
+              this.$store.dispatch('wsConnectionList/setInfoMessage', {
+                message: 'Укажите URL',
+                status: 'error'
+              })
+          } else {
+              let address = {}
+              address.ip = this.wsIp
+              address.port = this.wsPort
+              address.url = this.wsUrl
+              address.full = this.wsIp + ':' + this.wsPort + this.wsUrl
+              address.isMain = this.selectDeviceName.substring(0, this.selectDeviceName.length - 1) === 'ARM' ? true : false
+              this.connectToWS(address, this.selectDeviceName, this.$store)
+              this.selectDeviceName = ''
+            }
+          }
+        }
       }
     },
-    closeConnectWS () {
-
-      this.closeConnectToWS(this.wsUrl, this.$store)
+    closeConnectWS() {
+      let address = {}
+      address.ip = this.wsIp
+      address.port = this.wsPort
+      address.url = this.wsUrl
+      address.full = this.wsIp + ':' + this.wsPort + this.wsUrl
+      this.closeConnectToWS(address, this.$store)
     },
-    async setControllerConfiguration () {
-      if(this.connectWSList.length > 0) {
+    async setControllerConfiguration() {
+      if (this.getMainConnectionAddress !== null) {
         let context = this
         this.controllerMessage.message = 'Устанавливаются значения контроллера'
         this.$store.dispatch('protocol/addLogMessage', {text: this.controllerMessage.message})
@@ -113,7 +183,7 @@ export default {
         message.ip = this.controllerIP
         message.port = this.controllerPort
         message.period = this.controllerPeriod
-        let response = await this.sendRESTCommand('http://10.10.0.122:8083/settings/controller',
+        let response = await this.sendRESTCommand('http://' + this.getMainConnectionAddress + '/settings/controller',
             'POST', null, 'qqq', JSON.stringify(message))
         if (response.ok) {
           context.controllerMessage.message = 'Конфигурация установлена'
@@ -132,9 +202,12 @@ export default {
         console.log(this.controllerMessage.message)
       }
     },
+    setIgorUrl () {
+      this.$store.dispatch('ZSParameters/setIgorUrl', this.igorUrl)
+    }
   },
   watch: {
-    selectWSURl () {
+    selectWSURl() {
       this.wsUrl = this.selectWSURl
     }
   },
@@ -142,57 +215,90 @@ export default {
     ...mapState({
       connectWSList: state => state.wsConnectionList.webSocketConnectionList,
       message: state => state.wsConnectionList.infoMessage,
+
     }),
-    getNamesConnections () {
+    getNamesConnections() {
       let list = [...this.nameDevicesList]
       let storeList = this.$store.getters['wsConnectionList/getNamesConnections']
       storeList.forEach(function (name) {
-        if(list.indexOf(name) != -1) {
+        if (list.indexOf(name) != -1) {
           list.splice(list.indexOf(name), 1)
         }
       })
       return list
+    },
+    getMainConnectionAddress () {
+      return this.$store.getters['wsConnectionList/getMainConnectionAddress']
     }
-
   }
 }
 </script>
 
 <style scoped>
 
-.container-setting {
+.LVSsettings__wrapper {
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-items: center;
   align-items: center;
+  font-size: 2.5vmin;
 }
-.control-elements-connection-container {
-  margin: 20px;
-  width: 80%;
-}
-.control-elements-connection {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 50% 50%;
-  grid-template-rows: 50% 50%;
-  grid-row-gap: 10px;
-  grid-column-gap: 10px;
-}
-.control-elements-in-container {
-  justify-self: start;
-  align-self: start;
-  width: 100%;
-  height: 100%;
-  grid-column: 2;
+.LVSsettings__wrapper-title {
+  margin-top: 15px;
+  margin-bottom: 5px;
 }
 
-.control-elements-input {
-  grid-column: 1;
-  grid-row: 1;
-  width: 90%;
-  height: 75%;
+.controller-connection__wrapper {
+  border: 1px black solid;
+  width: 80%;
+  padding: 20px;
+  height: 15%;
+}
+.controller-connection__container {
+  display: grid;
+  grid-template-columns: 60% 35%;
+  height: 100%;
+  width: 100%;
+  grid-column-gap: 5%;
+}
+.controller-connection__inputs-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+}
+.controller-connection__buttons-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.arm-connection__wrapper {
+  border: 1px black solid;
+  width: 80%;
+  height: 15%;
+  padding: 20px;
+}
+
+.arm-connection__container {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 60% 35%;
+  grid-column-gap: 5%;
+}
+
+.arm-connection__inputs-container {
+  justify-content: space-around;
+  display: flex;
+  flex-direction: column;
+}
+
+.arm-connection__buttons-container {
+  display: flex;
+  flex-direction: column;
 }
 
 .info-message {
@@ -205,24 +311,29 @@ export default {
   color: red;
 }
 
-.connection-table-title {
+.list-connection__wrapper {
+  width: 87%;
 }
 
-.table-container {
-  width: 95%;
+.list-connection__title {
+  text-align: center;
+}
+
+.list-connection__container {
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-items: center;
 }
 
-.connection-table {
+.list-connection__table-row {
   display: grid;
   grid-template-columns: 20% 40% 40%;
   width: 100%;
   text-align: center;
 }
 
-.cell-connection-table {
+.list-connection__cell {
   width: 100%;
   height: 100%;
   justify-self: center;
@@ -230,23 +341,6 @@ export default {
   cursor: pointer;
   border: 1px black solid;
 
-}
-
-.controller__container {
-  border: 1px black solid;
-  display: grid;
-  grid-template-columns: 60% 40%;
-  margin-bottom: 20px;
-}
-.controller__input-parameters {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-}
-
-.web-socket__container {
-  border: 1px black solid;
-  padding: 20px;
 }
 
 

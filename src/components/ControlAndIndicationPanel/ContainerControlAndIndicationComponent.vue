@@ -1,5 +1,5 @@
 <template>
-  <div class="container-control-and-indication">
+  <div class="control-and-indication__wrapper">
     <clock-component class="clock"></clock-component>
     <div class="crash">
       <div class="crash-title">АВАРИЯ</div>
@@ -14,8 +14,8 @@
     </div>
     <div class="control-background" style="grid-row: 9;">
       <div class="ind-title">БОРТОВАЯ ТЕЛЕМЕТРИЯ</div>
-      <ButtonComponent class="btn-2" v-model:active-status="testVar2"></ButtonComponent>
-      <StatusIndicatorComponent class="ind-1" :is-active="testVar2"></StatusIndicatorComponent>
+      <ButtonComponent class="btn-2" :active-status="monitoringState" @btnClick="sendIgorRequest"></ButtonComponent>
+      <StatusIndicatorComponent class="ind-1" :is-active="monitoringState"></StatusIndicatorComponent>
     </div>
     <div class="control-background" style="grid-row: 11;">
       <div class="ind-title">АНТЕННАЯ СИСТЕМА</div>
@@ -64,18 +64,35 @@ export default {
       this.$store.dispatch('dialogStatus/changeProtocolDialogStatus', true)
     },
     async sendZSMonitoringStatus() {
+      if (this.getMainConnectionAddress === null) {
+        this.$store.dispatch('protocol/addLogMessage', {text: 'Отсутствует подключение к АРМу'})
+      } else {
+        let context = this
+        let message = {}
+        message.state = !context.monitoringState
+        message.type = 'gsMonitoring'
+        let response = await this.sendRESTCommand('http://' + this.getMainConnectionAddress + '/monitoring/state', 'POST', null, 'qqq', JSON.stringify(message))
+        // let response = RESTRequest.methods.sendCommand('api/monitoring/state', 'POST', null, 'qqq', JSON.stringify(message))
+        // console.log(response)
+        response.text().then(function (text) {
+          console.log(text)
+          context.$store.dispatch('protocol/addLogMessage', {text: text})
+        })
+      }
+    },
+    async sendIgorRequest () {
       let context = this
       let message = {}
       message.state = !context.monitoringState
       message.type = 'gsMonitoring'
-      let response = await this.sendRESTCommand('http://10.10.0.122:8083/monitoring/state', 'POST', null, 'qqq', JSON.stringify(message))
+      let response = await this.sendRESTCommand(this.igorUrl, 'POST', null, 'qqq', JSON.stringify(message))
       // let response = RESTRequest.methods.sendCommand('api/monitoring/state', 'POST', null, 'qqq', JSON.stringify(message))
       // console.log(response)
       response.text().then(function (text) {
         console.log(text)
-        // context.$store.dispatch('protocol/addLogMessage', {text: text})
+        context.$store.dispatch('protocol/addLogMessage', {text: text})
       })
-    },
+    }
   },
   watch: {
   },
@@ -83,19 +100,25 @@ export default {
     ...mapState({
       protocolDialogStatus: state => state.dialogStatus.protocolDialogStatus,
       monitoringState: state => state.ZSParameters.monitoringState,
-      monitoringType: state => state.ZSParameters.monitoringType
-    })
+      monitoringType: state => state.ZSParameters.monitoringType,
+      igorUrl: state => state.ZSParameters.igorUrl
+    }),
+    getMainConnectionAddress () {
+      return this.$store.getters['wsConnectionList/getMainConnectionAddress']
+    }
   }
 }
 </script>
 
 <style scoped>
-.container-control-and-indication {
+.control-and-indication__wrapper {
+  box-shadow: 0px 0px 5px .5px rgba(172, 172, 172, 0.8);
   user-select: none;
-  width: 100%;
+  width: 97%;
   height: 100%;
   display: grid;
   grid-template-rows: 7.3% .4% 9.5% .4% 14.5% .4% 7.5% .4% 7.5% .4% 7.5% .4% 29.5% .4% 9.5% .4% 4%;
+  justify-self: end;
   justify-items: center;
   align-items: center;
   font-weight: bold;

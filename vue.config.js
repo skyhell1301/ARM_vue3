@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require('path')
 
 module.exports = {
     publicPath: '/',
@@ -21,5 +22,9 @@ module.exports = {
            icons: [],
            content_security_policy: "default-src 'self' style-src 'self' 'unsafe-inline';"
        }
-    }
+    },
+    variables: path.resolve(
+        __dirname,
+        "assets/css/colors.css"
+    ),
 }

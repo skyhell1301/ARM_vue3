@@ -209,8 +209,8 @@
       </g>
       <defs>
         <pattern id="grid" patternUnits="userSpaceOnUse" width="10" height="10" patternTransform="rotate(0)">
-          <line x1="0" y1="0" x2="10" y2="0" stroke="#ccc"/>
-          <line x1="0" y1="0" x2="0" y2="10" stroke="#ccc"/>
+          <line class="grid-line" x1="0" y1="0" x2="10" y2="0"/>
+          <line class="grid-line" x1="0" y1="0" x2="0" y2="10"/>
         </pattern>
       </defs>
     </svg>
@@ -632,8 +632,8 @@ export default {
 <style scoped>
 .device-container {
   z-index: 1;
-  border: 1px solid black;
   display: grid;
+  box-shadow: 0px 0px 5px .5px rgba(172, 172, 172, 0.8);
   grid-template-rows: 15% 5% 15% 10% 15% 3% 12% 5% 20%;
   grid-template-columns: 22% 6% 22% 22% 6% 22%;
   align-self: center;
@@ -850,4 +850,7 @@ export default {
   transform: rotate(180deg);
 }
 
+.grid-line {
+  stroke: #ccc;
+}
 </style>

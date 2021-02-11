@@ -1,7 +1,8 @@
 const state = ()=> ({
     allParameters: {},
     monitoringType: '',
-    monitoringState: false
+    monitoringState: false,
+    igorUrl: ''
 
 })
 const mutations = {
@@ -9,6 +10,10 @@ const mutations = {
         state.allParameters = payload
         state.monitoringState = payload.state === 'On' ? true : false
         state.monitoringType = state.monitoringState ? 'ok' : 'none'
+    },
+    setIgorUrl(state, payload) {
+        state.igorUrl = payload
+        console.log('URL ' + payload + ' для Игоря установлен. Ставьте лайки, подписывайтесь на канал.')
     }
 }
 const getters = {
@@ -17,6 +22,9 @@ const getters = {
 const actions = {
     ZSParametersUpdate({commit}, payload) {
         commit('ZSParametersUpdate', payload)
+    },
+    setIgorUrl({commit}, payload) {
+        commit('setIgorUrl', payload)
     }
 }
 

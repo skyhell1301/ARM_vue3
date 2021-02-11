@@ -1,5 +1,5 @@
 <template>
-  <button ref="buttonRef">
+  <button style="font-size:.9em;" ref="buttonRef">
     <slot/>
   </button>
 </template>

@@ -16,13 +16,17 @@ const mutations = {
             }
         })
         if (pushAllowed) {
+            if(payload.isMain) {
+                state.webSocketConnectionList.forEach(function (item) {
+                    item.isMain = false
+                })
+            }
             state.webSocketConnectionList.push(payload)
         }
     },
     lifeMarkUpdate(state, payload) {
         let pattern = /(\d{2})\.(\d{2})\.(\d{4})/
         let date = new Date(payload.lifeMark.replace(pattern, '$3-$2-$1'))
-        // console.log(date)
         state.webSocketConnectionList.forEach(function (item) {
             if (payload.url === item.realUrl) {
                 item.lifeMark = date.toString()
@@ -39,6 +43,9 @@ const mutations = {
         }
         if (index === null) {
             return
+        }
+        if(state.webSocketConnectionList[index] === state.mainConnection) {
+            state.mainConnection = {}
         }
         state.webSocketConnectionList.splice(index, 1)
     },
@@ -91,6 +98,16 @@ const getters = {
             list.push(item.deviceName)
         })
         return list
+    },
+    getMainConnectionAddress: state => {
+        let address = null
+        state.webSocketConnectionList.forEach(function (item) {
+            if(item.isMain) {
+                address = item.ip + ':' + item.port
+            }
+        })
+        console.log(address)
+        return address
     }
 }
 const actions = {

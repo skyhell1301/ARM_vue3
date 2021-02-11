@@ -3,7 +3,7 @@
     <display-parameters-component style="font-size: 1em;" :device-data="antennaParameters"/>
     <div class="container-control-elements">
       <select class="control-elements" name="Режим" v-model="selectedMode">
-        <option v-for="mode in workModeList" :key="mode">
+        <option v-for="mode in getWorkModeList" :key="mode">
           {{ mode }}
         </option>
       </select>
@@ -30,12 +30,6 @@ export default {
     DisplayParametersComponent,
   },
   methods: {
-    updateLocalData () {
-      console.log(this.antennaParameters)
-      if(this.antennaParameters !== undefined) {
-        this.workModeList = this.antennaParameters.workmode.val_list
-      }
-    },
     sendMode() {
       let obj = {id: this.antennaParameters.id.valueParameter}
       obj.workmode = this.antennaParameters.workmode.val_list.indexOf(this.selectedMode)
@@ -67,13 +61,17 @@ export default {
       }
     }
   },
-  updated() {
-    this.updateLocalData()
-  },
   computed: {
     ...mapState({
-      antennaParameters: state => state.ZSParameters.antennaParameters1.deviceParameters
-    })
+      antennaParameters: state => state.devicesParameters.antennaParameters1.deviceParameters
+    }),
+    getWorkModeList () {
+      if(this.antennaParameters !== undefined) {
+        return  this.antennaParameters.workmode.val_list
+      } else {
+        return this.workModeList
+      }
+    }
   },
   mounted() {
   }

@@ -1,17 +1,17 @@
 export default {
     methods: {
-        connectToWS(wsUrl, deviceName, store) {
+        connectToWS(address, deviceName, store) {
             this.store = store
-            let checkWebSocketConnection = store.getters['wsConnectionList/getWebSocket'](wsUrl)
+            let checkWebSocketConnection = store.getters['wsConnectionList/getWebSocket'](address.full)
             let mes
-            if (checkWebSocketConnection === null && wsUrl !== '') {
+            if (checkWebSocketConnection === null && address.full !== '') {
 
-                mes = 'Начало подключения к WebSocket серверу (url: ws://' + wsUrl + ')'
+                mes = 'Начало подключения к WebSocket серверу (url: ws://' + address.full + ')'
                 console.log(mes)
                 store.dispatch('protocol/addLogMessage', {text: mes})
                 store.dispatch('wsConnectionList/setInfoMessage', {message: mes, status: 'ok'})
 
-                let webSocketConnection = new WebSocket('ws://' + wsUrl)
+                let webSocketConnection = new WebSocket('ws://' + address.full)
 
                 webSocketConnection.onopen = function (event) {
                     mes = 'Соединение установлено c WebSocket сервером (url: ' + event.target.url + ')'
@@ -21,8 +21,12 @@ export default {
                     let connectWS = {
                         ws: webSocketConnection,
                         deviceName: deviceName,
+                        ip: address.ip,
+                        port: address.port,
+                        url: address.url,
+                        isMain: address.isMain,
                         status: 'ok',
-                        userUrl: wsUrl,
+                        userUrl: address.full,
                         realUrl: event.target.url,
                         lifeMark: new Date().toString(),
                     }
@@ -58,7 +62,7 @@ export default {
                         console.log(mes)
                         store.dispatch('protocol/addLogMessage', {text: mes})
                     } else {
-                        mes = `Соединение прервано, код=${event.code}`
+                        mes = `Соединение c ${event.target.url} прервано, код=${event.code}`
                         store.dispatch('wsConnectionList/setInfoMessage', {message: mes, status: 'error'})
                         console.log(mes)
                         store.dispatch('protocol/addLogMessage', {text: mes})
@@ -66,8 +70,8 @@ export default {
                     store.dispatch('wsConnectionList/closeConnectionToWS', event.target.url)
                 }
             } else {
-                if (wsUrl !== '') {
-                    mes = 'Уже имеется подключение до данному url: ws://' + wsUrl
+                if (address !== '') {
+                    mes = 'Уже имеется подключение до данному url: ws://' + address
                     store.dispatch('wsConnectionList/setInfoMessage', {message: mes, status: 'error'})
                     console.log(mes)
                     store.dispatch('protocol/addLogMessage', {text: mes})
@@ -82,7 +86,7 @@ export default {
 
 
         closeConnectToWS(wsUrl, store) {
-            let webSocketConnection = store.getters['wsConnectionList/getWebSocket'](wsUrl)
+            let webSocketConnection = store.getters['wsConnectionList/getWebSocket'](wsUrl.full)
             if (webSocketConnection !== null) {
                 webSocketConnection.close(1000, 'Инициализация отключения состороны клиента')
             } else {

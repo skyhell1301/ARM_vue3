@@ -19,7 +19,7 @@ export default {
   },
   computed: {
     ...mapState({
-      amplifier1DeviceById1: state => state.ZSParameters.amplifier1DeviceParameters1.deviceParameters
+      amplifier1DeviceById1: state => state.devicesParameters.amplifier1DeviceParameters1.deviceParameters
     })
   },
   mounted() {

@@ -73,14 +73,17 @@ export default {
 
 }
 .color-warning {
-  background: linear-gradient(130deg, #ffe191 0%, #ffcc00 40%, #ffcc00 50%, #ffe191 100%);
+  //background: linear-gradient(130deg, #FFF51C 0%, #FFF51C 40%, #FFF51C 50%, #FFF51C 100%);
+  background: var(--warning-color);
 }
 .color-ok {
-  background: linear-gradient(130deg, #8cf382 0%, #50d044 40%, #50d044 50%, #8cf382 100%);
-
-}
+  //background: linear-gradient(130deg, #66FF66 0%, #66FF66 40%, #66FF66 50%, #66FF66 100%);
+  background: var(--good-color);
+  //background: #66FF66;
+ }
 .color-error {
-  background: linear-gradient(130deg, #ff5252 0%, #ff3333 40%, #ff3333 50%, #ff9696 100%);
+  background: var(--error-color);
+  //background: linear-gradient(130deg, #ff3636 0%, #ff3636 40%, #ff3636 50%, #ff3636 100%);
 }
 .color-none {
   background: none;
