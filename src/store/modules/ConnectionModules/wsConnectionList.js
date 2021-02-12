@@ -1,6 +1,5 @@
 const state = () => ({
-    webSocketConnectionList: [
-    ],
+    webSocketConnectionList: [],
     infoMessage: {
         message: '',
         status: ''
@@ -16,7 +15,7 @@ const mutations = {
             }
         })
         if (pushAllowed) {
-            if(payload.isMain) {
+            if (payload.isMain) {
                 state.webSocketConnectionList.forEach(function (item) {
                     item.isMain = false
                 })
@@ -27,25 +26,16 @@ const mutations = {
     lifeMarkUpdate(state, payload) {
         let pattern = /(\d{2})\.(\d{2})\.(\d{4})/
         let date = new Date(payload.lifeMark.replace(pattern, '$3-$2-$1'))
-        state.webSocketConnectionList.forEach(function (item) {
-            if (payload.url === item.realUrl) {
-                item.lifeMark = date.toString()
+        let wsConnection = state.webSocketConnectionList.find(wsConn => wsConn.realUrl === payload.url)
+            if (wsConnection) {
+                wsConnection.lifeMark = date.toString()
             }
-        })
     },
     closeConnectionToWS(state, payload) {
-        let index = null
-        for (let i = 0; i < state.webSocketConnectionList.length; i++) {
-            if (state.webSocketConnectionList[i].realUrl === payload) {
-                index = i
-                break
-            }
-        }
-        if (index === null) {
+        const wsCon = state.webSocketConnectionList.find(wsConn => wsConn.realUrl === payload)
+        let index = state.webSocketConnectionList.indexOf(wsCon)
+        if (index < 0 || index === null || index === undefined) {
             return
-        }
-        if(state.webSocketConnectionList[index] === state.mainConnection) {
-            state.mainConnection = {}
         }
         state.webSocketConnectionList.splice(index, 1)
     },
@@ -54,42 +44,26 @@ const mutations = {
     }
 }
 const getters = {
-    getLifeMarkWS: state => url => {
-        for (let conn of state.webSocketConnectionList) {
-            if (conn.userUrl === url) {
-                return conn
-            } else {
-             return null
-            }
-        }
-    },
     getWebSocket: state => url => {
-        let ws = null
-        state.webSocketConnectionList.forEach(function (item) {
-            if (item.userUrl === url) {
-                ws = item.ws
-            }
-        })
+        let ws = state.webSocketConnectionList.find(wsCon => wsCon.userUrl === url)
         return ws
     },
-    ARM1Status: state =>{
+    ARM1Status: state => {
         let status = {connection: false, status: 'none'}
-        state.webSocketConnectionList.forEach(function (item) {
-            if (item.deviceName === 'ARM1') {
-                status.connection = true
-                status.status = item.status
-            }
-        })
+        const ws = state.webSocketConnectionList.find(webSoket => webSoket.deviceName === 'ARM1')
+        if (ws !== undefined) {
+            status.connection = true
+            status.status = ws.status
+        }
         return status
     },
-    ARM2Status: state =>{
+    ARM2Status: state => {
         let status = {connection: false, status: 'none'}
-        state.webSocketConnectionList.forEach(function (item) {
-            if (item.deviceName === 'ARM2') {
-                status.connection = true
-                status.status = item.status
-            }
-        })
+        const ws = state.webSocketConnectionList.find(webSoket => webSoket.deviceName === 'ARM2')
+        if (ws !== undefined) {
+            status.connection = true
+            status.status = ws.status
+        }
         return status
     },
     getNamesConnections: state => {
@@ -101,12 +75,10 @@ const getters = {
     },
     getMainConnectionAddress: state => {
         let address = null
-        state.webSocketConnectionList.forEach(function (item) {
-            if(item.isMain) {
-                address = item.ip + ':' + item.port
-            }
-        })
-        console.log(address)
+        const ws = state.webSocketConnectionList.find(webSoket => webSoket.isMain)
+        if (ws !== undefined) {
+            address = ws.ip + ':' + ws.port
+        }
         return address
     }
 }

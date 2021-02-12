@@ -3,7 +3,8 @@
     <NavMenuComponent class="container-nav-menu"></NavMenuComponent>
   </div>
   <ContainerDeviceComponent class="container-device"></ContainerDeviceComponent>
-  <ContainerControlAndIndicationComponent class="container-control-and-indication"></ContainerControlAndIndicationComponent>
+  <ContainerControlAndIndicationComponent
+      class="container-control-and-indication"></ContainerControlAndIndicationComponent>
   <WindowsPanelComponent class="container-window-panel"></WindowsPanelComponent>
   <DialogsContainer></DialogsContainer>
 </template>
@@ -11,16 +12,20 @@
 <script>
 import store from './store'
 import ContainerDeviceComponent from './components/DevicesPanel/ContainerDeviceComponent.vue'
-import ContainerControlAndIndicationComponent from './components/ControlAndIndicationPanel/ContainerControlAndIndicationComponent.vue'
+import ContainerControlAndIndicationComponent
+  from './components/ControlAndIndicationPanel/ContainerControlAndIndicationComponent.vue'
 import NavMenuComponent from './components/MenuPanel/NavMenuComponent.vue'
 import DialogsContainer from "@/components/Dialogs/DialogsContainer";
 import WindowsPanelComponent from "@/components/WindowsControl/WindowsPanel";
 import connectToWebSocket from "@/mixins/connectToWebSocket";
+
 export default {
   name: 'App',
-  data () {
+  data() {
     return {
-      mode: process.env.NODE_ENV
+      mode: process.env.NODE_ENV,
+      ARM1: {},
+      ARM2: {}
     }
   },
   mixins: [connectToWebSocket],
@@ -32,16 +37,54 @@ export default {
     ContainerDeviceComponent
   },
   methods: {
+    async someMethod() {
+      let context = this
+      const baseUrl = process.env.BASE_URL;
+
+      let response = await fetch(baseUrl + 'ARMConfiguration.json')
+      response.json().then(function (json) {
+        context.ARM1 = json.ARM1
+        context.ARM2 = json.ARM2
+      })
+    },
+    connectToARM() {
+      if (this.ARM1.ip !== undefined) {
+        let address1 = {}
+        address1.ip = this.ARM1.ip
+        address1.port = this.ARM1.port
+        address1.url = '/state'
+        address1.full = address1.ip + ':' + address1.port + address1.url
+        address1.isMain = true
+        this.connectToWS(address1, 'ARM1', store)
+        // let address2 = {}
+        // address2.ip = this.ARM1.ip
+        // address2.port = this.ARM1.port
+        // address2.url = '/state'
+        // address2.full = address2.ip + ':' + address2.port + address2.url
+        // address2.isMain = true
+        // this.connectToWS(address2, 'Protocol', store)
+      } else {
+        setTimeout(this.connectToARM, 2000)
+      }
+
+    }
   },
   mounted() {
-    this.connectToWS({full: process.env.VUE_APP_BASE_URL}, 'ARM1', store)
-    this.connectToWS({full: '10.10.0.122:8083/protocol'}, 'Protocol', store)
+    this.someMethod()
+    this.connectToARM()
+    // let a = "^((0|1\\d?\\d?|2[0-4]?\\d?|25[0-5]?|[3-9]\\d?)\\.){3}(0|1\\d?\\d?|2[0-4]?\\d?|25[0-5]?|[3-9]\\d?)$"
+    // let PATTERN = new RegExp(a)
+    // let str = "10.10.0.250";
+    // let result = PATTERN.test(str);
+    // console.log(result)
+
   }
 }
 </script>
 
 <style>
 @import "./assets/css/colors.css";
+
 body {
   overflow: hidden;
   margin: 0;
@@ -49,6 +92,7 @@ body {
   width: 100vw;
 
 }
+
 #app {
   overflow: hidden;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -76,6 +120,7 @@ body {
   height: 90%;
 
 }
+
 .container-nav-menu {
   width: 60%;
 }

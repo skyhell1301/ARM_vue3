@@ -89,6 +89,7 @@
     </div>
     <input type="text" v-model="igorUrl" style="margin-top: 20px;">
     <custom-button @buttonClick="setIgorUrl">Установить URL Игоря</custom-button>
+    <div style="margin-top: 10px;">Установлен:</div>
     <div>{{$store.state.ZSParameters.igorUrl}}</div>
   </div>
 </template>
@@ -174,7 +175,7 @@ export default {
       this.closeConnectToWS(address, this.$store)
     },
     async setControllerConfiguration() {
-      if (this.getMainConnectionAddress !== null) {
+      if (this.getMainConnectionAddress !== null && this.getMainConnectionAddress !== undefined) {
         let context = this
         this.controllerMessage.message = 'Устанавливаются значения контроллера'
         this.$store.dispatch('protocol/addLogMessage', {text: this.controllerMessage.message})

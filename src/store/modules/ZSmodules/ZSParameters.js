@@ -2,7 +2,7 @@ const state = ()=> ({
     allParameters: {},
     monitoringType: '',
     monitoringState: false,
-    igorUrl: ''
+    igorUrl: 'http://smotr/monitoring/state'
 
 })
 const mutations = {

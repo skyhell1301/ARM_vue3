@@ -64,7 +64,7 @@ export default {
       this.$store.dispatch('dialogStatus/changeProtocolDialogStatus', true)
     },
     async sendZSMonitoringStatus() {
-      if (this.getMainConnectionAddress === null) {
+      if (this.getMainConnectionAddress === null && this.getMainConnectionAddress !== undefined) {
         this.$store.dispatch('protocol/addLogMessage', {text: 'Отсутствует подключение к АРМу'})
       } else {
         let context = this
