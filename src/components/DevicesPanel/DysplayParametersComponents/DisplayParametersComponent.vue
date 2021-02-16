@@ -3,10 +3,10 @@
        :id="'Parameters-' + ID"
   >
     <div class="table_parameters"
-         v-for="param in deviceData"
-         :key="param">
-      <div class="param">{{ param.nameParameter }}</div>
-      <div class="value">{{ param.valueParameter }}</div>
+         v-for="data in deviceData"
+         :key="data">
+      <div class="param">{{$t(data.nameParameter)}}</div>
+      <div class="value">{{ data.valueParameter }}</div>
     </div>
     <slot></slot>
   </div>
@@ -23,7 +23,8 @@ export default {
         const three = Math.floor((Math.random() * 1000000) + 1) + ''
         return 'id' + one + two + three
       })(),
-      dataArray: null,
+      namesList: {},
+
     }
   },
   props: {

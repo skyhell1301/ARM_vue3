@@ -15,7 +15,7 @@ export default {
   components: {UniversalDisplayComponent},
   data () {
     return {
-      viewFields: ['Значение тока (мА)', 'Пределы тока (мА)', 'Напряжение A (В)', 'Напряжение B (В)']
+      viewFields: ['voltage_a', 'voltage_b', 'current', 'current_limit']
     }
   },
   props: {

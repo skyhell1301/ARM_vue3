@@ -7,13 +7,7 @@ const state = () => ({
 })
 const mutations = {
     newConnectionToWS(state, payload) {
-        // console.log(state.webSocketConnectionList)
-        let pushAllowed = true
-        state.webSocketConnectionList.forEach(function (item) {
-            if (payload.realUrl === item.realUrl) {
-                pushAllowed = false
-            }
-        })
+        let pushAllowed = state.webSocketConnectionList.find(wsConn => wsConn.realUrl === payload.realUrl) === undefined ? true : false
         if (pushAllowed) {
             if (payload.isMain) {
                 state.webSocketConnectionList.forEach(function (item) {
@@ -34,9 +28,7 @@ const mutations = {
     closeConnectionToWS(state, payload) {
         const wsCon = state.webSocketConnectionList.find(wsConn => wsConn.realUrl === payload)
         let index = state.webSocketConnectionList.indexOf(wsCon)
-        if (index < 0 || index === null || index === undefined) {
-            return
-        }
+        if (index === -1) return
         state.webSocketConnectionList.splice(index, 1)
     },
     setInfoMessage(state, payload) {
@@ -50,7 +42,7 @@ const getters = {
     },
     ARM1Status: state => {
         let status = {connection: false, status: 'none'}
-        const ws = state.webSocketConnectionList.find(webSoket => webSoket.deviceName === 'ARM1')
+        const ws = state.webSocketConnectionList.find(webSocket => webSocket.deviceName === 'ARM1')
         if (ws !== undefined) {
             status.connection = true
             status.status = ws.status
@@ -59,7 +51,7 @@ const getters = {
     },
     ARM2Status: state => {
         let status = {connection: false, status: 'none'}
-        const ws = state.webSocketConnectionList.find(webSoket => webSoket.deviceName === 'ARM2')
+        const ws = state.webSocketConnectionList.find(webSocket => webSocket.deviceName === 'ARM2')
         if (ws !== undefined) {
             status.connection = true
             status.status = ws.status
@@ -75,7 +67,7 @@ const getters = {
     },
     getMainConnectionAddress: state => {
         let address = null
-        const ws = state.webSocketConnectionList.find(webSoket => webSoket.isMain)
+        const ws = state.webSocketConnectionList.find(webSocket => webSocket.isMain)
         if (ws !== undefined) {
             address = ws.ip + ':' + ws.port
         }

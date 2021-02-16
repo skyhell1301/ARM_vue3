@@ -7,6 +7,7 @@ const state = ()=> ({
 
     LVSSettingDialogStatus: {status: false, focus: false},
     protocolDialogStatus: {status: false, focus: false},
+    applicationSettingsDialogStatus: {status: false, focus: false}
 })
 const mutations = {
     changeAntennaSystemDialogStatus (state, payload) {
@@ -60,6 +61,13 @@ const mutations = {
             state.protocolDialogStatus.status = payload
         }
     },
+    changeApplicationSettingsDialogStatus (state, payload) {
+        if(state.applicationSettingsDialogStatus.status === true && payload === true) {
+            state.applicationSettingsDialogStatus.focus = !state.applicationSettingsDialogStatus.focus
+        } else {
+            state.applicationSettingsDialogStatus.status = payload
+        }
+    },
 }
 const getters = {
 }
@@ -85,6 +93,9 @@ const actions = {
     },
     changeProtocolDialogStatus ({commit}, payload) {
         commit('changeProtocolDialogStatus', payload)
+    },
+    changeApplicationSettingsDialogStatus ({commit}, payload) {
+        commit('changeApplicationSettingsDialogStatus', payload)
     },
 
 

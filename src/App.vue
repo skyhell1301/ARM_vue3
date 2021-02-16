@@ -7,6 +7,13 @@
       class="container-control-and-indication"></ContainerControlAndIndicationComponent>
   <WindowsPanelComponent class="container-window-panel"></WindowsPanelComponent>
   <DialogsContainer></DialogsContainer>
+  <div>
+<!--    <p>{{ $tc('azimuth') }}</p>-->
+<!--    <p>{{ $tc('car', 2) }}</p>-->
+<!--    <p>{{ $tc('car', 4) }}</p>-->
+<!--    <p>{{ $tc('car', 12) }}</p>-->
+<!--    <p>{{ $tc('car', 41) }}</p>-->
+  </div>
 </template>
 
 <script>
@@ -56,13 +63,13 @@ export default {
         address1.full = address1.ip + ':' + address1.port + address1.url
         address1.isMain = true
         this.connectToWS(address1, 'ARM1', store)
-        // let address2 = {}
-        // address2.ip = this.ARM1.ip
-        // address2.port = this.ARM1.port
-        // address2.url = '/state'
-        // address2.full = address2.ip + ':' + address2.port + address2.url
-        // address2.isMain = true
-        // this.connectToWS(address2, 'Protocol', store)
+        let address2 = {}
+        address2.ip = this.ARM1.ip
+        address2.port = this.ARM1.port
+        address2.url = '/protocol'
+        address2.full = address2.ip + ':' + address2.port + address2.url
+        address2.isMain = false
+        this.connectToWS(address2, 'Protocol', store)
       } else {
         setTimeout(this.connectToARM, 2000)
       }
@@ -107,6 +114,7 @@ body {
   min-height: 600px;
   border: 1px solid black;
   font-size: 1vmax;
+  /*font-size: 1.7vmin;*/
 }
 
 .menu-container {
@@ -122,7 +130,6 @@ body {
 }
 
 .container-nav-menu {
-  width: 60%;
 }
 
 .container-device {

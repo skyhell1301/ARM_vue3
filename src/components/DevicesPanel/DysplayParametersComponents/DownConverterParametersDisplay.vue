@@ -15,7 +15,7 @@ export default {
   components: {UniversalDisplayComponent},
   data () {
     return {
-      viewFields: ['Значение ослабления', 'Вх. частота', 'Напряжение +5В', 'dac'],
+      viewFields: ['ImpedanceValue', 'InputFrequency', 'OutputFrequency', 'AttenuationValue', 'Voltage15Positive'],
     }
   },
   props: {

@@ -14,7 +14,7 @@ export default {
   components: {UniversalDisplayComponent},
   data () {
     return {
-      viewFields: ['Угол места', 'Азимут', 'Сканнер', 'Уровень сигнала', 'Рабочий режим'],
+      viewFields: ['azimut', 'angle', 'scanner', 'workmode', 'signal_lvl'],
     }
   },
   props: {

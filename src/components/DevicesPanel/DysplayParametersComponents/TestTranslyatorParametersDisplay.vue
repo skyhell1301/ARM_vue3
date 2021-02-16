@@ -15,7 +15,7 @@ export default {
   components: {UniversalDisplayComponent},
   data () {
     return {
-      viewFields: ['Частота (МГц)', 'Ослабление (дБ)', 'ВЧ выход']
+      viewFields: []
     }
   },
   props: {

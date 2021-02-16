@@ -109,7 +109,7 @@
       </div>
     </MenuItemComponent>
     <MenuItemComponent title-menu-item="Настройки">
-      <div class="setting-item">
+      <div class="setting-item" @click="dialogOpen('changeApplicationSettingsDialogStatus')">
         <GearIcon class="item-icon"></GearIcon>
         <div class="item-title">Настройки программы</div>
       </div>
@@ -213,7 +213,7 @@ export default {
 <style scoped>
 .nav-menu-container {
   color: var(--main-color);
-  width: 100%;
+  width: 80%;
   position: relative;
   background: linear-gradient(180deg, #f6f1f5 0%, #fcf7fb 100%);
   display: flex;

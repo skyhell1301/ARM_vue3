@@ -8,7 +8,7 @@
              :key="param"
              class="view-list-container"
         >
-          <div class="view-list-name">{{param.nameParameter}}</div>
+          <div class="view-list-name">{{$t(param.nameParameter)}}</div>
           <input class="view-list-value" type="checkbox" :value="param.nameParameter" v-model="localViewFields" @change="changeViewList"/>
         </div>
       </div>
@@ -59,10 +59,16 @@ export default {
       this.$store.dispatch('dialogStatus/change' + this.dialogName + 'DialogStatus', true)
     },
     updateData () {
+      // let namesList = []
+      // this.updateNamesList()
+      // for (let name in this.deviceData) {
+      //   namesList.push({nameParameter: name, valueParameter: this.deviceData[name].valueParameter})
+      // }
       this.parameters = []
       for (let param in this.inputParameters.deviceParameters) {
 
         let newParam = this.inputParameters.deviceParameters[param]
+        newParam.nameParameter = param
 
         if(this.localViewFields === null) {
           newParam.isView = true
@@ -105,13 +111,13 @@ export default {
   },
   computed: {
     getViewParameters () {
-      let filterParametrs = []
-      for(let item in this.parameters) {
-        if(this.parameters[item].isView) {
-          filterParametrs.push(this.parameters[item])
+      let filterParameters = []
+      for(let item of this.parameters) {
+        if(item.isView) {
+          filterParameters.push(item)
         }
       }
-      return filterParametrs
+      return filterParameters
     }
   }
 }

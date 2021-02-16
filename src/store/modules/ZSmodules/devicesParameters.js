@@ -12,16 +12,18 @@ const state = ()=> ({
 })
 const mutations = {
     parametersUpdate(state, payload) {
-        state.antennaParameters1 = payload.antennaDeviceDataById[1]
-        state.antennaParameters2 = payload.antennaDeviceDataById[2]
-        state.amplifier1DeviceParameters1 = payload.amplifierDeviceData[1]
-        state.amplifier1DeviceParameters2 = payload.amplifierDeviceData[2]
-        state.MSHUDeviceParameters = payload.MSHUDeviceData
-        state.downConverterDeviceParameters1 = payload.downConverterDeviceData[20]
-        state.downConverterDeviceParameters2 = payload.downConverterDeviceData[21]
-        state.testTranslyatorDeviceParameters = payload.testTranslyatorDeviceData
-        state.upConverterDeviceParameters1 = payload.upConverterDeviceData[10]
-        state.upConverterDeviceParameters2 = payload.upConverterDeviceData[11]
+        if (payload !== '') {
+            state.antennaParameters1 = payload.antennaDeviceDataById[1]
+            state.antennaParameters2 = payload.antennaDeviceDataById[2]
+            state.amplifier1DeviceParameters1 = payload.amplifierDeviceData[1]
+            state.amplifier1DeviceParameters2 = payload.amplifierDeviceData[2]
+            state.MSHUDeviceParameters = payload.MSHUDeviceData
+            state.downConverterDeviceParameters1 = payload.downConverterDeviceData[20]
+            state.downConverterDeviceParameters2 = payload.downConverterDeviceData[21]
+            state.testTranslyatorDeviceParameters = payload.testTranslyatorDeviceData
+            state.upConverterDeviceParameters1 = payload.upConverterDeviceData[10]
+            state.upConverterDeviceParameters2 = payload.upConverterDeviceData[11]
+        }
     }
 }
 const getters = {

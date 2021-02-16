@@ -13,7 +13,7 @@ export default {
   components: {UniversalDisplayComponent},
   data () {
     return {
-      viewFields: ['Режим', 'Вых. мощность (Вт)', 'Запрет несущей', 't °C(вх,вых Δ)'],
+      viewFields: [],
     }
   },
   props: {

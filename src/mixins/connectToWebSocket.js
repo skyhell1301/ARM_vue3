@@ -40,6 +40,7 @@ export default {
                     // let parameters = JSON.parse(event.data).DeviceParameters
                     let ZSData = JSON.parse(event.data)
                     let lifeMark = JSON.parse(event.data).livetag
+                    // console.log(ZSData)
                     // if(lifeMark !== undefined)
                     // store.dispatch('protocol/addLogMessage', {text: lifeMark})
 

@@ -72,8 +72,6 @@ export default {
         message.state = !context.monitoringState
         message.type = 'gsMonitoring'
         let response = await this.sendRESTCommand('http://' + this.getMainConnectionAddress + '/monitoring/state', 'POST', null, 'qqq', JSON.stringify(message))
-        // let response = RESTRequest.methods.sendCommand('api/monitoring/state', 'POST', null, 'qqq', JSON.stringify(message))
-        // console.log(response)
         response.text().then(function (text) {
           console.log(text)
           context.$store.dispatch('protocol/addLogMessage', {text: text})

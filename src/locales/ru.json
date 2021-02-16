@@ -1,0 +1,27 @@
+{
+  "azimut": "Азимут",
+  "angle": "Угол места",
+  "scanner": "Сканнер",
+  "workmode": "Рабочий режим",
+  "title": "Наименование",
+  "id": "Идентификатор",
+  "signal_lvl": "Уровень сигнала",
+
+  "voltage_a": "Напряжение A (В)",
+  "voltage_b": "Напряжение B (В)",
+  "current": "Значение тока (мА)",
+  "current_limit": "Пределы тока (мА)",
+
+  "dac": "dac",
+  "ImpedanceValue": "Сопротивление",
+  "slope": "Slope",
+  "InputFrequency": "Вх. частота",
+  "AttenuationValue": "Значение ослабления",
+  "ControlMode": "Режим управления",
+  "OutputFrequency": "Вых. частота",
+  "UserTestAlarm": "Тревога пользователя",
+  "Voltage15Positive": "Напряжение +5В",
+
+  "car": "0 машин | {n} машина | {n} машины | {n} машин",
+  "banana": "no bananas | {n} banana | {n} bananas"
+}

@@ -59,6 +59,14 @@
                    @closed="closeDialog('Protocol')">
       <protocol-dialog></protocol-dialog>
     </window-portal>
+    <window-portal :open="applicationSettingsDialogStatus.status"
+                   :focus="applicationSettingsDialogStatus.focus"
+                   :width="600"
+                   :height="600"
+                   :title="'Настройки программы'"
+                   @closed="closeDialog('Protocol')">
+      <application-settings-dialog></application-settings-dialog>
+    </window-portal>
   </div>
 </template>
 
@@ -72,9 +80,11 @@ import ProtocolDialog from "@/components/Dialogs/Protocols/ProtocolDialog";
 import TestTranslyatorDialog from "@/components/Dialogs/Devices/TestTranslyatorDialog";
 import MSHUDialog from "@/components/Dialogs/Devices/MSHUDialog";
 import UpConverterDialog from "@/components/Dialogs/Devices/UpConverterDialog";
+import ApplicationSettingsDialog from "@/components/Dialogs/Setting/ApplicationSettingsDialog";
 export default {
   name: 'DialogsContainer',
   components: {
+    ApplicationSettingsDialog,
     UpConverterDialog,
     MSHUDialog,
     TestTranslyatorDialog,
@@ -99,6 +109,7 @@ export default {
 
       LVSSettingDialogStatus: state => state.dialogStatus.LVSSettingDialogStatus,
       protocolDialogStatus: state => state.dialogStatus.protocolDialogStatus,
+      applicationSettingsDialogStatus: state => state.dialogStatus.applicationSettingsDialogStatus,
     })
   }
 }

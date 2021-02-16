@@ -1,0 +1,24 @@
+{
+  "azimut": "Azimuth",
+  "angle": "Angle",
+  "scanner": "Scanner",
+  "workmode": "Work mode",
+  "title": "Title",
+  "id": "Id",
+  "signal_lvl": "Signal level",
+
+  "voltage_a": "Voltage A (V)",
+  "voltage_b": "Voltage B (V)",
+  "current": "Current value (mA)",
+  "current_limit": "Current limits (mA)",
+
+  "dac": "dac",
+  "ImpedanceValue": "Impedance",
+  "slope": "Slope",
+  "InputFrequency": "Input freq.",
+  "AttenuationValue": "Attenuation",
+  "ControlMode": "Control mode",
+  "OutputFrequency": "Output freq.",
+  "UserTestAlarm": "User alarm",
+  "Voltage15Positive": "Voltage +5V"
+}

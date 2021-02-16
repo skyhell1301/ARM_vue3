@@ -41,7 +41,7 @@ export default {
   },
   watch: {
     selectMessage () {
-      console.log(this.selectMessage)
+      console.log(this.selectMessage.text)
     },
     localMessageList () {
       if(this.updateScroll) {
