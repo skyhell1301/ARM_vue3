@@ -1,11 +1,10 @@
 <template>
   <UniversalDisplayComponent :view-fields-list="viewFields"
-                             :title="title"
+                             :title="$tc('DevicesParameters.Converter.titleUI', 0, {type: '#' + deviceId})"
                              :input-parameters="inputParameters"
                              :dialog-name="dialogName"
-  >
-
-  </UniversalDisplayComponent>
+                             device-type="Converter"
+  />
 </template>
 
 <script>
@@ -19,13 +18,13 @@ export default {
     }
   },
   props: {
-    title: {
-      type: String,
-      default: 'КОНВЕРТЕР ВНИЗ'
-    },
     inputParameters: {
       type: Object,
       default: null
+    },
+    deviceId: {
+      type: String,
+      default: ''
     },
     dialogName: {
       type: String,

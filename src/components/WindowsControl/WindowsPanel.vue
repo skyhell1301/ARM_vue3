@@ -7,7 +7,7 @@
           class="window-list-item"
     >
       <div class="window-list-item-container-title" @click="wind.focus()">
-        <div class="window-list-item-title">{{wind.document.title}}</div>
+        <div class="window-list-item-title">{{$t('Interface.' + wind.document.titleKey)}}</div>
       </div>
       <close-icon @click="closeWindow(wind)" class="window-list-item-cross">
 

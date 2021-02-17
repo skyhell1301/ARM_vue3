@@ -1,9 +1,10 @@
 <template>
   <UniversalDisplayComponent :view-fields-list="viewFields"
-                             :title="title"
                              :input-parameters="inputParameters"
                              :dialog-name="dialogName"
-                             @openDialog="$emit('openDialog')">
+                             :title="$t('DevicesParameters.TestTranslyator.titleUI', {type: deviceId})"
+                             device-type="TestTranslyator"
+                             >
 
   </UniversalDisplayComponent>
 </template>
@@ -15,17 +16,17 @@ export default {
   components: {UniversalDisplayComponent},
   data () {
     return {
-      viewFields: []
+      viewFields: ['OutputFrequency', 'AttenuationValue', 'Voltage15Positive']
     }
   },
   props: {
-    title: {
-      type: String,
-      default: 'УСИЛИТЕЛЬ МОЩНОСТИ'
-    },
     inputParameters: {
       type: Object,
       default: null
+    },
+    deviceId: {
+      type: String,
+      default: ''
     },
     dialogName: {
       type: String,

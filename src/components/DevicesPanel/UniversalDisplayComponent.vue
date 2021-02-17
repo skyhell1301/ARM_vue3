@@ -1,15 +1,19 @@
 <template>
   <DeviceDisplayComponent :title-device="title" :settings-button="isSettingsButton" @buttonClick="openSettingMenu">
-    <DisplayParametersComponent :device-data="getViewParameters"  @dblclick="openDialog"></DisplayParametersComponent>
+    <DisplayParametersComponent :device-data="getViewParameters" @dblclick="openDialog"></DisplayParametersComponent>
     <ModalWindow v-if="showModal">
       <div class="modal-content-wrapper">
         <close-icon class="close-modal-button" @click="showModal = false"></close-icon>
-        <div v-for="param in parameters"
-             :key="param"
-             class="view-list-container"
-        >
-          <div class="view-list-name">{{$t(param.nameParameter)}}</div>
-          <input class="view-list-value" type="checkbox" :value="param.nameParameter" v-model="localViewFields" @change="changeViewList"/>
+        <div class="view-list_wrapper">
+          <div v-for="param in parameters"
+               :key="param"
+               class="view-list-container"
+          >
+            <div class="view-list-name">{{ $t('DevicesParameters.' + param.deviceType + '.' + param.nameParameter) }}
+            </div>
+            <input class="view-list-value" type="checkbox" :value="param.nameParameter" v-model="localViewFields"
+                   @change="changeViewList"/>
+          </div>
         </div>
       </div>
     </ModalWindow>
@@ -22,10 +26,11 @@ import DisplayParametersComponent
   from "@/components/DevicesPanel/DysplayParametersComponents/DisplayParametersComponent";
 import ModalWindow from "@/components/WindowsControl/ModalWindow";
 import CloseIcon from "@/assets/images/SVGIconComponents/CloseIcon";
+
 export default {
   name: 'UniversalDisplayComponent',
   components: {CloseIcon, ModalWindow, DisplayParametersComponent, DeviceDisplayComponent},
-  data () {
+  data() {
     return {
       parameters: [],
       localViewFields: [],
@@ -45,6 +50,10 @@ export default {
       type: Array,
       default: null
     },
+    deviceType: {
+      type: String,
+      default: ''
+    },
     isSettingsButton: {
       type: Boolean,
       default: true
@@ -55,10 +64,10 @@ export default {
     }
   },
   methods: {
-    openDialog () {
+    openDialog() {
       this.$store.dispatch('dialogStatus/change' + this.dialogName + 'DialogStatus', true)
     },
-    updateData () {
+    updateData() {
       // let namesList = []
       // this.updateNamesList()
       // for (let name in this.deviceData) {
@@ -69,8 +78,9 @@ export default {
 
         let newParam = this.inputParameters.deviceParameters[param]
         newParam.nameParameter = param
+        newParam.deviceType = this.deviceType
 
-        if(this.localViewFields === null) {
+        if (this.localViewFields === null) {
           newParam.isView = true
         } else {
           newParam.isView = false
@@ -83,15 +93,15 @@ export default {
         this.parameters.push(newParam)
       }
     },
-    updateViewParametersList () {
+    updateViewParametersList() {
       for (let item in this.viewFieldsList) {
         this.localViewFields.push(this.viewFieldsList[item])
       }
     },
-    openSettingMenu () {
+    openSettingMenu() {
       this.showModal = true
     },
-    changeViewList () {
+    changeViewList() {
       if (this.localViewFields.length > 5) {
         this.localViewFields.shift()
       }
@@ -102,18 +112,18 @@ export default {
     this.updateViewParametersList()
   },
   watch: {
-    inputParameters () {
+    inputParameters() {
       this.updateData()
     },
-    viewFieldsList () {
+    viewFieldsList() {
       this.updateViewParametersList()
     }
   },
   computed: {
-    getViewParameters () {
+    getViewParameters() {
       let filterParameters = []
-      for(let item of this.parameters) {
-        if(item.isView) {
+      for (let item of this.parameters) {
+        if (item.isView) {
           filterParameters.push(item)
         }
       }
@@ -130,9 +140,16 @@ export default {
   height: 100%;
   display: grid;
   grid-row-gap: 5px;
-  //justify-items: end;
 }
+.view-list_wrapper {
+  height: 600px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
 .view-list-container {
+
   width: 100%;
   display: grid;
   grid-template-columns: 80% 20%;

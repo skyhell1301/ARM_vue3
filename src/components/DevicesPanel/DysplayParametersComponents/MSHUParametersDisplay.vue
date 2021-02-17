@@ -1,9 +1,10 @@
 <template>
   <UniversalDisplayComponent :is-settings-button="false"
                              :view-fields-list="viewFields"
-                             :title="title"
+                             :title="$t('DevicesParameters.MSHU.titleUI', {type: '#' + deviceId})"
                              :input-parameters="inputParameters"
                              :dialog-name="dialogName"
+                             device-type="MSHU"
   >
   </UniversalDisplayComponent>
 </template>
@@ -19,9 +20,9 @@ export default {
     }
   },
   props: {
-    title: {
+    deviceId: {
       type: String,
-      default: 'МШУ'
+      default: '0'
     },
     inputParameters: {
       type: Object,

@@ -2,23 +2,23 @@
   <div class="control-and-indication__wrapper">
     <clock-component class="clock"></clock-component>
     <div class="crash">
-      <div class="crash-title">АВАРИЯ</div>
+      <div class="crash-title">{{$t('Interface.crash')}}</div>
       <ButtonComponent class="btn-1"></ButtonComponent>
       <EmergencySignalComponent class="signal-bell" status="ok"></EmergencySignalComponent>
     </div>
     <ControlPanelComponent style="grid-row: 5; width: 95%"></ControlPanelComponent>
     <div class="control-background" style="grid-row: 7;">
-      <div class="ind-title">ЗЕМНАЯ СТАНЦИЯ</div>
+      <div class="ind-title">{{$t('Interface.ground_station')}}</div>
       <ButtonComponent class="btn-2" :active-status="monitoringState" @btnClick="sendZSMonitoringStatus"></ButtonComponent>
       <StatusIndicatorComponent class="ind-1" :is-active="monitoringState" :status="monitoringType"></StatusIndicatorComponent>
     </div>
     <div class="control-background" style="grid-row: 9;">
-      <div class="ind-title">БОРТОВАЯ ТЕЛЕМЕТРИЯ</div>
+      <div class="ind-title">{{$t('Interface.onboard_telemetry')}}</div>
       <ButtonComponent class="btn-2" :active-status="monitoringState" @btnClick="sendIgorRequest"></ButtonComponent>
       <StatusIndicatorComponent class="ind-1" :is-active="monitoringState"></StatusIndicatorComponent>
     </div>
     <div class="control-background" style="grid-row: 11;">
-      <div class="ind-title">АНТЕННАЯ СИСТЕМА</div>
+      <div class="ind-title">{{$t('Interface.antenna_system')}}</div>
       <ButtonComponent class="btn-2" v-model:active-status="testVar3"></ButtonComponent>
       <StatusIndicatorComponent class="ind-1" :is-active="testVar3"></StatusIndicatorComponent>
     </div>
@@ -157,6 +157,7 @@ export default {
   justify-self: center;
 }
 .crash-title {
+  text-transform: uppercase;
   grid-column-start: 1;
   grid-column-end: 3;
   justify-self: center;
@@ -190,6 +191,7 @@ export default {
 }
 
 .ind-title {
+  text-transform: uppercase;
   grid-column-start: 1;
   grid-column-end: 3;
   justify-self: center;

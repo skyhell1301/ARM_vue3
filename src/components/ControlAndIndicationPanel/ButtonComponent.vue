@@ -60,6 +60,7 @@ export default {
       default: false
     }
   },
+  emits: ['btnClick', 'update:activeStatus'],
   methods: {
     btnClick () {
       this.$emit('update:activeStatus', !this.activeStatus)
@@ -67,8 +68,8 @@ export default {
       this.btnStatus = !this.btnStatus
       let context = this
       setTimeout( () => {
-        if(!context.activeStatus) {
-          context.btnStatus = false
+        if(context.activeStatus !== context.btnStatus) {
+          context.btnStatus = context.activeStatus
         }
       }, 2000)
     }

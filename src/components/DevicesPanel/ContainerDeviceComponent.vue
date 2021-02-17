@@ -217,45 +217,47 @@
     <AntennaSystemDisplayParameters :input-parameters="antennaSystemDeviceData1"
                                     class="antenna-system-device"
                                     id="antenna-system-id"/>
-    <TestTranslyatorParametersDisplay id="test-translyator-id" title="ТЕСТ-ТРАНСЛЯТОР" class="test-translyator-device"
+    <TestTranslyatorParametersDisplay id="test-translyator-id" class="test-translyator-device"
                                       :input-parameters="testTranslyatorDeviceData"
 
     />
-    <AmplifierParametersDisplay id="amplifier-device-1-id" title="УМ #1" class="amplifier-device-1"
+    <AmplifierParametersDisplay id="amplifier-device-1-id" class="amplifier-device-1"
+                                device-id="1"
                                 :input-parameters="amplifier1Device1"
     />
-    <AmplifierParametersDisplay id="amplifier-device-2-id" title="УМ #2" class="amplifier-device-2"
+    <AmplifierParametersDisplay id="amplifier-device-2-id" class="amplifier-device-2"
+                                device-id="2"
                                 :input-parameters="amplifier1Device2"
     />
-    <MSHUParametersDisplay id="MSHU-device-id-1" title="МШУ #1" class="MSHU-device-1" @openDialog="dialogOpen('MSHU')"
-                           :input-parameters="getMSHUParametersByNumber1"
+    <MSHUParametersDisplay id="MSHU-device-id-1" class="MSHU-device-1" @openDialog="dialogOpen('MSHU')"
+                           :input-parameters="getMSHUParametersByNumber1" device-id="1"
     />
-    <MSHUParametersDisplay id="MSHU-device-id-2" title="МШУ #2" class="MSHU-device-2" @openDialog="dialogOpen('MSHU')"
-                           :input-parameters="getMSHUParametersByNumber2"
+    <MSHUParametersDisplay id="MSHU-device-id-2" class="MSHU-device-2" @openDialog="dialogOpen('MSHU')"
+                           :input-parameters="getMSHUParametersByNumber2" device-id="2"
     />
-    <UpConverterParametersDisplay :input-parameters="upConverterDeviceData1" title="КОНВЕРТЕР ВВЕРХ #1"
-                                  id="up-converter-id-1"
+    <UpConverterParametersDisplay :input-parameters="upConverterDeviceData1"
+                                  id="up-converter-id-1" device-id="1"
                                   class="up-converter-1"
                                   @dblclick="dialogOpen('UpConverter')"/>
-    <UpConverterParametersDisplay :input-parameters="upConverterDeviceData2" title="КОНВЕРТЕР ВВЕРХ #2"
-                                  id="up-converter-id-2"
+    <UpConverterParametersDisplay :input-parameters="upConverterDeviceData2"
+                                  id="up-converter-id-2" device-id="2"
                                   class="up-converter-2"
                                   @dblclick="dialogOpen('UpConverter')"/>
-    <DownConverterParametersDisplay id="down-converter-id-1" title-device="КОНВЕРТЕР ВНИЗ #1" class="down-converter-1"
-                                    :input-parameters="downConverterDeviceData1"
+    <DownConverterParametersDisplay id="down-converter-id-1" class="down-converter-1"
+                                    :input-parameters="downConverterDeviceData1" device-id="1"
     />
-    <DownConverterParametersDisplay id="down-converter-id-2" title-device="КОНВЕРТЕР ВНИЗ #2" class="down-converter-2"
-                                    :input-parameters="downConverterDeviceData2"
+    <DownConverterParametersDisplay id="down-converter-id-2" class="down-converter-2"
+                                    :input-parameters="downConverterDeviceData2" device-id="2"
     />
-    <MatrixParametersDisplay id="up-matrix-id" title-device="Матрица 8х8 вверх" class="up-matrix"/>
-    <MatrixParametersDisplay id="down-matrix-id" title-device="Матрица 8х8 вниз" class="down-matrix"/>
+    <MatrixParametersDisplay id="up-matrix-id" :device-id="0" class="up-matrix"/>
+    <MatrixParametersDisplay id="down-matrix-id" :device-id="1" class="down-matrix"/>
     <DeviceDisplayComponent id="cortex-id-1" title-device="Cortex #1" class="cortex-1">
       <div style="height: 100px; width: 100%"></div>
     </DeviceDisplayComponent>
     <DeviceDisplayComponent id="cortex-id-2" title-device="Cortex #2" class="cortex-2">
       <div style="height: 100px; width: 100%"></div>
     </DeviceDisplayComponent>
-    <DeviceDisplayComponent id="spectrum-analyzer-id" title-device="Анализатор спектра" class="spectrum-analyzer">
+    <DeviceDisplayComponent id="spectrum-analyzer-id" :title-device="$t('Interface.spectrum_analyser')" class="spectrum-analyzer">
       <SpectrumAnalyserDisplayComponent/>
     </DeviceDisplayComponent>
     <StandAntennaSystemComponent id="as-stoyka-id" class="as-stoyka"></StandAntennaSystemComponent>

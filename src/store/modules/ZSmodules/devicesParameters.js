@@ -1,4 +1,4 @@
-const state = ()=> ({
+const state = () => ({
     antennaParameters1: {},
     antennaParameters2: {},
     amplifier1DeviceParameters1: {},
@@ -29,7 +29,7 @@ const mutations = {
 const getters = {
     MSHUParametersByNumber: state => number => {
         let params = {deviceParameters: {}}
-        if(state.MSHUDeviceParameters !== null) {
+        if (state.MSHUDeviceParameters !== null) {
             for (let item in state.MSHUDeviceParameters.deviceParameters) {
                 if (item === 'Amplifiers') {
                     params.deviceParameters['current'] = state.MSHUDeviceParameters.deviceParameters[item][number].current

@@ -1,16 +1,16 @@
 <template>
   <div class="connect-panel">
-    <div class="connect-panel-title">ПОДКЛЮЧЕНИЯ</div>
-    <LittleIndicatorPanel :connection="ARM1Status.connection" class="ARM-1 little-panel" title="АРМ 1">
+    <div class="connect-panel-title">{{$t('Interface.connections')}}</div>
+    <LittleIndicatorPanel :connection="ARM1Status.connection" class="ARM-1 little-panel" :title="$t('Interface.arm') + ' 1'">
       <PCIcon class="connect-panel__icon"></PCIcon>
     </LittleIndicatorPanel>
-    <LittleIndicatorPanel :connection="ARM2Status.connection" class="ARM-2 little-panel" title="АРМ 2">
+    <LittleIndicatorPanel :connection="ARM2Status.connection" class="ARM-2 little-panel" :title="$t('Interface.arm') + ' 2'">
       <PCIcon class="connect-panel__icon"></PCIcon>
     </LittleIndicatorPanel>
-    <LittleIndicatorPanel class="CONTROLLER-1 little-panel" title="КОНТРОЛЛЕР 2">
+    <LittleIndicatorPanel class="CONTROLLER-1 little-panel" :title="$t('Interface.controller') +  ' 1'">
       <ControllerIcon class="connect-panel__icon"></ControllerIcon>
     </LittleIndicatorPanel>
-    <LittleIndicatorPanel class="CONTROLLER-2 little-panel" title="КОНТРОЛЛЕР 2">
+    <LittleIndicatorPanel class="CONTROLLER-2 little-panel" :title="$t('Interface.controller') +  ' 2'">
       <ControllerIcon class="connect-panel__icon"></ControllerIcon>
     </LittleIndicatorPanel>
     <LittleIndicatorPanel class="CORTEX-1 little-panel" title="CORTEX 1">
@@ -19,10 +19,10 @@
     <LittleIndicatorPanel class="CORTEX-2 little-panel" title="CORTEX 2">
       <CortexIcon class="connect-panel__icon"></CortexIcon>
     </LittleIndicatorPanel>
-    <LittleIndicatorPanel class="ARM-AS-1 little-panel" title="АРМ АС 1">
+    <LittleIndicatorPanel class="ARM-AS-1 little-panel" :title="$t('Interface.arm') +  ' АС 1'">
       <ControllerIcon class="connect-panel__icon"></ControllerIcon>
     </LittleIndicatorPanel>
-    <LittleIndicatorPanel class="ARM-AS-2 little-panel" title="АРМ АС 2">
+    <LittleIndicatorPanel class="ARM-AS-2 little-panel" :title="$t('Interface.arm') +  ' АС 2'">
       <ControllerIcon class="connect-panel__icon"></ControllerIcon>
     </LittleIndicatorPanel>
   </div>
@@ -65,6 +65,7 @@ export default {
 }
 
 .connect-panel-title {
+  text-transform: uppercase;
   grid-column-start: 1;
   grid-column-end: 3;
 }

@@ -6,20 +6,20 @@
       />
     </svg>
     <div class="border-div"></div>
-    <div class="stand-title">К стойке АС</div>
+    <div class="stand-title">{{$t('Interface.to_the_stand_as')}}</div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'StandAntannaSystemComponent'
+  name: 'StandAntennaSystemComponent'
 }
 </script>
 
 <style scoped>
 .stand-as-container {
   font-family: "sans-serif";
-  font-size: .7em;
+  font-size: .65em;
   font-weight: bold;
   display: grid;
   grid-template-rows: 70% 3% 27%;

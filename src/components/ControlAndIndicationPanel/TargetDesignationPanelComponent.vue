@@ -1,6 +1,6 @@
 <template>
   <div class="target-designation-panel">
-    <div class="target-designation-panel-title">ЦЕЛЕУКАЗАНИЯ</div>
+    <div class="target-designation-panel-title">{{$t('Interface.target_designation')}}</div>
     <div class="target-designation-panel-data">
       <div class="test"></div>
       <div class="ZU-type">
@@ -44,5 +44,9 @@ export default {
   font-size: .8em;
   display: grid;
   grid-template-columns: 30% 70%;
+}
+
+.target-designation-panel-title {
+  text-transform: uppercase;
 }
 </style>

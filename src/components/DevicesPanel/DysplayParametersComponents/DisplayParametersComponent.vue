@@ -5,7 +5,7 @@
     <div class="table_parameters"
          v-for="data in deviceData"
          :key="data">
-      <div class="param">{{$t(data.nameParameter)}}</div>
+      <div class="param">{{$t('DevicesParameters.' + data.deviceType + '.' + data.nameParameter)}}</div>
       <div class="value">{{ data.valueParameter }}</div>
     </div>
     <slot></slot>

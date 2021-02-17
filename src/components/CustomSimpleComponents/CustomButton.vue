@@ -12,6 +12,7 @@ export default {
       this.$emit('buttonClick')
     }
   },
+  emits:['buttonClick'],
   mounted() {
     this.$refs.buttonRef.addEventListener('click', this.pressedButton)
   }

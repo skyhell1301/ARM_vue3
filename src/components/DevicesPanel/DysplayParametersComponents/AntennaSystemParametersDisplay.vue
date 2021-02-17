@@ -1,9 +1,10 @@
 <template>
   <UniversalDisplayComponent :view-fields-list="viewFields"
-                             :title="title"
+                             :title="$t('DevicesParameters.AntennaSystem.titleUI', {type: deviceId})"
                              :input-parameters="inputParameters"
-                             :dialog-name="dialogName">
-
+                             :dialog-name="dialogName"
+                             device-type="AntennaSystem"
+  >
   </UniversalDisplayComponent>
 </template>
 
@@ -18,13 +19,13 @@ export default {
     }
   },
   props: {
-    title: {
-      type: String,
-      default: 'АНТЕННАЯ СИСТЕМА'
-    },
     inputParameters: {
       type: Object,
       default: null
+    },
+    deviceId: {
+      type: String,
+      default: ''
     },
     dialogName: {
       type: String,

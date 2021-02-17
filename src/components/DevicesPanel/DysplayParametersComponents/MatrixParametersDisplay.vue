@@ -1,10 +1,10 @@
 <template>
   <UniversalDisplayComponent class="matrix-up-display"
-                             :is-settings-button="false"
                              :view-fields-list="viewFields"
-                             :title="title"
+                             :title="$tc('DevicesParameters.Matrix.titleUI', deviceId)"
                              :input-parameters="inputParameters"
-                             @openDialog="$emit('openDialog')"/>
+                             device-type="Matrix"
+  />
 </template>
 
 <script>
@@ -18,9 +18,9 @@ export default {
     }
   },
   props: {
-    title: {
-      type: String,
-      default: 'Матрица вверх'
+    deviceId: {
+      type: Number,
+      default: 0
     },
     inputParameters: {
       type: Object,
@@ -33,5 +33,6 @@ export default {
 <style scoped>
 .matrix-up-display {
   font-size: .8em;
+  text-transform: capitalize;
 }
 </style>

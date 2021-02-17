@@ -45,7 +45,7 @@ export default {
     },
     title: {
       type: String,
-      default: 'ARM'
+      default: 'arm'
     }
   },
   data () {
@@ -77,6 +77,7 @@ export default {
     this.closePortal()
     window.removeEventListener('beforeunload', this.closePortal)
   },
+  emits:['closed','update:open', 'opened'],
   methods: {
     updateFocus () {
       if(this.focus !== this.focusStatus) {
@@ -100,7 +101,8 @@ export default {
 
         // Clear any existing content
         this.windowRef.document.body.innerHTML = ''
-        this.windowRef.document.title = this.title
+        this.windowRef.document.title = this.$t('Interface.' + this.title)
+        this.windowRef.document.titleKey = this.title
 
         this.windowRef.document.body.appendChild(this.$el)
 

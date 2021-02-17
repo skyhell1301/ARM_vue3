@@ -1,6 +1,6 @@
 <template>
   <div class="control-panel">
-    <div class="control-title">УПРАВЛЕНИЕ</div>
+    <div class="control-title">{{$t('Interface.control')}}</div>
     <div class="OM-TSU-O little-control-panel">
       <div class="OM-TSU-O-title">ОМ ТСУ-О</div>
       <PCIcon class="control-panel-svg" width="100%" height="90%"></PCIcon>
@@ -44,6 +44,7 @@ export default {
 }
 
 .control-title {
+  text-transform: uppercase;
   grid-column-start: 1;
   grid-column-end: 3;
 }

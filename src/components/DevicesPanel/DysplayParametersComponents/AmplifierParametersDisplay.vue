@@ -1,8 +1,10 @@
 <template>
-  <UniversalDisplayComponent :view-fields-list="viewFields" :title="title"
+  <UniversalDisplayComponent :view-fields-list="viewFields"
+                             :title="$t('DevicesParameters.Amplifier.titleUI', {type: '#' + deviceId})"
                              :input-parameters="inputParameters"
-                             :dialog-name="dialogName">
-
+                             :dialog-name="dialogName"
+                             device-type="Amplifier"
+  >
   </UniversalDisplayComponent>
 </template>
 
@@ -13,17 +15,17 @@ export default {
   components: {UniversalDisplayComponent},
   data () {
     return {
-      viewFields: [],
+      viewFields: ['power_rf', 'rfinhibit', 'cabinet_temperature', 'differential_temperature'],
     }
   },
   props: {
-    title: {
-      type: String,
-      default: 'УСИЛИТЕЛЬ МОЩНОСТИ'
-    },
     inputParameters: {
       type: Object,
       default: null
+    },
+    deviceId: {
+      type: String,
+      default: '0'
     },
     dialogName: {
       type: String,

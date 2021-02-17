@@ -4,7 +4,7 @@
                    :focus="antennaSystemDialogStatus.focus"
                    :left="600"
                    :top="600"
-                   :title="'Антенная система'"
+                   :title="'antenna_system'"
                    @closed="closeDialog('AntennaSystem')">
       <AntennaSystemDialog></AntennaSystemDialog>
     </window-portal>
@@ -12,7 +12,7 @@
                    :focus="amplifierDialogStatus.focus"
                    :left="600"
                    :top="600"
-                   :title="'Усилитель мощности'"
+                   :title="'amplifier'"
                    @closed="closeDialog('Amplifier')">
       <AmplifierDialog></AmplifierDialog>
     </window-portal>
@@ -20,7 +20,7 @@
                    :focus="testTranslyatorDialogStatus.focus"
                    :left="600"
                    :top="600"
-                   :title="'Тест-транслятор'"
+                   :title="'test_translator'"
                    @closed="closeDialog('TestTranslyator')">
       <TestTranslyatorDialog></TestTranslyatorDialog>
     </window-portal>
@@ -28,7 +28,7 @@
                    :focus="MSHUDialogStatus.focus"
                    :left="600"
                    :top="600"
-                   :title="'МШУ'"
+                   :title="'lna'"
                    @closed="closeDialog('MSHU')">
       <MSHUDialog></MSHUDialog>
     </window-portal>
@@ -36,7 +36,7 @@
                    :focus="upConverterDialogStatus.focus"
                    :left="600"
                    :top="600"
-                   :title="'Конвертер вверх'"
+                   :title="'converter_up'"
                    @closed="closeDialog('UpConverter')">
       <UpConverterDialog></UpConverterDialog>
     </window-portal>
@@ -45,7 +45,7 @@
                    :focus="LVSSettingDialogStatus.focus"
                    :width="600"
                    :height="800"
-                   :title="'Настройки'"
+                   :title="'settings'"
                    @closed="closeDialog('LVSSetting')">
       <SettingDialog></SettingDialog>
     </window-portal>
@@ -55,7 +55,7 @@
                    :top="600"
                    :width="1280"
                    :height="720"
-                   :title="'Протокол'"
+                   :title="'protocol'"
                    @closed="closeDialog('Protocol')">
       <protocol-dialog></protocol-dialog>
     </window-portal>
@@ -63,8 +63,8 @@
                    :focus="applicationSettingsDialogStatus.focus"
                    :width="600"
                    :height="600"
-                   :title="'Настройки программы'"
-                   @closed="closeDialog('Protocol')">
+                   :title="'program_settings'"
+                   @closed="closeDialog('ApplicationSettings')">
       <application-settings-dialog></application-settings-dialog>
     </window-portal>
   </div>
@@ -73,13 +73,13 @@
 <script>
 import WindowPortal from "@/components/WindowsControl/windowPortalComponent";
 import AntennaSystemDialog from "@/components/Dialogs/MainMenu/AntennaSystemDialog";
-import AmplifierDialog from "@/components/Dialogs/Devices/AmplifierDialog";
+import AmplifierDialog from "@/components/Dialogs/Equipment/AmplifierDialog";
 import {mapState} from "vuex";
 import SettingDialog from "@/components/Dialogs/Setting/ConnectionDialog";
 import ProtocolDialog from "@/components/Dialogs/Protocols/ProtocolDialog";
-import TestTranslyatorDialog from "@/components/Dialogs/Devices/TestTranslyatorDialog";
-import MSHUDialog from "@/components/Dialogs/Devices/MSHUDialog";
-import UpConverterDialog from "@/components/Dialogs/Devices/UpConverterDialog";
+import TestTranslyatorDialog from "@/components/Dialogs/Equipment/TestTranslyatorDialog";
+import MSHUDialog from "@/components/Dialogs/Equipment/MSHUDialog";
+import UpConverterDialog from "@/components/Dialogs/Equipment/UpConverterDialog";
 import ApplicationSettingsDialog from "@/components/Dialogs/Setting/ApplicationSettingsDialog";
 export default {
   name: 'DialogsContainer',

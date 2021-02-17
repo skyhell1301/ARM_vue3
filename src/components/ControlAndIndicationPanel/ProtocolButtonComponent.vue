@@ -3,7 +3,7 @@
     <div class="protocol-button-border">
       <ProtocolIcon fill="#285876" width="70%" height="70%"></ProtocolIcon>
       <div class="protocol-button-title">
-        <div>ПРОТОКОЛ</div>
+        <div>{{$t('Interface.protocol')}}</div>
       </div>
     </div>
   </div>
@@ -49,6 +49,7 @@ export default {
 }
 
 .protocol-button-title {
+  text-transform: uppercase;
   display: grid;
   width: 100%;
   height: 100%;
