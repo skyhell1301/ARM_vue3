@@ -100,8 +100,10 @@ export default {
   height: 100%;
   display: grid;
   grid-template-rows: 13% 87%;
-  background: linear-gradient(135deg, rgba(235,235,235,1) 0%, rgba(128,128,128,1) 61%, rgba(166,166,166,1) 100%);
-  box-shadow: 0px 0px 5px 1px rgba(148,148,148,0.71);
+  background: #d9d9d9;
+  border-radius: 2px;
+  /*background: linear-gradient(135deg, rgba(235,235,235,1) 0%, rgba(128,128,128,1) 61%, rgba(166,166,166,1) 100%);*/
+  box-shadow: 0px 0px 3px 1px rgba(130, 130, 130, 0.8);
 }
 
 .device-body-header {
@@ -116,15 +118,20 @@ export default {
 }
 
 .title-device-background {
-  height: 65%;
-  width: 85%;
+  height: 80%;
+  width: 80%;
+  /*padding: 0 10px;*/
   display: inline-block;
   align-self: center;
-  justify-self: end;
+  justify-self: center;
+  position: relative;
+  left: 6%;
   display: grid;
-  border: 0.05rem solid rgba(77,83,79,0.75);
+  /*border: 0.05rem solid rgba(77,83,79,0.75);*/
+  box-shadow: inset 0px 0px 3px 1px rgba(130, 130, 130, 0.8);
   border-radius: 7px;
-  background: linear-gradient(to right, rgba(229,249,255,1) 0%, rgba(255,255,255,0.98) 47%, rgba(255,255,255,0.98) 62%, rgba(229,249,255,0.96) 100%);
+  background: rgb(246, 251, 255);
+  /*background: linear-gradient(to right, rgba(229,249,255,1) 0%, rgba(255,255,255,0.98) 47%, rgba(255,255,255,0.98) 62%, rgba(229,249,255,0.96) 100%);*/
 }
 .title_device {
   grid-row: 1;
@@ -141,25 +148,30 @@ export default {
   grid-template-columns: 90% 10%;
 }
 .device-btn-setting {
+  stroke-width: 3px;
+  stroke: rgba(130, 130, 130, 0.8);
   width: 60%;
   height: 60%;
   fill: none;
 }
+
 .device-btn-setting:hover {
   cursor: pointer;
-  fill: #a8a8a8;
+  fill: #f3f3f3;
 }
 .device-btn-setting:active {
   cursor: pointer;
-  fill: #e5e5e5;
+  fill: #ffffff;
 }
 .device_display {
   grid-row: 2;
   width: 95%;
   height: 97%;
   justify-self: center;
-  background: linear-gradient(275deg, rgb(158, 158, 158) 0%, rgb(247, 247, 247) 100%);
-  box-shadow: inset 0px 0px 8px -1px rgba(51,51,51,1);
+  /*background: linear-gradient(275deg, rgb(158, 158, 158) 0%, rgb(247, 247, 247) 100%);*/
+  background: linear-gradient(135deg, #dcdcdc 0%, #eaeaea 100%);
+  background: #e8e8e8;
+  box-shadow: inset 0px 0px 3px 1px rgba(130, 130, 130, 0.8);
 }
 
 

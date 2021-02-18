@@ -102,7 +102,7 @@ body {
 
 #app {
   overflow: hidden;
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: Sans-Serif;
   text-align: center;
   color: #2c3e50;
   display: grid;

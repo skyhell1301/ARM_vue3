@@ -12,8 +12,8 @@ export default {
 </script>
 
 <style scoped>
-.gear {
-  stroke: rgba(255,255,254,0.7);
-  stroke-width: 5px;
-}
+/*.gear {*/
+/*  stroke: rgba(255,255,254,0.7);*/
+/*  stroke-width: 5px;*/
+/*}*/
 </style>

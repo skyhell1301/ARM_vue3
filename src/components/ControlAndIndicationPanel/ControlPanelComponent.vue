@@ -36,9 +36,9 @@ export default {
   grid-template-rows: 14% 43% 43%;
   width: 100%;
   height: 100%;
-  border: 1px black solid;
+  box-shadow: 0px 0px 3px .5px rgba(88, 88, 88, 0.8);
   border-radius: 7px;
-  background: linear-gradient(45deg, #f6f1f5 0%, #fcf7fb 100%);
+  background: linear-gradient(135deg, #f6f1f5 0%, #fcf7fb 100%);
   justify-items: center;
   align-items: center;
 }
@@ -57,9 +57,9 @@ export default {
   width: 95%;
   height: 90%;
   font-size: .6em;
-  border: 1px black solid;
+  box-shadow: 0px 0px 2px .5px rgba(88, 88, 88, 0.8);
   border-radius: 7px;
-  background: linear-gradient(180deg, #f6f1f5 0%, #f6f1f5 40%, #e2e2e1 50%, #fcf7fb 100%);
+  background: linear-gradient(135deg, #f6f1f5 0%, #fcf7fb 100%);
 }
 .control-panel-svg {
   align-self: start;

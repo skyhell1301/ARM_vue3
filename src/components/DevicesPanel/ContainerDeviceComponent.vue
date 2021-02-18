@@ -663,10 +663,13 @@ export default {
 .test-translyator-device {
   grid-column-start: 3;
   grid-column-end: 5;
-  grid-row: 1;
+  grid-row-start: 1;
+  grid-row-end: 3;
   width: 50%;
-  height: 90%;
-  align-self: end;
+  height: 80%;
+  align-self: center;
+  position: relative;
+  bottom: 3%;
 }
 .amplifier-device-1 {
   grid-column: 1;

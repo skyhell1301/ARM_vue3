@@ -1,40 +1,39 @@
 <template>
   <div class="btn-container">
     <svg class="background" viewBox="0 0 80 80">
-      <filter id="dropshadow" height="130%">
-        <feGaussianBlur in="SourceAlpha" stdDeviation="3"/> <!-- stdDeviation is how much to blur -->
-        <feOffset dx="0" dy="0" result="offsetblur"/> <!-- how much to offset -->
-        <feComponentTransfer>
-          <feFuncA type="linear" slope="0.5"/> <!-- slope is the opacity of the shadow -->
+
+      <filter id="dropShadow-1">
+        <feGaussianBlur in="SourceAlpha" stdDeviation="1.2"></feGaussianBlur>
+        <feOffset dx="0" dy="0"></feOffset>
+        <feComponentTransfer result="offsetblur">
+          <feFuncA id="spread-ctrl" type="linear" slope="2"></feFuncA>
         </feComponentTransfer>
+        <feFlood flood-color="rgba(88,88,88,0.8)"></feFlood>
+        <feComposite in2="offsetblur" operator="in"></feComposite>
         <feMerge>
-          <feMergeNode/> <!-- this contains the offset blurred image -->
-          <feMergeNode in="SourceGraphic"/> <!-- this contains the element that the filter is applied to -->
+          <feMergeNode></feMergeNode>
+          <feMergeNode in="SourceGraphic"></feMergeNode>
         </feMerge>
       </filter>
-      <filter id="blur">
-        <feGaussianBlur stdDeviation="2"/>
+
+      <filter id="dropShadow_hover">
+        <feGaussianBlur in="SourceAlpha" stdDeviation="2"></feGaussianBlur>
+        <feOffset dx="0" dy="0"></feOffset>
+        <feComponentTransfer result="offsetblur">
+          <feFuncA id="spread-ctrl" type="linear" slope="1.2"></feFuncA>
+        </feComponentTransfer>
+        <feFlood flood-color="rgba(230,230,230,0.8)"></feFlood>
+        <feComposite in2="offsetblur" operator="in"></feComposite>
+        <feMerge>
+          <feMergeNode></feMergeNode>
+          <feMergeNode in="SourceGraphic"></feMergeNode>
+        </feMerge>
       </filter>
-      <defs>
-        <linearGradient id="Gradient-1" x1="0" y1="0" x2="100%" y2="100%">
-          <stop offset="20%"  stop-color="#f2f2f2"/>
-          <stop offset="70%" stop-color="#404040"/>
-        </linearGradient>
-        <linearGradient id="Gradient-2" x1="0" y1="0" x2="100%" y2="100%">
-          <stop offset="20%"  stop-color="#787878"/>
-          <stop offset="70%" stop-color="#f2f2f2"/>
-        </linearGradient>
-        <linearGradient id="Gradient-3" x1="50%" y1="0" x2="50%" y2="100%">
-          <stop offset="5%"  stop-color="#fdfefb" stop-opacity="0.6"/>
-          <stop offset="70%" stop-color="#fdfefb" stop-opacity="0.1"/>
-        </linearGradient>
-      </defs>
-      <circle class="background-circle-1" r="40px" cx="40" cy="40"></circle>
-      <circle class="background-circle-2" r="37px" cx="40" cy="40"></circle>
+
+      <circle class="background-circle-2" r="40px" cx="40" cy="40"></circle>
       <g :id="'btn-' + Id" ref="btnRef" class="button-circle" :class="{'pressed-button':btnStatus}" >
-        <circle r="35px" cx="40" cy="40" ></circle>
-        <path style="stroke-linejoin: round; fill: rgb(255, 255, 255); stroke: rgb(95, 119, 208); stroke-width: 0.5px;" d="M 38 18 L 42 18 L 42 42 L 38 42 L 38 18 Z M 33 30 C 33 30 28 34 28 40 C 28 46 31.394 52 40 52 C 48.606 52 52 46 52 40 C 52 34 47 30 47 30 L 50 27 C 50 27 56 31 56 40 C 56 52 46 56 40 56 C 34 56 24 52 24 40 C 24 31 30 27 30 27 L 33 30 Z"></path>
-        <path class="flare" d="M 40 13 C 58 13 65 23 66 27 C 67 34 60 36 60 36 C 55 37 46.741 33 40 33 C 33.259 33 25 37 20 36 C 20 36 13 35 14 27 C 15 23 22 13 40 13 Z"></path>
+        <circle r="35px" cx="40" cy="40"></circle>
+        <path class="flare" :class="{'flare-pressed':btnStatus}" d="M 38 18 L 42 18 L 42 42 L 38 42 L 38 18 Z M 33 30 C 33 30 28 34 28 40 C 28 46 31.394 52 40 52 C 48.606 52 52 46 52 40 C 52 34 47 30 47 30 L 50 27 C 50 27 56 31 56 40 C 56 52 46 56 40 56 C 34 56 24 52 24 40 C 24 31 30 27 30 27 L 33 30 Z"></path>
       </g>
     </svg>
   </div>
@@ -90,27 +89,36 @@ export default {
   width: 100%;
   height: 100%;
   fill: white;
-  filter:url(#dropshadow);
+  filter:url(#dropShadow-1);
 }
 .background-circle-1 {
   fill:url(#Gradient-1);
 }
 .background-circle-2 {
-  fill:url(#Gradient-2);
+  /*fill:url(#Gradient-2);*/
+  fill: #e7e7e7;
 }
 
 .button-circle {
   transform-origin: 50% 50%;
-  transition: all .3s;
+  transition: all 0.2s ease;
   cursor: pointer;
+  filter: url(#dropShadow-1);
   fill: #285876;
+}
+.button-circle:hover path{
+  filter: url(#dropShadow_hover);
 }
 
 .flare {
-  fill: url(#Gradient-3);
-  filter: url(#blur);
+  fill: rgb(255, 255, 255);
 }
+.flare-pressed {
+  fill: rgba(0,213,255,0.9);
+}
+
 .pressed-button {
+  filter: url(#dropShadow_hover);
   transform: scale(.8);
 }
 @keyframes press {

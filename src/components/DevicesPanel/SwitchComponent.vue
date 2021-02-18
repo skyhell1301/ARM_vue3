@@ -2,11 +2,10 @@
   <div class="switch-container" @click="rotateStart">
     <div class="background-div"></div>
     <div class="background-rectangle"></div>
-    <svg class="svg-element" viewBox="0 0 30 30" preserveAspectRatio="none">
-      <g :id="'rotate-' + ID">
+    <svg class="svg-element" viewBox="0 0 30 30" preserveAspectRatio="none" :class="{'rotate': isRotate}">
+      <g>
         <path class="arc-line" d="M 0 15 C 10 15 15 10 15 0"></path>
         <path class="arc-line" d="M 15 30 C 15 20 20 15 30 15"></path>
-        <circle :id="ID" class="switch-motion-object" style="fill: rgba(134, 218, 82, 0.9);" cx="4" cy="4" r="4"></circle>
       </g>
 <!--      <text style="fill: rgb(51, 51, 51); font-family: Roboto Slab; font-size: 5px; white-space: pre;" x="10" y="16">1</text>-->
 <!--      <text style="fill: rgb(51, 51, 51); font-family: Roboto Slab; font-size: 5px; white-space: pre;" x="14" y="12">2</text>-->
@@ -29,14 +28,11 @@ export default {
       })(),
       pathForLine1: 'M 0 15 C 10 15 15 10 15 0',
       pathForLine2: 'M 15 30 C 15 20 20 15 30 15',
-      rotateValue: 0
+      rotateValue: 0,
+      isRotate: false
     }
   },
   props: {
-    animationDuration: {
-      type: Number,
-      default: 5
-    },
     port_in_1: {
       type: Number
     },
@@ -46,14 +42,10 @@ export default {
   },
   methods: {
     rotateStart () {
-      // gsap.set('#' + 'rotate-' + this.ID, {transformOrigin: '50% 50%'})
       this.rotateValue = this.rotateValue === 90 ? 0 : 90
-      // gsap.to('#' + 'rotate-' + this.ID, {duration: 1, repeat: 0, rotation: this.rotateValue})
+      this.isRotate = !this.isRotate
     },
   },
-  mounted () {
-    // gsap.registerPlugin(MotionPathPlugin)
-  }
 }
 </script>
 
@@ -68,14 +60,15 @@ export default {
   grid-column: 1;
   justify-self: center;
   align-self: center;
+  transition: all 0.3s;
 }
 .background-div {
   height: 100%;
   width: 100%;
   grid-row: 1;
   grid-column: 1;
-  background: linear-gradient(135deg, rgba(235,235,235,1) 0%, rgb(123, 122, 122) 61%, rgba(166,166,166,1) 100%);
-  box-shadow: 0px 0px 2px 1px rgba(148,148,148,0.71);
+  background: #d9d9d9;
+  box-shadow: 0px 0px 3px 1px rgba(130, 130, 130, 0.8);
   border-radius: 25%;
 }
 .background-rectangle {
@@ -85,8 +78,8 @@ export default {
   height: 85%;
   justify-self: center;
   align-self: center;
-  background: linear-gradient(45deg, rgb(158, 158, 158) 0%, rgb(247, 247, 247) 100%);
-  box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.3);
+  background: #d9d9d9;
+  box-shadow: 0px 0px 3px 1px rgba(130, 130, 130, 0.8);
   border-radius: 25%;
 }
 .arc-line {
@@ -95,7 +88,7 @@ export default {
   shape-rendering: geometricPrecision;
   fill: none;
 }
-.switch-motion-object {
-  opacity: 0;
+.rotate {
+  transform: rotate(90deg);
 }
 </style>

@@ -110,12 +110,12 @@ export default {
 
 <style scoped>
 .control-and-indication__wrapper {
-  box-shadow: 0px 0px 5px .5px rgba(172, 172, 172, 0.8);
+  /*box-shadow: 0px 0px 5px .5px rgba(172, 172, 172, 0.8);*/
   user-select: none;
-  width: 97%;
+  width: 100%;
   height: 100%;
   display: grid;
-  grid-template-rows: 7.3% .4% 9.5% .4% 14.5% .4% 7.5% .4% 7.5% .4% 7.5% .4% 29.5% .4% 9.5% .4% 4%;
+  grid-template-rows: 5.3% .4% 9.5% .4% 15.5% .4% 7.5% .4% 7.5% .4% 7.5% .4% 30.5% .4% 9.5% .4% 4%;
   justify-self: end;
   justify-items: center;
   align-items: center;
@@ -126,6 +126,7 @@ export default {
   width: 95%;
   height: 100%;
   border: none;
+
 }
 
 .crash {
@@ -134,9 +135,9 @@ export default {
   grid-template-rows: 20% 80%;
   width: 95%;
   height: 100%;
-  border: 1px black solid;
   border-radius: 7px;
-  background: linear-gradient(180deg, #f6f1f5 0%, #f6f1f5 40%, #e2e2e1 50%, #fcf7fb 100%);
+  box-shadow: 0px 0px 3px .5px rgba(88, 88, 88, 0.8);
+  background: linear-gradient(135deg, #f6f1f5 0%, #fcf7fb 100%);
   grid-row: 3;
 }
 
@@ -171,23 +172,24 @@ export default {
   grid-template-rows: 30% 70%;
   width: 95%;
   height: 100%;
-  border: 1px black solid;
+  box-shadow: 0px 0px 3px .5px rgba(88, 88, 88, 0.8);
   border-radius: 7px;
-  background: linear-gradient(180deg, #f6f1f5 0%, #f6f1f5 40%, #e2e2e1 50%, #fcf7fb 100%);
+  background: linear-gradient(135deg, #f6f1f5 0%, #fcf7fb 100%);
 }
 
 .btn-2 {
+  height: 95%;
   grid-row: 2;
   grid-column: 1;
-  width: 98%;
-  height: 98%;
+  justify-self: center;
+  /*width: 98%;*/
+  /*height: 98%;*/
 }
 
 .ind-1 {
   grid-row: 2;
   grid-column: 2;
-  width: 98%;
-  height: 98%;
+  height: 95%;
 }
 
 .ind-title {

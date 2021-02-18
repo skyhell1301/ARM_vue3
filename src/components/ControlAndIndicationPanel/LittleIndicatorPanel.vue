@@ -38,8 +38,8 @@ export default {
 
 <style scoped>
 .little-indicator-panel__wrapper {
-  background: linear-gradient(180deg, #f6f1f5 0%, #f6f1f5 40%, #e2e2e1 50%, #fcf7fb 100%);
-  border: 1px black solid;
+  background: linear-gradient(135deg, #f6f1f5 0%, #fcf7fb 100%);
+  box-shadow: 0px 0px 2px .5px rgba(88, 88, 88, 0.8);
   border-radius: 7px;
   display: flex;
   width: 100%;

@@ -110,7 +110,7 @@
     </MenuItemComponent>
     <MenuItemComponent :title-menu-item="$t('Interface.settings')">
       <div class="setting-item" @click="dialogOpen('changeApplicationSettingsDialogStatus')">
-        <GearIcon class="item-icon"></GearIcon>
+        <GearIcon class="item-icon" style="stroke-width: 5px; stroke: rgba(255, 255, 255, 0.7);"></GearIcon>
         <div class="item-title">{{$t('Interface.program_settings')}}</div>
       </div>
       <div class="setting-item" @click="dialogOpen('changeLVSSettingDialogStatus')">
@@ -244,6 +244,7 @@ export default {
   height: 2.5vmax;
   width: 2.5vmax;
   fill: #285876;
+
 }
 
 .item-title {

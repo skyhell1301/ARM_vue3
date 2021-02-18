@@ -72,13 +72,13 @@ export default {
 }
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 .color-warning {
-  fill: #ffcc00;
+  fill: var(--warning-color);
 }
 .color-ok {
-  fill: #50d044;
+  fill: var(--good-color);
 }
 .color-crash {
-  fill: #ff3333;
+  fill: var(--error-color);
 }
 .color-none {
   fill: none;

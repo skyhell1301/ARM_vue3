@@ -142,7 +142,7 @@ export default {
   grid-row-gap: 5px;
 }
 .view-list_wrapper {
-  height: 600px;
+  max-height: 600px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;

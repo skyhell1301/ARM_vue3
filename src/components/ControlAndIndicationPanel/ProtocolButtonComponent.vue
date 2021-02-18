@@ -25,7 +25,7 @@ export default {
   width: 100%;
   height: 100%;
   max-height: 100%;
-  border: 1px black solid;
+  box-shadow: 0px 0px 3px .5px rgba(88, 88, 88, 0.8);
   border-radius: 7px;
   background: linear-gradient(45deg, #f6f1f5 0%, #fcf7fb 100%);
   justify-items: center;

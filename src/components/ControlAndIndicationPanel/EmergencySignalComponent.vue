@@ -13,12 +13,6 @@
       <path class="bell" d="M 25.263 32.143 C 25.263 32.143 25.263 28.928 26.316 26.786 C 27.368 24.643 28.837 23.092 29.474 21.429 C 30.526 19.285 29.474 14.406 30.526 10.714 C 33.684 3.214 40 3.647 40 3.647 L 40 3.643 C 40 3.643 46.316 3.214 49.474 10.714 C 50.526 14.406 49.474 19.285 50.526 21.429 C 51.163 23.092 52.632 24.643 53.684 26.786 C 54.737 28.928 54.737 32.143 54.737 32.143 Z">
         <title>bell</title>
       </path>
-      <defs>
-        <linearGradient id="Gradient-bell" x1="0" y1="0" x2="100%" y2="100%">
-          <stop offset="20%"  stop-color="#fdfefb" stop-opacity="0.6"/>
-          <stop offset="70%" stop-color="#fdfefb" stop-opacity="0.1"/>
-        </linearGradient>
-      </defs>
       <filter id="dropshadow" height="130%">
         <feGaussianBlur in="SourceAlpha" stdDeviation="3"/> <!-- stdDeviation is how much to blur -->
         <feOffset dx="0" dy="0" result="offsetblur"/> <!-- how much to offset -->
@@ -61,7 +55,7 @@ export default {
   fill: #fcff27;
 }
 .color-ok {
-  fill: #339933;
+  fill: #45c745;
 }
 .color-crash {
   fill: #f90022;
