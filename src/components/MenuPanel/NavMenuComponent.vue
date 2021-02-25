@@ -7,7 +7,7 @@
       </div>
       <div class="setting-item">
         <CycklogrammiIcon class="item-icon"></CycklogrammiIcon>
-        <div class="item-title">{{$t('Interface.сyclogramms')}}</div>
+        <div class="item-title">{{$t('Interface.cyclogramms')}}</div>
       </div>
       <div class="setting-item">
         <ConfigurationIcon class="item-icon"></ConfigurationIcon>
@@ -89,7 +89,7 @@
         <BURIcon class="item-icon"></BURIcon>
         <div class="item-title">{{$t('Interface.lna')}}</div>
       </div>
-      <div class="setting-item">
+      <div class="setting-item" @click="dialogOpen('changeTestTranslatorStatus')">
         <TestTranslyatorIcon class="item-icon"></TestTranslyatorIcon>
         <div class="item-title">{{$t('Interface.test_translator')}}</div>
       </div>
@@ -113,7 +113,7 @@
         <GearIcon class="item-icon" style="stroke-width: 5px; stroke: rgba(255, 255, 255, 0.7);"></GearIcon>
         <div class="item-title">{{$t('Interface.program_settings')}}</div>
       </div>
-      <div class="setting-item" @click="dialogOpen('changeLVSSettingDialogStatus')">
+      <div class="setting-item" @click="dialogOpen('changeLANSettingsDialogStatus')">
         <LocalNetworkIcon class="item-icon"></LocalNetworkIcon>
         <div class="item-title">{{$t('Interface.LAN_settings')}}</div>
       </div>

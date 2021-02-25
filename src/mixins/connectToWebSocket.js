@@ -34,25 +34,24 @@ export default {
                 }
 
                 webSocketConnection.onmessage = function (event) {
-                    // let logMessage = {text: event.data}
                     // console.log(event.data)
                     store.dispatch('protocol/addLogMessage', {text: event.data})
-                    // let parameters = JSON.parse(event.data).DeviceParameters
-                    let ZSData = JSON.parse(event.data)
-                    let lifeMark = JSON.parse(event.data).livetag
-                    // console.log(ZSData)
-                    // if(lifeMark !== undefined)
-                    // store.dispatch('protocol/addLogMessage', {text: lifeMark})
+                    let parameters = JSON.parse(event.data)?.DeviceParameters
+                    let ZSData = JSON.parse(event.data)?.state
+                    let lifeMark = JSON.parse(event.data)?.livetag
+                    let configuration = JSON.parse(event.data)?.configuration
 
                     if (lifeMark !== null && lifeMark !== undefined) {
                         store.dispatch('wsConnectionList/lifeMarkUpdate', {lifeMark: lifeMark, url: event.target.url})
-                    } else {
-                        if (ZSData !== null && ZSData !== undefined) {
-                            if (ZSData.DeviceParameters !== null && ZSData.DeviceParameters !== undefined) {
-                                store.dispatch('devicesParameters/parametersUpdate', ZSData.DeviceParameters)
-                            }
-                            store.dispatch('ZSParameters/ZSParametersUpdate', ZSData)
-                        }
+                    }
+                    if (parameters !== null && parameters !== undefined) {
+                        store.dispatch('devicesParameters/parametersUpdate', parameters)
+                    }
+                    if (ZSData !== null && ZSData !== undefined) {
+                        store.dispatch('ZSParameters/ZSParametersUpdate', ZSData)
+                    }
+                    if (configuration !== null && configuration !== undefined) {
+                        store.dispatch('ZSParameters/ZSConfigurationUpdate', configuration)
                     }
                 }
 

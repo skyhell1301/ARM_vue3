@@ -46,7 +46,7 @@ export default {
 .modal-container {
   display: flex;
   flex-direction: row;
-  width: 500px;
+  width: 40%;
   margin: 0px auto;
   //padding: 20px 30px;
   background-color: #fff;

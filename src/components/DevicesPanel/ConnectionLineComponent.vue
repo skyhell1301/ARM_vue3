@@ -189,7 +189,7 @@ export default {
   height: 100%;
 }
 .path-line {
-  stroke: black;
+  stroke: #285876;
   stroke-width: 2px;
   fill: none;
 }

@@ -17,14 +17,14 @@
                                    :point-edges-array="lineAntennaSystemToSwitch2"
         >
         </connection-line-component>
-        <connection-line-component id_1="test-translyator-id"
+        <connection-line-component id_1="test-translator-id"
                                    :connection-point_1="{side: 'left', percent: 50}"
                                    id_2="switch-id-1"
                                    :connection-point_2="{side: 'top', percent: 50}"
                                    :point-edges-array="lineTestTranslyatorToSwitch1"
         >
         </connection-line-component>
-        <connection-line-component id_1="test-translyator-id"
+        <connection-line-component id_1="test-translator-id"
                                    :connection-point_1="{side: 'right', percent: 50}"
                                    id_2="switch-id-2"
                                    :connection-point_2="{side: 'top', percent: 50}"
@@ -194,7 +194,7 @@
         </connection-line-component>
         <connection-line-component id_1="down-matrix-id"
                                    :connection-point_1="{side: 'left', percent: 75}"
-                                   id_2="as-stoyka-id"
+                                   id_2="as-stand-id"
                                    :connection-point_2="{side: 'bottom', percent: 50}"
                                    :point-edges-array="lineDownMatrixToASStoyka"
         >
@@ -214,10 +214,10 @@
         </pattern>
       </defs>
     </svg>
-    <AntennaSystemDisplayParameters :input-parameters="antennaSystemDeviceData1"
+    <AntennaSystemDisplayParameters :input-parameters="antennaParameters"
                                     class="antenna-system-device"
                                     id="antenna-system-id"/>
-    <TestTranslyatorParametersDisplay id="test-translyator-id" class="test-translyator-device"
+    <TestTranslatorParametersDisplay id="test-translator-id" class="test-translator-device"
                                       :input-parameters="testTranslyatorDeviceData"
 
     />
@@ -229,20 +229,20 @@
                                 device-id="2"
                                 :input-parameters="amplifier1Device2"
     />
-    <MSHUParametersDisplay id="MSHU-device-id-1" class="MSHU-device-1" @openDialog="dialogOpen('MSHU')"
-                           :input-parameters="getMSHUParametersByNumber1" device-id="1"
+    <MSHUParametersDisplay id="MSHU-device-id-1" class="MSHU-device-1" device-id="1"
+                           :input-parameters="getMSHUParametersByNumber1"
     />
-    <MSHUParametersDisplay id="MSHU-device-id-2" class="MSHU-device-2" @openDialog="dialogOpen('MSHU')"
-                           :input-parameters="getMSHUParametersByNumber2" device-id="2"
+    <MSHUParametersDisplay id="MSHU-device-id-2" class="MSHU-device-2" device-id="2"
+                           :input-parameters="getMSHUParametersByNumber2"
     />
     <UpConverterParametersDisplay :input-parameters="upConverterDeviceData1"
                                   id="up-converter-id-1" device-id="1"
                                   class="up-converter-1"
-                                  @dblclick="dialogOpen('UpConverter')"/>
+                                  />
     <UpConverterParametersDisplay :input-parameters="upConverterDeviceData2"
                                   id="up-converter-id-2" device-id="2"
                                   class="up-converter-2"
-                                  @dblclick="dialogOpen('UpConverter')"/>
+                                  />
     <DownConverterParametersDisplay id="down-converter-id-1" class="down-converter-1"
                                     :input-parameters="downConverterDeviceData1" device-id="1"
     />
@@ -252,15 +252,13 @@
     <MatrixParametersDisplay id="up-matrix-id" :device-id="0" class="up-matrix"/>
     <MatrixParametersDisplay id="down-matrix-id" :device-id="1" class="down-matrix"/>
     <DeviceDisplayComponent id="cortex-id-1" title-device="Cortex #1" class="cortex-1">
-      <div style="height: 100px; width: 100%"></div>
     </DeviceDisplayComponent>
     <DeviceDisplayComponent id="cortex-id-2" title-device="Cortex #2" class="cortex-2">
-      <div style="height: 100px; width: 100%"></div>
     </DeviceDisplayComponent>
     <DeviceDisplayComponent id="spectrum-analyzer-id" :title-device="$t('Interface.spectrum_analyser')" class="spectrum-analyzer">
       <SpectrumAnalyserDisplayComponent/>
     </DeviceDisplayComponent>
-    <StandAntennaSystemComponent id="as-stoyka-id" class="as-stoyka"></StandAntennaSystemComponent>
+    <StandAntennaSystemComponent id="as-stand-id" class="as-stand"></StandAntennaSystemComponent>
     <SwitchComponent id="switch-id-1" class="switch-1"
                      :animation-duration="0.5"
     >
@@ -308,8 +306,8 @@ import UpConverterParametersDisplay
   from "@/components/DevicesPanel/DysplayParametersComponents/UpConverterParametersDisplay";
 import AmplifierParametersDisplay
   from "@/components/DevicesPanel/DysplayParametersComponents/AmplifierParametersDisplay";
-import TestTranslyatorParametersDisplay
-  from "@/components/DevicesPanel/DysplayParametersComponents/TestTranslyatorParametersDisplay";
+import TestTranslatorParametersDisplay
+  from "@/components/DevicesPanel/DysplayParametersComponents/TestTranslatorParametersDisplay";
 import MSHUParametersDisplay from "@/components/DevicesPanel/DysplayParametersComponents/MSHUParametersDisplay";
 import DownConverterParametersDisplay
   from "@/components/DevicesPanel/DysplayParametersComponents/DownConverterParametersDisplay";
@@ -593,7 +591,7 @@ export default {
     MatrixParametersDisplay,
     DownConverterParametersDisplay,
     MSHUParametersDisplay,
-    TestTranslyatorParametersDisplay,
+    TestTranslatorParametersDisplay,
     AmplifierParametersDisplay,
     UpConverterParametersDisplay,
     AntennaSystemDisplayParameters,
@@ -611,7 +609,7 @@ export default {
   },
   computed: {
     ...mapState({
-      antennaSystemDeviceData1: state => state.devicesParameters.antennaParameters1,
+      antennaParameters: state => state.devicesParameters.antennaParameters,
       amplifier1Device1: state => state.devicesParameters.amplifier1DeviceParameters1,
       amplifier1Device2: state => state.devicesParameters.amplifier1DeviceParameters2,
       downConverterDeviceData1: state => state.devicesParameters.downConverterDeviceParameters1,
@@ -660,7 +658,7 @@ export default {
   height: 115%;
   align-self: start;
 }
-.test-translyator-device {
+.test-translator-device {
   grid-column-start: 3;
   grid-column-end: 5;
   grid-row-start: 1;
@@ -763,7 +761,7 @@ export default {
   justify-self: center;
   align-self: start;
 }
-.as-stoyka {
+.as-stand {
   grid-column: 6;
   grid-row: 7;
   height: 80%;

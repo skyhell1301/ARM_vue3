@@ -68,11 +68,6 @@ export default {
       this.$store.dispatch('dialogStatus/change' + this.dialogName + 'DialogStatus', true)
     },
     updateData() {
-      // let namesList = []
-      // this.updateNamesList()
-      // for (let name in this.deviceData) {
-      //   namesList.push({nameParameter: name, valueParameter: this.deviceData[name].valueParameter})
-      // }
       this.parameters = []
       for (let param in this.inputParameters.deviceParameters) {
 
@@ -146,19 +141,26 @@ export default {
   overflow-y: auto;
   display: flex;
   flex-direction: column;
+  box-shadow: inset 0 0 5px 0 rgba(78, 78, 78, 0.8);
 }
 
 .view-list-container {
-
   width: 100%;
   display: grid;
   grid-template-columns: 80% 20%;
   justify-items: start;
+  text-align: start;
   user-select: none;
+}
+.view-list-name {
+  position: relative;
+  left: 2%;
 }
 
 .view-list-value {
   justify-self: end;
+  position: relative;
+  right: 3%;
 }
 
 .close-modal-button {
@@ -167,6 +169,4 @@ export default {
   width: 3%;
   margin-bottom: 20px;
 }
-
-
 </style>

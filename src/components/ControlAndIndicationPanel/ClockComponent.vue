@@ -68,7 +68,7 @@ export default {
   grid-row: 1;
   grid-column: 1;
   width: 100%;
-  height: 100%;
+  height: 70%;
   justify-self: center;
   align-self: center;
   transform-origin: 0;

@@ -53,6 +53,7 @@ export default {
         context.ARM1 = json.ARM1
         context.ARM2 = json.ARM2
       })
+
     },
     connectToARM() {
       if (this.ARM1.ip !== undefined) {
@@ -70,15 +71,24 @@ export default {
         address2.full = address2.ip + ':' + address2.port + address2.url
         address2.isMain = false
         this.connectToWS(address2, 'Protocol', store)
+
+        let address3 = {}
+        address3.ip = '10.10.0.16'
+        address3.port = 8081
+        address3.url = '/'
+        address3.full = address3.ip + ':' + address3.port + address3.url
+        address3.isMain = true
+        this.connectToWS(address3, 'ARM2', store)
       } else {
         setTimeout(this.connectToARM, 2000)
       }
 
     }
   },
-  mounted() {
-    this.someMethod()
+  async mounted() {
+    await this.someMethod()
     this.connectToARM()
+
     // let a = "^((0|1\\d?\\d?|2[0-4]?\\d?|25[0-5]?|[3-9]\\d?)\\.){3}(0|1\\d?\\d?|2[0-4]?\\d?|25[0-5]?|[3-9]\\d?)$"
     // let PATTERN = new RegExp(a)
     // let str = "10.10.0.250";

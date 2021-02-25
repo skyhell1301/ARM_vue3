@@ -16,8 +16,8 @@
                    @closed="closeDialog('Amplifier')">
       <AmplifierDialog></AmplifierDialog>
     </window-portal>
-    <window-portal :open="testTranslyatorDialogStatus.status"
-                   :focus="testTranslyatorDialogStatus.focus"
+    <window-portal :open="testTranslatorDialogStatus.status"
+                   :focus="testTranslatorDialogStatus.focus"
                    :left="600"
                    :top="600"
                    :title="'test_translator'"
@@ -41,12 +41,12 @@
       <UpConverterDialog></UpConverterDialog>
     </window-portal>
 
-    <window-portal :open="LVSSettingDialogStatus.status"
-                   :focus="LVSSettingDialogStatus.focus"
+    <window-portal :open="LANSettingsDialogStatus.status"
+                   :focus="LANSettingsDialogStatus.focus"
                    :width="600"
                    :height="800"
-                   :title="'settings'"
-                   @closed="closeDialog('LVSSetting')">
+                   :title="'LAN_settings'"
+                   @closed="closeDialog('LANSettings')">
       <SettingDialog></SettingDialog>
     </window-portal>
     <window-portal :open="protocolDialogStatus.status"
@@ -103,11 +103,11 @@ export default {
     ...mapState({
       amplifierDialogStatus: state => state.dialogStatus.amplifierDialogStatus,
       antennaSystemDialogStatus: state => state.dialogStatus.antennaSystemDialogStatus,
-      testTranslyatorDialogStatus: state => state.dialogStatus.testTranslyatorDialogStatus,
+      testTranslatorDialogStatus: state => state.dialogStatus.testTranslatorDialogStatus,
       MSHUDialogStatus: state => state.dialogStatus.MSHUDialogStatus,
       upConverterDialogStatus: state => state.dialogStatus.upConverterDialogStatus,
 
-      LVSSettingDialogStatus: state => state.dialogStatus.LVSSettingDialogStatus,
+      LANSettingsDialogStatus: state => state.dialogStatus.LANSettingsDialogStatus,
       protocolDialogStatus: state => state.dialogStatus.protocolDialogStatus,
       applicationSettingsDialogStatus: state => state.dialogStatus.applicationSettingsDialogStatus,
     })

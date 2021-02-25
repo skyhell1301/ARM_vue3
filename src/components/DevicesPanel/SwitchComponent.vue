@@ -83,7 +83,7 @@ export default {
   border-radius: 25%;
 }
 .arc-line {
-  stroke: black;
+  stroke: #285876;
   stroke-width: 2px;
   shape-rendering: geometricPrecision;
   fill: none;

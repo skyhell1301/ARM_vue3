@@ -121,6 +121,7 @@ export default {
   align-items: center;
   font-weight: bold;
   font-size: .8em;
+  color: var(--main-color);
 }
 .clock {
   width: 95%;

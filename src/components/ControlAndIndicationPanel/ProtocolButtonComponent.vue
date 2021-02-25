@@ -44,7 +44,7 @@ export default {
   transition: all .3s;
 }
 .protocol-button-border:hover {
-  background: #00d6ff;
+  background: var(--contrasr-color);
   cursor: pointer;
 }
 

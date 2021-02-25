@@ -157,10 +157,6 @@ export default {
 
 .device-btn-setting:hover {
   cursor: pointer;
-  fill: #f3f3f3;
-}
-.device-btn-setting:active {
-  cursor: pointer;
   fill: #ffffff;
 }
 .device_display {

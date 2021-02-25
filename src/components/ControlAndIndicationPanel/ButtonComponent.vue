@@ -104,7 +104,7 @@ export default {
   transition: all 0.2s ease;
   cursor: pointer;
   filter: url(#dropShadow-1);
-  fill: #285876;
+  fill: var(--main-color);
 }
 .button-circle:hover path{
   filter: url(#dropShadow_hover);

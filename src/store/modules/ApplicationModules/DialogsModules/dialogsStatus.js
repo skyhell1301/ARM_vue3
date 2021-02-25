@@ -1,11 +1,11 @@
 const state = ()=> ({
     antennaSystemDialogStatus: {status: false, focus: false},
     amplifierDialogStatus: {status: false, focus: false},
-    testTranslyatorDialogStatus: {status: false, focus: false},
+    testTranslatorDialogStatus: {status: false, focus: false},
     MSHUDialogStatus: {status: false, focus: false},
     upConverterDialogStatus: {status: false, focus: false},
 
-    LVSSettingDialogStatus: {status: false, focus: false},
+    LANSettingsDialogStatus: {status: false, focus: false},
     protocolDialogStatus: {status: false, focus: false},
     applicationSettingsDialogStatus: {status: false, focus: false}
 })
@@ -24,11 +24,11 @@ const mutations = {
             state.amplifierDialogStatus.status = payload
         }
     },
-    changeTestTranslyatorDialogStatus (state, payload) {
-        if(state.testTranslyatorDialogStatus.status === true && payload === true) {
-            state.testTranslyatorDialogStatus.focus = !state.testTranslyatorDialogStatus.focus
+    changeTestTranslatorDialogStatus (state, payload) {
+        if(state.testTranslatorDialogStatus.status === true && payload === true) {
+            state.testTranslatorDialogStatus.focus = !state.testTranslatorDialogStatus.focus
         } else {
-            state.testTranslyatorDialogStatus.status = payload
+            state.testTranslatorDialogStatus.status = payload
         }
     },
     changeMSHUDialogStatus (state, payload) {
@@ -47,11 +47,11 @@ const mutations = {
     },
 
 
-    changeLVSSettingDialogStatus (state, payload) {
-        if(state.LVSSettingDialogStatus.status === true && payload === true) {
-            state.LVSSettingDialogStatus.focus = !state.LVSSettingDialogStatus.focus
+    changeLANSettingsDialogStatus (state, payload) {
+        if(state.LANSettingsDialogStatus.status === true && payload === true) {
+            state.LANSettingsDialogStatus.focus = !state.LANSettingsDialogStatus.focus
         } else {
-            state.LVSSettingDialogStatus.status = payload
+            state.LANSettingsDialogStatus.status = payload
         }
     },
     changeProtocolDialogStatus (state, payload) {
@@ -78,8 +78,8 @@ const actions = {
     changeAmplifierDialogStatus ({commit}, payload) {
         commit('changeAmplifierDialogStatus', payload)
     },
-    changeTestTranslyatorDialogStatus ({commit}, payload) {
-        commit('changeTestTranslyatorDialogStatus', payload)
+    changeTestTranslatorDialogStatus ({commit}, payload) {
+        commit('changeTestTranslatorDialogStatus', payload)
     },
     changeMSHUDialogStatus ({commit}, payload) {
         commit('changeMSHUDialogStatus', payload)
@@ -88,8 +88,8 @@ const actions = {
         commit('changeUpConverterDialogStatus', payload)
     },
 
-    changeLVSSettingDialogStatus ({commit}, payload) {
-        commit('changeLVSSettingDialogStatus', payload)
+    changeLANSettingsDialogStatus ({commit}, payload) {
+        commit('changeLANSettingsDialogStatus', payload)
     },
     changeProtocolDialogStatus ({commit}, payload) {
         commit('changeProtocolDialogStatus', payload)

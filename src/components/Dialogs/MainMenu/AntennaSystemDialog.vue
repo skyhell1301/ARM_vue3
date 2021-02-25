@@ -1,6 +1,6 @@
 <template>
   <div class="antenna-device-container">
-    <display-parameters-component style="font-size: 1em;" :device-data="antennaParameters"/>
+    <display-parameters-component style="font-size: 1em;" :device-data="antennaParameters" device-type="AntennaSystem"/>
     <div class="container-control-elements">
       <select class="control-elements" name="Режим" v-model="selectedMode">
         <option v-for="mode in getWorkModeList" :key="mode">
@@ -16,6 +16,7 @@
 import DisplayParametersComponent from "@/components/DevicesPanel/DysplayParametersComponents/DisplayParametersComponent";
 import CustomButton from "@/components/CustomSimpleComponents/CustomButton";
 import {mapState} from "vuex";
+import RESTRequest from "@/mixins/REST";
 
 export default {
   name: 'AntennaSystemDialog',
@@ -25,41 +26,23 @@ export default {
       workModeList: ['По программе', 'Автомат']
     }
   },
+  mixins: [RESTRequest],
   components: {
     CustomButton,
     DisplayParametersComponent,
   },
   methods: {
-    sendMode() {
+    async sendMode() {
       let obj = {id: this.antennaParameters.id.valueParameter}
       obj.workmode = this.antennaParameters.workmode.val_list.indexOf(this.selectedMode)
-      this.sendMessage('http://yii-site/nomenklatura/smotrantennaupdate/' + obj.id, 'POST', null, 'qqq', JSON.stringify(obj))
-    },
-    sendMessage(urlApi, method, caller, jwttok, body) {
-      if (jwttok != 'undefined') {
-        let myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Authorization", jwttok);
-
-        let requestOptions = {
-          method: method,
-          headers: myHeaders,
-          body: body,
-          redirect: 'follow'
-        };
-
-        fetch(urlApi, requestOptions)
-            .then(response => response.json())
-            .then(result => {
-              if (result.token != 'undefined') {
-                if (caller != null & caller != 'undefined') caller(result);
-              }
-            })
-            .catch(error => {
-              console.log('error', error);
-            });
+      let response = await this.sendRESTCommand('http://yii-site/nomenklatura/smotrantennaupdate/' + obj.id, 'POST', null, 'qqq', JSON.stringify(obj))
+      if (response.ok) {
+        this.$store.dispatch('protocol/addLogMessage', {text: 'Режим "' + this.selectedMode + '" установлен'})
+      } else {
+        this.$store.dispatch('protocol/addLogMessage', {text: 'Не удалось установить Режим "' + this.selectedMode + '". Сервер не отвечает.'})
       }
     }
+
   },
   computed: {
     ...mapState({

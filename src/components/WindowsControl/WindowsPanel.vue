@@ -51,17 +51,18 @@ export default {
   height: 80%;
   width: 7%;
   border-radius: 10px;
-  box-shadow: 0px 0px 5px 1px rgba(83, 83, 83, 0.71);
+  box-shadow: 0px 0px 5px 1px rgba(135, 135, 135, 1);
   margin: 5px;
   display: grid;
   grid-template-columns: 80% 20%;
-  transition: transform 0.4s ease;
+  transition: transform 0.2s ease;
   background: #285876;
 }
 
 
 .window-list-item:hover {
-  box-shadow: 0px 0px 5px 0px rgb(0, 214, 255);
+  transform: scale(1.05);
+  box-shadow: 0px 0px 5px 3px rgba(135, 135, 135, 1);
 }
 
 .window-list-item-container-title {

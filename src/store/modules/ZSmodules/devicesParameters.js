@@ -1,6 +1,5 @@
 const state = () => ({
-    antennaParameters1: {},
-    antennaParameters2: {},
+    antennaParameters: {},
     amplifier1DeviceParameters1: {},
     amplifier1DeviceParameters2: {},
     MSHUDeviceParameters: {},
@@ -13,8 +12,7 @@ const state = () => ({
 const mutations = {
     parametersUpdate(state, payload) {
         if (payload !== '') {
-            state.antennaParameters1 = payload.antennaDeviceDataById[1]
-            state.antennaParameters2 = payload.antennaDeviceDataById[2]
+            state.antennaParameters = payload.AntennaSystem
             state.amplifier1DeviceParameters1 = payload.amplifierDeviceData[1]
             state.amplifier1DeviceParameters2 = payload.amplifierDeviceData[2]
             state.MSHUDeviceParameters = payload.MSHUDeviceData

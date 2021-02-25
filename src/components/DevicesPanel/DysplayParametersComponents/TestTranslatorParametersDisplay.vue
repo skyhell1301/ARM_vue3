@@ -30,7 +30,7 @@ export default {
     },
     dialogName: {
       type: String,
-      default: 'TestTranslyator',
+      default: 'TestTranslator',
     }
   },
 }
