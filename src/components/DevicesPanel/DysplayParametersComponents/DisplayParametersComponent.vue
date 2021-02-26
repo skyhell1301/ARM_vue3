@@ -5,8 +5,11 @@
     <div class="table_parameters"
          v-for="data in deviceData"
          :key="data">
-      <div class="param">{{$t('DevicesParameters.' + data.deviceType + '.' + data.nameParameter)}}</div>
-      <div class="value">{{ data.valueParameter }}</div>
+      <div class="param" v-if="data.unit">{{$t('DevicesParameters.' + data.deviceType + '.' + data.nameParameter)
+      + ' (' + $t('units.' + data.unit) + ')'}}</div>
+      <div class="param" v-else>{{$t('DevicesParameters.' + data.deviceType + '.' + data.nameParameter) }}</div>
+      <div class="value" v-if="data.value_list">{{ $t('DevicesParameters.' + data.deviceType + '.values.' + data.value_list[data.valueParameter]) }}</div>
+      <div class="value" v-else>{{ data.valueParameter}}</div>
     </div>
     <slot></slot>
   </div>
@@ -38,7 +41,7 @@ export default {
 <style scoped>
 
 .wrapper_parameters {
-  font-size: .7em;
+  font-size: .65em;
   display: grid;
   width: 100%;
   height: 100%;
@@ -50,7 +53,6 @@ export default {
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: 65% 35%;
-  font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
   text-align: left;
   align-items: center;
   width: 100%;

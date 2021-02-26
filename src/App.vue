@@ -112,6 +112,7 @@ body {
 
 #app {
   overflow: hidden;
+  /*font-family: Sans-Serif;*/
   font-family: Sans-Serif;
   text-align: center;
   color: #2c3e50;

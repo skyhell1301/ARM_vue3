@@ -42,7 +42,13 @@
       "signal_lvl": "Signal level",
       "title": "Title",
       "titleUI": "Antenna system %{type}",
-      "workmode": "Work mode"
+      "workmode": "Work mode",
+      "values": {
+        "On": "On",
+        "Off": "Off",
+        "Auto": "Auto",
+        "Programm": "In program"
+      }
     },
     "Converter": {
       "AttenuationValue": "Attenuation",
@@ -133,5 +139,17 @@
     "um_down": "Amplifier down",
     "um_up": "Amplifier up",
     "wall": "Wall"
+  },
+  "units": {
+    "deg": "deg",
+    "db": "dB",
+    "ohm": "Ohm",
+    "Hz": "Hz",
+    "MHz": "MHz",
+    "Wt": "W",
+    "A": "А",
+    "V": "V",
+    "C": "°C",
+    "F": "°F"
   }
 }

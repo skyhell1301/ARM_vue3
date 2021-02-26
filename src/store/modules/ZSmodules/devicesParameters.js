@@ -1,49 +1,96 @@
 const state = () => ({
-    antennaParameters: {},
-    amplifier1DeviceParameters1: {},
-    amplifier1DeviceParameters2: {},
-    MSHUDeviceParameters: {},
-    downConverterDeviceParameters1: {},
-    downConverterDeviceParameters2: {},
-    testTranslyatorDeviceParameters: {},
-    upConverterDeviceParameters1: {},
-    upConverterDeviceParameters2: {},
+    parameters: null,
+    unitsConfiguration: null
 })
 const mutations = {
     parametersUpdate(state, payload) {
         if (payload !== '') {
-            state.antennaParameters = payload.AntennaSystem
-            state.amplifier1DeviceParameters1 = payload.amplifierDeviceData[1]
-            state.amplifier1DeviceParameters2 = payload.amplifierDeviceData[2]
-            state.MSHUDeviceParameters = payload.MSHUDeviceData
-            state.downConverterDeviceParameters1 = payload.downConverterDeviceData[1]
-            state.downConverterDeviceParameters2 = payload.downConverterDeviceData[2]
-            state.testTranslyatorDeviceParameters = payload.testTranslyatorDeviceData
-            state.upConverterDeviceParameters1 = payload.upConverterDeviceData[1]
-            state.upConverterDeviceParameters2 = payload.upConverterDeviceData[2]
+            state.parameters = payload
         }
-    }
+    },
+    unitsConfigurationUpdate(state, payload) {
+        state.unitsConfiguration = payload
+
+    },
 }
 const getters = {
     MSHUParametersByNumber: state => number => {
         let params = {deviceParameters: {}}
-        if (state.MSHUDeviceParameters !== null) {
-            for (let item in state.MSHUDeviceParameters.deviceParameters) {
+        if (state.parameters?.MSHUDeviceData) {
+            for (let item in state.parameters.MSHUDeviceData.deviceParameters) {
                 if (item === 'Amplifiers') {
-                    params.deviceParameters['current'] = state.MSHUDeviceParameters.deviceParameters[item][number].current
+                    params.deviceParameters['current'] = state.parameters.MSHUDeviceData.deviceParameters[item][number].current
                 } else {
-                    params.deviceParameters[item] = state.MSHUDeviceParameters.deviceParameters[item]
+                    params.deviceParameters[item] = state.parameters.MSHUDeviceData.deviceParameters[item]
                 }
             }
         }
-        return params
-    }
+        return updateUnitsFromParameters(state, {'MSHU': params})
+    },
+    antennaParameters: state => {
+        return updateUnitsFromParameters(state, {'AntennaSystem': state.parameters?.AntennaSystem})
+    },
+    amplifierParameters1: state => {
+        return updateUnitsFromParameters(state, {'Amplifier': state.parameters?.amplifierDeviceData[1]})
+    },
+    amplifierParameters2: state => {
+        return updateUnitsFromParameters(state, {'Amplifier': state.parameters?.amplifierDeviceData[2]})
+    },
+    downConverterParameters1: state => {
+        return updateUnitsFromParameters(state, {'DownConverter': state.parameters?.downConverterDeviceData[1]})
+    },
+    downConverterParameters2: state => {
+        return updateUnitsFromParameters(state, {'DownConverter': state.parameters?.downConverterDeviceData[2]})
+    },
+    testTranslyatorParameters: state => {
+        return updateUnitsFromParameters(state, {'Ttranslator': state.parameters?.testTranslyatorDeviceData})
+    },
+    upConverterParameters1: state => {
+        return updateUnitsFromParameters(state, {'UpConverter': state.parameters?.upConverterDeviceData[1]})
+    },
+    upConverterParameters2: state => {
+        return updateUnitsFromParameters(state, {'UpConverter': state.parameters?.upConverterDeviceData[2]})
+    },
 }
 
 const actions = {
     parametersUpdate({commit}, payload) {
         commit('parametersUpdate', payload)
+    },
+    unitsConfigurationUpdate({commit}, payload) {
+        commit('unitsConfigurationUpdate', payload)
+    },
+}
+
+function updateUnitsFromParameters(state, device) {
+    let deviceNameKey = Object.keys(device)[0]
+    if (state?.unitsConfiguration) {
+        for (let parametersKey in device[deviceNameKey]?.deviceParameters) {
+            if (deviceNameKey in state.unitsConfiguration) {
+                if (parametersKey in state.unitsConfiguration[deviceNameKey]) {
+                    let unit = state.unitsConfiguration[deviceNameKey][parametersKey]?.unit
+                    let value_list = state.unitsConfiguration[deviceNameKey][parametersKey]?.value_list
+                    let pattern = state.unitsConfiguration[deviceNameKey][parametersKey]?.pattern
+
+                    if (unit) {
+                        device[deviceNameKey].deviceParameters[parametersKey].unit = unit
+                    } else {
+                        device[deviceNameKey].deviceParameters[parametersKey].unit = ''
+                    }
+                    if (value_list) {
+                        device[deviceNameKey].deviceParameters[parametersKey].value_list = value_list
+                    }
+                    if (pattern) {
+                        device[deviceNameKey].deviceParameters[parametersKey].pattern = pattern
+                    }
+                }
+            } else {
+                device[deviceNameKey].deviceParameters[parametersKey].unit = ''
+            }
+
+        }
     }
+    return device[deviceNameKey]
 }
 
 export default {

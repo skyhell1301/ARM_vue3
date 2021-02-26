@@ -230,10 +230,10 @@
                                 :input-parameters="amplifier1Device2"
     />
     <MSHUParametersDisplay id="MSHU-device-id-1" class="MSHU-device-1" device-id="1"
-                           :input-parameters="getMSHUParametersByNumber1"
+                           :input-parameters="LNAParameters1"
     />
     <MSHUParametersDisplay id="MSHU-device-id-2" class="MSHU-device-2" device-id="2"
-                           :input-parameters="getMSHUParametersByNumber2"
+                           :input-parameters="LNAParameters2"
     />
     <UpConverterParametersDisplay :input-parameters="upConverterDeviceData1"
                                   id="up-converter-id-1" device-id="1"
@@ -293,7 +293,6 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
 import DeviceDisplayComponent from './DeviceDisplayComponent'
 import ConnectionLineComponent from './ConnectionLineComponent'
 import SwitchComponent from './SwitchComponent'
@@ -312,6 +311,7 @@ import MSHUParametersDisplay from "@/components/DevicesPanel/DysplayParametersCo
 import DownConverterParametersDisplay
   from "@/components/DevicesPanel/DysplayParametersComponents/DownConverterParametersDisplay";
 import MatrixParametersDisplay from "@/components/DevicesPanel/DysplayParametersComponents/MatrixParametersDisplay";
+// import mapGetters from "vuex/dist/vuex.mjs";
 
 export default {
   name: 'ContainerDeviceComponent',
@@ -608,21 +608,44 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      antennaParameters: state => state.devicesParameters.antennaParameters,
-      amplifier1Device1: state => state.devicesParameters.amplifier1DeviceParameters1,
-      amplifier1Device2: state => state.devicesParameters.amplifier1DeviceParameters2,
-      downConverterDeviceData1: state => state.devicesParameters.downConverterDeviceParameters1,
-      downConverterDeviceData2: state => state.devicesParameters.downConverterDeviceParameters2,
-      testTranslyatorDeviceData: state => state.devicesParameters.testTranslyatorDeviceParameters,
-      upConverterDeviceData1: state => state.devicesParameters.upConverterDeviceParameters1,
-      upConverterDeviceData2: state => state.devicesParameters.upConverterDeviceParameters2,
-    }),
-
-    getMSHUParametersByNumber1 () {
+    // ...mapGetters({
+      // antennaParameters: state => state.devicesParameters.antennaParameters,
+      // amplifier1Device1: state => state.devicesParameters.amplifier1DeviceParameters1,
+      // amplifier1Device2: state => state.devicesParameters.amplifier1DeviceParameters2,
+      // downConverterDeviceData1: state => state.devicesParameters.downConverterDeviceParameters1,
+      // downConverterDeviceData2: state => state.devicesParameters.downConverterDeviceParameters2,
+      // testTranslyatorDeviceData: state => state.devicesParameters.testTranslyatorDeviceParameters,
+      // upConverterDeviceData1: state => state.devicesParameters.upConverterDeviceParameters1,
+      // upConverterDeviceData2: state => state.devicesParameters.upConverterDeviceParameters2,
+    // }),
+    antennaParameters () {
+      return this.$store.getters['devicesParameters/antennaParameters']
+    },
+    amplifier1Device1 () {
+      return this.$store.getters['devicesParameters/amplifierParameters1']
+    },
+    amplifier1Device2 () {
+      return this.$store.getters['devicesParameters/amplifierParameters2']
+    },
+    downConverterDeviceData1 () {
+      return this.$store.getters['devicesParameters/downConverterParameters1']
+    },
+    downConverterDeviceData2 () {
+      return this.$store.getters['devicesParameters/downConverterParameters2']
+    },
+    upConverterDeviceData1 () {
+      return this.$store.getters['devicesParameters/upConverterParameters1']
+    },
+    upConverterDeviceData2 () {
+      return this.$store.getters['devicesParameters/upConverterParameters2']
+    },
+    testTranslyatorDeviceData () {
+      return this.$store.getters['devicesParameters/testTranslyatorParameters']
+    },
+    LNAParameters1 () {
       return this.$store.getters['devicesParameters/MSHUParametersByNumber'](1)
     },
-    getMSHUParametersByNumber2 () {
+    LNAParameters2 () {
       return this.$store.getters['devicesParameters/MSHUParametersByNumber'](2)
     },
   },
@@ -633,7 +656,7 @@ export default {
 .device-container {
   z-index: 1;
   display: grid;
-  box-shadow: 0px 0px 5px .5px rgba(172, 172, 172, 0.8);
+  box-shadow: 0 0 5px .5px rgba(172, 172, 172, 0.8);
   grid-template-rows: 15% 5% 15% 10% 15% 3% 12% 5% 20%;
   grid-template-columns: 22% 6% 22% 22% 6% 22%;
   align-self: center;

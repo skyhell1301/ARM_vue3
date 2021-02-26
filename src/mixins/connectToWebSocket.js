@@ -51,7 +51,7 @@ export default {
                         store.dispatch('ZSParameters/ZSParametersUpdate', ZSData)
                     }
                     if (configuration !== null && configuration !== undefined) {
-                        store.dispatch('ZSParameters/ZSConfigurationUpdate', configuration)
+                        store.dispatch('devicesParameters/unitsConfigurationUpdate', configuration)
                     }
                 }
 

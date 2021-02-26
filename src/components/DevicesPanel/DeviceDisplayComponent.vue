@@ -141,7 +141,6 @@ export default {
   white-space: nowrap;
   font-weight: bold;
   font-stretch: semi-condensed;
-  font-family: "sans-serif";
   user-select: none;
   font-size: .55em;
   display: grid;
