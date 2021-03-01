@@ -117,7 +117,6 @@ export default {
       portList: [8081, 8083],
       urlList: ['/', '/state', '/protocol'],
       selectDeviceName: '',
-      selectWSURl: 'Выберите недавние',
       controllerIP: '10.10.0.122',
       controllerPort: '8083',
       controllerPeriod: 1000,
@@ -153,6 +152,7 @@ export default {
                 status: 'error'
               })
           } else {
+              this.saveInputDataInLocalStorage()
               let address = {}
               address.ip = this.wsIp
               address.port = this.wsPort
@@ -203,13 +203,24 @@ export default {
         console.log(this.controllerMessage.message)
       }
     },
+    saveInputDataInLocalStorage () {
+      localStorage.setItem('wsIp', this.wsIp);
+      localStorage.setItem('wsPort', this.wsPort);
+      localStorage.setItem('wsUrl', this.wsUrl);
+    },
     setIgorUrl () {
       this.$store.dispatch('ZSParameters/setIgorUrl', this.igorUrl)
     }
   },
-  watch: {
-    selectWSURl() {
-      this.wsUrl = this.selectWSURl
+  mounted() {
+    if(localStorage.getItem('wsIp')) {
+      this.wsIp = localStorage.getItem('wsIp')
+    }
+    if(localStorage.getItem('wsPort')) {
+      this.wsPort = localStorage.getItem('wsPort')
+    }
+    if(localStorage.getItem('wsUrl')) {
+      this.wsUrl = localStorage.getItem('wsUrl')
     }
   },
   computed: {

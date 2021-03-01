@@ -6,17 +6,17 @@
       "ALCOn": "ALCOn",
       "alcpower": "Мощность alc",
       "attenuatorpower": "Мощность аттенюатора",
-      "cabinet_temperature": "Температура шкафа",
+      "cabinet_temperature": "Темп. шкафа",
       "channelnumber": "Номер канала",
-      "ControlPoint": "Контрольная точка",
+      "ControlPoint": "Контр. точка",
       "current_beam": "Ток луча",
       "current_body": "noneTranslate",
       "current_heater": "Ток обогревателя",
       "currenttrippointshighfaultvalue_body": "currenttrippointshighfaultvalue_body",
       "currenttrippointshighfaultvalue_heater": "currenttrippointshighfaultvalue_heater",
       "currenttrippointslowfaultvalue_heater": "currenttrippointslowfaultvalue_heater",
-      "DevState": "Cостояние разработчика",
-      "differential_temperature": "Перепад температуры",
+      "DevState": "Cостояние разраб.",
+      "differential_temperature": "Перепад темп.",
       "highalarmvalue": "Высшее значение тревоги",
       "highfaulttrippoint_reflectedrf": "Высшая точка отключения при КЗ",
       "highfaultvalue": "Высшее значение неисправности",
@@ -53,7 +53,7 @@
       }
     },
     "Converter": {
-      "AttenuationValue": "Значение ослабления",
+      "AttenuationValue": "Ослабление",
       "ControlMode": "Режим управления",
       "dac": "dac",
       "ImpedanceValue": "Сопротивление",
@@ -62,17 +62,38 @@
       "slope": "Slope",
       "titleUI": "Конвертер вверх {type} | Конвертер вниз {type} ",
       "UserTestAlarm": "Тревога пользователя",
-      "Voltage15Positive": "Напряжение +5В"
+      "Voltage15Positive": "Напряжение +5В",
+      "values": {
+        "50": "50",
+        "70": "70",
+        "75": "75",
+        "140": "140"
+      }
+
     },
     "Matrix": {
       "titleUI": "Матрица 8x8 вверх | Матрица 8x8 вниз"
     },
-    "MSHU": {
-      "current": "Значение тока",
-      "current_limit": "Пределы тока",
+    "LNA": {
+      "AmplifierAlarm": "Аварийный сигнал усилителя",
+      "AnyAmplifierAlarm": "Неисправность МШУ",
+      "AnyPowerSupplyAlarm": "Неисправность питания",
+      "AnySwitchAlarm": "Неисправность переключателя",
+      "ControlMode": "Режим упр.",
+      "Mode": "Режим",
+      "Status":"Статус резерв.",
+      "Current": "Значение тока",
+      "MaxCurrent": "Макс. зн. тока",
+      "MinCurrent": "Мин. зн. тока",
       "titleUI": "МШУ %{type}",
-      "voltage_a": "Напряжение A",
-      "voltage_b": "Напряжение B"
+      "values": {
+        "ReserveUnit": "Резерв. блок",
+        "GeneralUnit": "Основной блок",
+        "local": "Локальный",
+        "remote": "Удаленный",
+        "Auto": "Автомат",
+        "Manual": "Ручной"
+      }
     },
     "TestTranslyator": {
       "AmlifierCurrentAlarm": "Тревога тока усилителя",

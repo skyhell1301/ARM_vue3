@@ -14,18 +14,16 @@ const mutations = {
     },
 }
 const getters = {
-    MSHUParametersByNumber: state => number => {
+    LNAParameters: state => number => {
         let params = {deviceParameters: {}}
-        if (state.parameters?.MSHUDeviceData) {
-            for (let item in state.parameters.MSHUDeviceData.deviceParameters) {
-                if (item === 'Amplifiers') {
-                    params.deviceParameters['current'] = state.parameters.MSHUDeviceData.deviceParameters[item][number].current
-                } else {
-                    params.deviceParameters[item] = state.parameters.MSHUDeviceData.deviceParameters[item]
-                }
+        let LNAData = state.parameters?.MSHUDeviceData?.deviceParameters
+        if (LNAData?.Amplifiers) {
+            for (let item in LNAData.Amplifiers[number]) {
+                params.deviceParameters[item] = LNAData.Amplifiers[number][item]
+                params.deviceParameters[item].id = number
             }
         }
-        return updateUnitsFromParameters(state, {'MSHU': params})
+        return updateUnitsFromParameters(state, {'MSHUDevice': params})
     },
     antennaParameters: state => {
         return updateUnitsFromParameters(state, {'AntennaSystem': state.parameters?.AntennaSystem})

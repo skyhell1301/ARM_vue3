@@ -4,7 +4,8 @@
                              :input-parameters="inputParameters"
                              :dialog-name="dialogName"
                              device-type="Converter"
-  />
+  >
+  </UniversalDisplayComponent>
 </template>
 
 <script>
@@ -33,7 +34,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

@@ -75,7 +75,7 @@ export default {
         newParam.nameParameter = param
         newParam.deviceType = this.deviceType
 
-        if (this.localViewFields === null) {
+        if (this.localViewFields === []) {
           newParam.isView = true
         } else {
           newParam.isView = false
@@ -89,9 +89,7 @@ export default {
       }
     },
     updateViewParametersList() {
-      for (let item in this.viewFieldsList) {
-        this.localViewFields.push(this.viewFieldsList[item])
-      }
+      this.localViewFields = this.viewFieldsList
     },
     openSettingMenu() {
       this.showModal = true
@@ -100,11 +98,21 @@ export default {
       if (this.localViewFields.length > 5) {
         this.localViewFields.shift()
       }
+      const parsed = JSON.stringify(this.localViewFields);
+      localStorage.setItem(this.title.replace(/\s+/g, ''), parsed);
       this.updateData()
     }
   },
   mounted() {
-    this.updateViewParametersList()
+    if (localStorage.getItem(this.title.replace(/\s+/g, ''))) {
+      try {
+        this.localViewFields = JSON.parse(localStorage.getItem(this.title.replace(/\s+/g, '')))
+      } catch(e) {
+        localStorage.removeItem(this.title.replace(/\s+/g, ''))
+      }
+    } else {
+      this.updateViewParametersList()
+    }
   },
   watch: {
     inputParameters() {
@@ -136,6 +144,7 @@ export default {
   display: grid;
   grid-row-gap: 5px;
 }
+
 .view-list_wrapper {
   max-height: 600px;
   overflow-y: auto;
@@ -152,6 +161,7 @@ export default {
   text-align: start;
   user-select: none;
 }
+
 .view-list-name {
   position: relative;
   left: 2%;

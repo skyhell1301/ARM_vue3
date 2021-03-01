@@ -4,7 +4,7 @@
       "ALCOn": "ALCOn",
       "alcpower": "Alc power",
       "attenuatorpower": "Attenuator power",
-      "cabinet_temperature": "Cabinet temperature",
+      "cabinet_temperature": "Cabinet temp.",
       "channelnumber": "Channel number",
       "ControlPoint": "Control point",
       "current_beam": "Current beam",
@@ -14,7 +14,7 @@
       "currenttrippointshighfaultvalue_heater": "Current trip points HFVH",
       "currenttrippointslowfaultvalue_heater": "Current trip points LFVH",
       "DevState": "Dev state",
-      "differential_temperature": "Differential temperature",
+      "differential_temperature": "Differential temp.",
       "highalarmvalue": "High alarm val.",
       "highfaulttrippoint_reflectedrf": "HF trip point reflected RF",
       "highfaultvalue": "High fault val.",
@@ -60,17 +60,37 @@
       "slope": "Slope",
       "titleUI": "Converter up {type} | Converter down {type}",
       "UserTestAlarm": "User alarm",
-      "Voltage15Positive": "Voltage +5V"
+      "Voltage15Positive": "Voltage +5V",
+      "values": {
+        "50": 50,
+        "70": 70,
+        "75": 75,
+        "140": 140
+      }
     },
     "Matrix": {
       "titleUI": "Matrix 8x8 down | Matrix 8x8 up"
     },
-    "MSHU": {
-      "current": "Current value (mA)",
-      "current_limit": "Current limits (mA)",
+    "LNA": {
+      "AmplifierAlarm": "Amplifier alarm",
+      "AnyAmplifierAlarm": "Any amplifier alarm",
+      "AnyPowerSupplyAlarm": "Any power supply alarm",
+      "AnySwitchAlarm": "Any switch alarm",
+      "ControlMode": "Control mode",
+      "Mode": "Mode",
+      "Status":"Status",
+      "Current": "Current",
+      "MaxCurrent": "Max current",
+      "MinCurrent": "Min current",
       "titleUI": "LNA %{type}",
-      "voltage_a": "Voltage A (V)",
-      "voltage_b": "Voltage B (V)"
+      "values": {
+        "ReserveUnit": "Reserve unit",
+        "GeneralUnit": "General unit",
+        "local": "Local",
+        "remote": "Remote",
+        "Auto": "Auto",
+        "Manual": "Manual"
+      }
     },
     "TestTranslyator": {
       "AmlifierCurrentAlarm": "Amplifier current alarm",

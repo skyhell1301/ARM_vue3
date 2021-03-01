@@ -8,7 +8,7 @@
       <div class="param" v-if="data.unit">{{$t('DevicesParameters.' + data.deviceType + '.' + data.nameParameter)
       + ' (' + $t('units.' + data.unit) + ')'}}</div>
       <div class="param" v-else>{{$t('DevicesParameters.' + data.deviceType + '.' + data.nameParameter) }}</div>
-      <div class="value" v-if="data.value_list">{{ $t('DevicesParameters.' + data.deviceType + '.values.' + data.value_list[data.valueParameter]) }}</div>
+      <div class="value" v-if="data.value_list && typeof data.value_list[data.valueParameter]">{{ $t('DevicesParameters.' + data.deviceType + '.values.' + data.value_list[data.valueParameter]) }}</div>
       <div class="value" v-else>{{ data.valueParameter}}</div>
     </div>
     <slot></slot>

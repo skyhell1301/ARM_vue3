@@ -112,7 +112,6 @@ body {
 
 #app {
   overflow: hidden;
-  /*font-family: Sans-Serif;*/
   font-family: Sans-Serif;
   text-align: center;
   color: #2c3e50;
@@ -129,7 +128,7 @@ body {
 }
 
 .menu-container {
-  box-shadow: 0px 0px 5px .5px rgba(172, 172, 172, 0.8);
+  box-shadow: 0 0 5px .5px rgba(172, 172, 172, 0.8);
   display: grid;
   grid-row: 1;
   grid-column-start: 1;

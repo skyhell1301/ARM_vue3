@@ -1,10 +1,9 @@
 <template>
-  <UniversalDisplayComponent :is-settings-button="false"
-                             :view-fields-list="viewFields"
-                             :title="$t('DevicesParameters.MSHU.titleUI', {type: '#' + deviceId})"
+  <UniversalDisplayComponent :view-fields-list="viewFields"
+                             :title="$t('DevicesParameters.LNA.titleUI', {type: '#' + deviceId})"
                              :input-parameters="inputParameters"
                              :dialog-name="dialogName"
-                             device-type="MSHU"
+                             device-type="LNA"
   >
   </UniversalDisplayComponent>
 </template>
@@ -12,29 +11,31 @@
 <script>
 import UniversalDisplayComponent from "@/components/DevicesPanel/UniversalDisplayComponent";
 export default {
-  name: 'MSHUParametersDisplay',
+  name: 'LNAParametersDisplay',
   components: {UniversalDisplayComponent},
   data () {
     return {
-      viewFields: ['voltage_a', 'voltage_b', 'current', 'current_limit']
+      viewFields: ['Current', 'Status', 'ControlMode', 'MaxCurrent']
     }
   },
   props: {
-    deviceId: {
-      type: String,
-      default: '0'
-    },
     inputParameters: {
       type: Object,
       default: null
     },
+    deviceId: {
+      type: String,
+      default: '0'
+    },
     dialogName: {
       type: String,
-      default: 'MSHU',
+      default: 'LNA',
     }
   },
+  watch: {
+    inputParameters () {
+      // console.log(this.inputParameters)
+    }
+  }
 }
 </script>
-
-<style scoped>
-</style>

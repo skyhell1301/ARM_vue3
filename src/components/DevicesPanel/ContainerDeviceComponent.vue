@@ -47,14 +47,14 @@
         </connection-line-component>
         <connection-line-component id_1="switch-id-2"
                                    :connection-point_1="{side: 'left', percent: 50}"
-                                   id_2="MSHU-device-id-1"
+                                   id_2="LNA-device-id-1"
                                    :connection-point_2="{side: 'top', percent: 50}"
                                    :point-edges-array="lineSwitch1ToUM1"
         >
         </connection-line-component>
         <connection-line-component id_1="switch-id-2"
                                    :connection-point_1="{side: 'left', percent: 50}"
-                                   id_2="MSHU-device-id-2"
+                                   id_2="LNA-device-id-2"
                                    :connection-point_2="{side: 'top', percent: 50}"
                                    :point-edges-array="lineSwitch1ToUM2"
         >
@@ -73,14 +73,14 @@
                                    :point-edges-array="lineUM2ToSwitch3"
         >
         </connection-line-component>
-        <connection-line-component id_1="MSHU-device-id-1"
+        <connection-line-component id_1="LNA-device-id-1"
                                    :connection-point_1="{side: 'bottom', percent: 50}"
                                    id_2="switch-id-4"
                                    :connection-point_2="{side: 'top', percent: 50}"
                                    :point-edges-array="lineUM1ToSwitch3"
         >
         </connection-line-component>
-        <connection-line-component id_1="MSHU-device-id-2"
+        <connection-line-component id_1="LNA-device-id-2"
                                    :connection-point_1="{side: 'bottom', percent: 50}"
                                    id_2="switch-id-4"
                                    :connection-point_2="{side: 'top', percent: 50}"
@@ -229,11 +229,11 @@
                                 device-id="2"
                                 :input-parameters="amplifier1Device2"
     />
-    <MSHUParametersDisplay id="MSHU-device-id-1" class="MSHU-device-1" device-id="1"
-                           :input-parameters="LNAParameters1"
+    <LNAParametersDisplay id="LNA-device-id-1" class="LNA-device-1" device-id="1"
+                          :input-parameters="LNAParameters1"
     />
-    <MSHUParametersDisplay id="MSHU-device-id-2" class="MSHU-device-2" device-id="2"
-                           :input-parameters="LNAParameters2"
+    <LNAParametersDisplay id="LNA-device-id-2" class="LNA-device-2" device-id="2"
+                          :input-parameters="LNAParameters2"
     />
     <UpConverterParametersDisplay :input-parameters="upConverterDeviceData1"
                                   id="up-converter-id-1" device-id="1"
@@ -307,12 +307,10 @@ import AmplifierParametersDisplay
   from "@/components/DevicesPanel/DysplayParametersComponents/AmplifierParametersDisplay";
 import TestTranslatorParametersDisplay
   from "@/components/DevicesPanel/DysplayParametersComponents/TestTranslatorParametersDisplay";
-import MSHUParametersDisplay from "@/components/DevicesPanel/DysplayParametersComponents/MSHUParametersDisplay";
 import DownConverterParametersDisplay
   from "@/components/DevicesPanel/DysplayParametersComponents/DownConverterParametersDisplay";
 import MatrixParametersDisplay from "@/components/DevicesPanel/DysplayParametersComponents/MatrixParametersDisplay";
-// import mapGetters from "vuex/dist/vuex.mjs";
-
+import LNAParametersDisplay from "@/components/DevicesPanel/DysplayParametersComponents/LNAParametersDisplay";
 export default {
   name: 'ContainerDeviceComponent',
   data () {
@@ -588,9 +586,9 @@ export default {
     }
   },
   components: {
+    LNAParametersDisplay,
     MatrixParametersDisplay,
     DownConverterParametersDisplay,
-    MSHUParametersDisplay,
     TestTranslatorParametersDisplay,
     AmplifierParametersDisplay,
     UpConverterParametersDisplay,
@@ -608,16 +606,6 @@ export default {
     }
   },
   computed: {
-    // ...mapGetters({
-      // antennaParameters: state => state.devicesParameters.antennaParameters,
-      // amplifier1Device1: state => state.devicesParameters.amplifier1DeviceParameters1,
-      // amplifier1Device2: state => state.devicesParameters.amplifier1DeviceParameters2,
-      // downConverterDeviceData1: state => state.devicesParameters.downConverterDeviceParameters1,
-      // downConverterDeviceData2: state => state.devicesParameters.downConverterDeviceParameters2,
-      // testTranslyatorDeviceData: state => state.devicesParameters.testTranslyatorDeviceParameters,
-      // upConverterDeviceData1: state => state.devicesParameters.upConverterDeviceParameters1,
-      // upConverterDeviceData2: state => state.devicesParameters.upConverterDeviceParameters2,
-    // }),
     antennaParameters () {
       return this.$store.getters['devicesParameters/antennaParameters']
     },
@@ -643,10 +631,10 @@ export default {
       return this.$store.getters['devicesParameters/testTranslyatorParameters']
     },
     LNAParameters1 () {
-      return this.$store.getters['devicesParameters/MSHUParametersByNumber'](1)
+      return this.$store.getters['devicesParameters/LNAParameters'](1)
     },
     LNAParameters2 () {
-      return this.$store.getters['devicesParameters/MSHUParametersByNumber'](2)
+      return this.$store.getters['devicesParameters/LNAParameters'](2)
     },
   },
 }
@@ -704,13 +692,13 @@ export default {
   width: 90%;
   height: 100%;
 }
-.MSHU-device-1 {
+.LNA-device-1 {
   grid-column: 4;
   grid-row: 3;
   width: 90%;
   height: 100%;
 }
-.MSHU-device-2 {
+.LNA-device-2 {
   grid-column: 6;
   grid-row: 3;
   width: 90%;
