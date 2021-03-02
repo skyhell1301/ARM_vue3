@@ -3,7 +3,6 @@ const http = require('http')
 // eslint-disable-next-line no-unused-vars
 let path = require('path');
 let serveStatic = require('serve-static');
-
 const app = express();
 
 app.use(serveStatic(__dirname + "/dist"));
@@ -23,3 +22,4 @@ process.on('SIGINT', () => {
         console.log('Http server closed.');
     });
 });
+

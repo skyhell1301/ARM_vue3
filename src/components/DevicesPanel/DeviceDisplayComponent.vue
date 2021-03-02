@@ -33,8 +33,6 @@ export default {
   components: {GearIcon},
   data () {
     return {
-      fz: this.fontSizeTitle,
-      resizeCoefficient: ''
     }
   },
   props: {
@@ -46,19 +44,12 @@ export default {
       type: Boolean,
       default: false
     },
-    fontSizeTitle: {
-      type: Number,
-      default: 12
-    },
-    isReFontSize: {
-      type: Boolean,
-      default: true
-    },
     settingsButton: {
       type: Boolean,
       default: false
     }
   },
+  emits: ['buttonClick'],
   methods: {
     clickSettingButton () {
       this.$emit('buttonClick')

@@ -165,44 +165,44 @@
         >
         </connection-line-component>
         <connection-line-component id_1="up-matrix-id"
-                                   :connection-point_1="{side: 'bottom', percent: 80}"
+                                   :connection-point_1="{side: 'bottom', percent: 79.1}"
                                    id_2="cortex-id-2"
                                    :connection-point_2="{side: 'top', percent: 35}"
                                    :point-edges-array="lineUpMatrixToCortex2"
         >
         </connection-line-component>
         <connection-line-component id_1="down-matrix-id"
-                                   :connection-point_1="{side: 'left', percent: 45}"
+                                   :connection-point_1="{side: 'left', percent: 39}"
                                    id_2="cortex-id-1"
                                    :connection-point_2="{side: 'top', percent: 65}"
                                    :point-edges-array="lineDownMatrixToCortex1"
         >
         </connection-line-component>
         <connection-line-component id_1="down-matrix-id"
-                                   :connection-point_1="{side: 'left', percent: 55}"
+                                   :connection-point_1="{side: 'left', percent: 50}"
                                    id_2="cortex-id-2"
                                    :connection-point_2="{side: 'top', percent: 65}"
                                    :point-edges-array="lineDownMatrixToCortex2"
         >
         </connection-line-component>
         <connection-line-component id_1="down-matrix-id"
-                                   :connection-point_1="{side: 'left', percent: 65}"
+                                   :connection-point_1="{side: 'left', percent: 60}"
                                    id_2="spectrum-analyzer-id"
                                    :connection-point_2="{side: 'top', percent: 50}"
                                    :point-edges-array="lineDownMatrixToSpectrumAnalyser"
         >
         </connection-line-component>
         <connection-line-component id_1="down-matrix-id"
-                                   :connection-point_1="{side: 'left', percent: 75}"
+                                   :connection-point_1="{side: 'left', percent: 70}"
                                    id_2="as-stand-id"
                                    :connection-point_2="{side: 'bottom', percent: 50}"
                                    :point-edges-array="lineDownMatrixToASStoyka"
         >
         </connection-line-component>
         <connection-line-component id_1="down-matrix-id"
-                                   :connection-point_1="{side: 'left', percent: 35}"
+                                   :connection-point_1="{side: 'left', percent: 29}"
                                    id_2="down-matrix-id"
-                                   :connection-point_2="{side: 'bottom', percent: 35}"
+                                   :connection-point_2="{side: 'bottom', percent: 32}"
                                    :point-edges-array="lineDownMatrixToDownMatrix"
         >
         </connection-line-component>
@@ -218,7 +218,7 @@
                                     class="antenna-system-device"
                                     id="antenna-system-id"/>
     <TestTranslatorParametersDisplay id="test-translator-id" class="test-translator-device"
-                                      :input-parameters="testTranslyatorDeviceData"
+                                      :input-parameters="testTranslatorDeviceData"
 
     />
     <AmplifierParametersDisplay id="amplifier-device-1-id" class="amplifier-device-1"
@@ -249,8 +249,12 @@
     <DownConverterParametersDisplay id="down-converter-id-2" class="down-converter-2"
                                     :input-parameters="downConverterDeviceData2" device-id="2"
     />
-    <MatrixParametersDisplay id="up-matrix-id" :device-id="0" class="up-matrix"/>
-    <MatrixParametersDisplay id="down-matrix-id" :device-id="1" class="down-matrix"/>
+    <MatrixParametersDisplay id="up-matrix-id" :device-id="0" class="up-matrix" titleId="Up"
+                             :input-parameters="matrixUp"
+    />
+    <MatrixParametersDisplay id="down-matrix-id" :device-id="1" class="down-matrix" titleId="Down"
+                             :input-parameters="matrixDown"
+    />
     <DeviceDisplayComponent id="cortex-id-1" title-device="Cortex #1" class="cortex-1">
     </DeviceDisplayComponent>
     <DeviceDisplayComponent id="cortex-id-2" title-device="Cortex #2" class="cortex-2">
@@ -309,14 +313,12 @@ import TestTranslatorParametersDisplay
   from "@/components/DevicesPanel/DysplayParametersComponents/TestTranslatorParametersDisplay";
 import DownConverterParametersDisplay
   from "@/components/DevicesPanel/DysplayParametersComponents/DownConverterParametersDisplay";
-import MatrixParametersDisplay from "@/components/DevicesPanel/DysplayParametersComponents/MatrixParametersDisplay";
 import LNAParametersDisplay from "@/components/DevicesPanel/DysplayParametersComponents/LNAParametersDisplay";
+import MatrixParametersDisplay from "@/components/DevicesPanel/DysplayParametersComponents/MatrixParametersDisplay";
 export default {
   name: 'ContainerDeviceComponent',
   data () {
     return {
-      inputValue: '',
-      test: false,
       lineAntennaSystemToSwitch1: [
         {
           direction: 'left',
@@ -509,7 +511,7 @@ export default {
         {
           direction: 'down',
           isArc: false,
-          value: 76
+          value: 80
         },
         {
           direction: 'right',
@@ -526,7 +528,7 @@ export default {
         {
           direction: 'down',
           isArc: false,
-          value: 260
+          value: 245
         },
         {
           direction: 'right',
@@ -538,7 +540,7 @@ export default {
         {
           direction: 'left',
           isArc: false,
-          value: 150
+          value: 165
         },
         {
           direction: 'down',
@@ -548,7 +550,7 @@ export default {
         {
           direction: 'right',
           isArc: false,
-          value: 32
+          value: 38
         },
         {
           direction: 'right',
@@ -558,7 +560,7 @@ export default {
         {
           direction: 'right',
           isArc: false,
-          value: 18
+          value: 20
         },
         {
           direction: 'right',
@@ -568,7 +570,7 @@ export default {
         {
           direction: 'right',
           isArc: false,
-          value: 18
+          value: 22
         },
         {
           direction: 'right',
@@ -578,7 +580,7 @@ export default {
         {
           direction: 'right',
           isArc: false,
-          value: 122
+          value: 125
         }
       ],
       nodes: '',
@@ -586,8 +588,8 @@ export default {
     }
   },
   components: {
-    LNAParametersDisplay,
     MatrixParametersDisplay,
+    LNAParametersDisplay,
     DownConverterParametersDisplay,
     TestTranslatorParametersDisplay,
     AmplifierParametersDisplay,
@@ -627,7 +629,7 @@ export default {
     upConverterDeviceData2 () {
       return this.$store.getters['devicesParameters/upConverterParameters2']
     },
-    testTranslyatorDeviceData () {
+    testTranslatorDeviceData () {
       return this.$store.getters['devicesParameters/testTranslyatorParameters']
     },
     LNAParameters1 () {
@@ -635,6 +637,12 @@ export default {
     },
     LNAParameters2 () {
       return this.$store.getters['devicesParameters/LNAParameters'](2)
+    },
+    matrixUp () {
+      return this.$store.getters['devicesParameters/matrixUpParameters']
+    },
+    matrixDown () {
+      return this.$store.getters['devicesParameters/matrixDownParameters']
     },
   },
 }

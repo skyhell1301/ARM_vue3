@@ -49,6 +49,12 @@ const getters = {
     upConverterParameters2: state => {
         return updateUnitsFromParameters(state, {'UpConverter': state.parameters?.upConverterDeviceData[2]})
     },
+    matrixUpParameters: state => {
+        return state.parameters?.matrixDeviceData[1]
+    },
+    matrixDownParameters: state => {
+        return state.parameters?.matrixDeviceData[2]
+    }
 }
 
 const actions = {

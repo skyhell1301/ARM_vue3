@@ -71,8 +71,11 @@
       }
 
     },
-    "Matrix": {
-      "titleUI": "Матрица 8x8 вверх | Матрица 8x8 вниз"
+    "MatrixUp": {
+      "titleUI": "Матрица 8x8 вверх"
+    },
+    "MatrixDown": {
+      "titleUI": "Матрица 8x8 вниз"
     },
     "LNA": {
       "AmplifierAlarm": "Аварийный сигнал усилителя",

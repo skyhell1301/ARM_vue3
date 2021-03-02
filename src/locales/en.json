@@ -68,8 +68,11 @@
         "140": 140
       }
     },
-    "Matrix": {
-      "titleUI": "Matrix 8x8 down | Matrix 8x8 up"
+    "MatrixUp": {
+      "titleUI": "Matrix 8x8 up"
+    },
+    "MatrixDown": {
+      "titleUI": "Matrix 8x8 down"
     },
     "LNA": {
       "AmplifierAlarm": "Amplifier alarm",
