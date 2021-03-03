@@ -9,7 +9,7 @@
         <path class="connection_interface__path" d="M 0 40 C 20 0 20 0 40 0 L 460 0 C 480 0 480 0 500 40 L 0 40 Z"></path>
       </svg>
     </div>
-    <div class="device_body">
+    <div class="device_body" :style="{'grid-template-rows': isFooter ? '13% 75% 12%' : '13% 87%'}">
       <div class="device-body-header">
         <div class="title-device-background">
           <div class="title_device">
@@ -21,6 +21,7 @@
       <div class="device_display">
         <slot></slot>
       </div>
+      <slot name="lamps"/>
     </div>
   </div>
 </template>
@@ -45,6 +46,10 @@ export default {
       default: false
     },
     settingsButton: {
+      type: Boolean,
+      default: false
+    },
+    isFooter: {
       type: Boolean,
       default: false
     }

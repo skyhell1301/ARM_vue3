@@ -1,6 +1,8 @@
 <template>
-  <DeviceDisplayComponent :title-device="title" :settings-button="isSettingsButton" @buttonClick="openSettingMenu">
-    <DisplayParametersComponent :device-data="getViewParameters" @dblclick="openDialog"></DisplayParametersComponent>
+  <DeviceDisplayComponent :title-device="title" :settings-button="isSettingsButton" :is-footer="isFooter" @buttonClick="openSettingMenu">
+    <DisplayParametersComponent :device-data="getViewParameters" @dblclick="openDialog">
+      <div class="no-data__text" v-if="!isData">{{ $t('Interface.no_data') }}</div>
+    </DisplayParametersComponent>
     <ModalWindow v-if="showModal">
       <div class="modal-content-wrapper">
         <close-icon class="close-modal-button" @click="showModal = false"></close-icon>
@@ -17,6 +19,9 @@
         </div>
       </div>
     </ModalWindow>
+    <template v-slot:lamps>
+      <slot/>
+    </template>
   </DeviceDisplayComponent>
 </template>
 
@@ -34,13 +39,18 @@ export default {
     return {
       parameters: [],
       localViewFields: [],
-      showModal: false
+      showModal: false,
+      isData: false
     }
   },
   props: {
     title: {
       type: String,
       default: 'TITLE'
+    },
+    maxViewFields: {
+      type: Number,
+      default: 5
     },
     inputParameters: {
       type: Object,
@@ -61,6 +71,10 @@ export default {
     dialogName: {
       type: String,
       default: '',
+    },
+    isFooter: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
@@ -95,7 +109,7 @@ export default {
       this.showModal = true
     },
     changeViewList() {
-      if (this.localViewFields.length > 5) {
+      if (this.localViewFields.length > this.maxViewFields) {
         this.localViewFields.shift()
       }
       const parsed = JSON.stringify(this.localViewFields);
@@ -116,6 +130,7 @@ export default {
   },
   watch: {
     inputParameters() {
+      this.isData = true
       this.updateData()
     },
     viewFieldsList() {
@@ -178,5 +193,11 @@ export default {
   justify-self: end;
   width: 3%;
   margin-bottom: 20px;
+}
+.no-data__text {
+  font-size: 2.5em;
+  color: rgba(130, 130, 130, 0.4);
+  width: 100%;
+  align-self: center;
 }
 </style>

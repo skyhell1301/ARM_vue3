@@ -255,10 +255,10 @@
     <MatrixParametersDisplay id="down-matrix-id" :device-id="1" class="down-matrix" titleId="Down"
                              :input-parameters="matrixDown"
     />
-    <DeviceDisplayComponent id="cortex-id-1" title-device="Cortex #1" class="cortex-1">
-    </DeviceDisplayComponent>
-    <DeviceDisplayComponent id="cortex-id-2" title-device="Cortex #2" class="cortex-2">
-    </DeviceDisplayComponent>
+    <CortexParametersDisplay device-id="1" id="cortex-id-1" class="cortex-1"
+    />
+    <CortexParametersDisplay device-id="2" id="cortex-id-2" class="cortex-2"
+    />
     <DeviceDisplayComponent id="spectrum-analyzer-id" :title-device="$t('Interface.spectrum_analyser')" class="spectrum-analyzer">
       <SpectrumAnalyserDisplayComponent/>
     </DeviceDisplayComponent>
@@ -315,6 +315,7 @@ import DownConverterParametersDisplay
   from "@/components/DevicesPanel/DysplayParametersComponents/DownConverterParametersDisplay";
 import LNAParametersDisplay from "@/components/DevicesPanel/DysplayParametersComponents/LNAParametersDisplay";
 import MatrixParametersDisplay from "@/components/DevicesPanel/DysplayParametersComponents/MatrixParametersDisplay";
+import CortexParametersDisplay from "@/components/DevicesPanel/DysplayParametersComponents/CortexParametersDisplay";
 export default {
   name: 'ContainerDeviceComponent',
   data () {
@@ -588,6 +589,7 @@ export default {
     }
   },
   components: {
+    CortexParametersDisplay,
     MatrixParametersDisplay,
     LNAParametersDisplay,
     DownConverterParametersDisplay,

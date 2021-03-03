@@ -2,7 +2,10 @@
   <DeviceDisplayComponent :title-device="$t('DevicesParameters.Matrix' + titleId + '.titleUI')"
                           class="matrix-up-display"
   >
-    <svg class="matrix-display">
+    <div class="no-data__text" v-if="!isData">
+      <div>{{ $t('Interface.no_data') }}</div>
+    </div>
+    <svg v-else class="matrix-display">
       <rect class="verticalStep"
             width="3" height="2"
             x="0"
@@ -35,6 +38,7 @@ export default {
   components: {DeviceDisplayComponent},
   data() {
     return {
+      isData: false,
       lineList: [],
       outputList: [],
       sizeMatrix: null,
@@ -59,6 +63,7 @@ export default {
   },
   watch: {
     inputParameters() {
+      this.isData = true
       this.outputList = []
 
       for (let item in this.inputParameters.deviceParameters) {
@@ -126,5 +131,14 @@ export default {
   stroke: #285876;
   stroke-width: 2px;
   fill: none;
+}
+.no-data__text {
+  font-size: 1.5em;
+  color: rgba(130, 130, 130, 0.4);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 </style>

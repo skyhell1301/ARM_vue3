@@ -1,9 +1,9 @@
 <template>
   <UniversalDisplayComponent :view-fields-list="viewFields"
-                             :title="$t('DevicesParameters.LNA.titleUI', {type: '#' + deviceId})"
+                             :title="'Cortex #' + deviceId"
                              :input-parameters="inputParameters"
                              :dialog-name="dialogName"
-                             device-type="LNA"
+                             device-type="Cortex"
   >
   </UniversalDisplayComponent>
 </template>
@@ -11,11 +11,11 @@
 <script>
 import UniversalDisplayComponent from "@/components/DevicesPanel/UniversalDisplayComponent";
 export default {
-  name: 'LNAParametersDisplay',
+  name: 'CortexParametersDisplay',
   components: {UniversalDisplayComponent},
   data () {
     return {
-      viewFields: ['Current', 'Status', 'ControlMode', 'MaxCurrent']
+      viewFields: [],
     }
   },
   props: {
@@ -25,12 +25,15 @@ export default {
     },
     deviceId: {
       type: String,
-      default: '0'
+      default: ''
     },
     dialogName: {
       type: String,
-      default: 'LNA',
+      default: 'Cortex',
     }
   },
 }
 </script>
+
+<style scoped>
+</style>

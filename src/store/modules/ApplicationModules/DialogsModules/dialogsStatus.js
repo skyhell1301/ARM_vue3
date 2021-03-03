@@ -2,7 +2,7 @@ const state = ()=> ({
     antennaSystemDialogStatus: {status: false, focus: false},
     amplifierDialogStatus: {status: false, focus: false},
     testTranslatorDialogStatus: {status: false, focus: false},
-    MSHUDialogStatus: {status: false, focus: false},
+    LNADialogStatus: {status: false, focus: false},
     upConverterDialogStatus: {status: false, focus: false},
 
     LANSettingsDialogStatus: {status: false, focus: false},
@@ -31,11 +31,11 @@ const mutations = {
             state.testTranslatorDialogStatus.status = payload
         }
     },
-    changeMSHUDialogStatus (state, payload) {
-        if(state.MSHUDialogStatus.status === true && payload === true) {
-            state.MSHUDialogStatus.focus = !state.MSHUDialogStatus.focus
+    changeLNADialogStatus (state, payload) {
+        if(state.LNADialogStatus.status === true && payload === true) {
+            state.LNADialogStatus.focus = !state.LNADialogStatus.focus
         } else {
-            state.MSHUDialogStatus.status = payload
+            state.LNADialogStatus.status = payload
         }
     },
     changeUpConverterDialogStatus (state, payload) {
@@ -81,8 +81,8 @@ const actions = {
     changeTestTranslatorDialogStatus ({commit}, payload) {
         commit('changeTestTranslatorDialogStatus', payload)
     },
-    changeMSHUDialogStatus ({commit}, payload) {
-        commit('changeMSHUDialogStatus', payload)
+    changeLNADialogStatus ({commit}, payload) {
+        commit('changeLNADialogStatus', payload)
     },
     changeUpConverterDialogStatus ({commit}, payload) {
         commit('changeUpConverterDialogStatus', payload)

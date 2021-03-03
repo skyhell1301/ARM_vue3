@@ -6,16 +6,18 @@
          v-for="data in deviceData"
          :key="data">
       <div class="param" v-if="data.unit">{{$t('DevicesParameters.' + data.deviceType + '.' + data.nameParameter)
-      + ' (' + $t('units.' + data.unit) + ')'}}</div>
+      + ' (' + $t('units.' + unitName(data.unit)) + ')'}}</div>
       <div class="param" v-else>{{$t('DevicesParameters.' + data.deviceType + '.' + data.nameParameter) }}</div>
       <div class="value" v-if="data.value_list && typeof data.value_list[data.valueParameter]">{{ $t('DevicesParameters.' + data.deviceType + '.values.' + data.value_list[data.valueParameter]) }}</div>
-      <div class="value" v-else>{{ data.valueParameter}}</div>
+      <div class="value" v-else>{{ unitValue(data.valueParameter, data.unit)}}</div>
     </div>
-    <slot></slot>
+    <slot/>
   </div>
 </template>
 
 <script>
+import unitsChange from "@/mixins/unitsChange";
+
 export default {
   name: 'DisplayParametersComponent',
   data () {
@@ -27,14 +29,15 @@ export default {
         return 'id' + one + two + three
       })(),
       namesList: {},
-
     }
   },
   props: {
     deviceData: {
-      type: Object
+      type: Object,
+      default: null
     },
   },
+  mixins: [unitsChange]
 }
 </script>
 
@@ -69,4 +72,5 @@ export default {
   justify-self: end;
   text-align: end;
 }
+
 </style>

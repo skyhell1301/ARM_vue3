@@ -15,13 +15,17 @@ const mutations = {
 }
 const getters = {
     LNAParameters: state => number => {
-        let params = {deviceParameters: {}}
+        let params = null
         let LNAData = state.parameters?.MSHUDeviceData?.deviceParameters
         if (LNAData?.Amplifiers) {
+            params = {deviceParameters: {}}
             for (let item in LNAData.Amplifiers[number]) {
                 params.deviceParameters[item] = LNAData.Amplifiers[number][item]
                 params.deviceParameters[item].id = number
             }
+        }
+        if (params === null) {
+            return null
         }
         return updateUnitsFromParameters(state, {'MSHUDevice': params})
     },

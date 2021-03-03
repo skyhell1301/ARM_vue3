@@ -24,12 +24,12 @@
                    @closed="closeDialog('TestTranslyator')">
       <TestTranslyatorDialog></TestTranslyatorDialog>
     </window-portal>
-    <window-portal :open="MSHUDialogStatus.status"
-                   :focus="MSHUDialogStatus.focus"
+    <window-portal :open="LNADialogStatus.status"
+                   :focus="LNADialogStatus.focus"
                    :left="600"
                    :top="600"
                    :title="'lna'"
-                   @closed="closeDialog('MSHU')">
+                   @closed="closeDialog('LNA')">
       <MSHUDialog></MSHUDialog>
     </window-portal>
     <window-portal :open="upConverterDialogStatus.status"
@@ -104,7 +104,7 @@ export default {
       amplifierDialogStatus: state => state.dialogStatus.amplifierDialogStatus,
       antennaSystemDialogStatus: state => state.dialogStatus.antennaSystemDialogStatus,
       testTranslatorDialogStatus: state => state.dialogStatus.testTranslatorDialogStatus,
-      MSHUDialogStatus: state => state.dialogStatus.MSHUDialogStatus,
+      LNADialogStatus: state => state.dialogStatus.LNADialogStatus,
       upConverterDialogStatus: state => state.dialogStatus.upConverterDialogStatus,
 
       LANSettingsDialogStatus: state => state.dialogStatus.LANSettingsDialogStatus,
