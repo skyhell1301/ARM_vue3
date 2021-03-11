@@ -251,9 +251,11 @@
     />
     <MatrixParametersDisplay id="up-matrix-id" :device-id="0" class="up-matrix" titleId="Up"
                              :input-parameters="matrixUp"
+                             dialog-name="MatrixUp"
     />
     <MatrixParametersDisplay id="down-matrix-id" :device-id="1" class="down-matrix" titleId="Down"
                              :input-parameters="matrixDown"
+                             dialog-name="MatrixDown"
     />
     <CortexParametersDisplay device-id="1" id="cortex-id-1" class="cortex-1"
     />
@@ -304,18 +306,18 @@ import GroundComponent from './GroundComponent'
 import SpectrumAnalyserDisplayComponent from './SpectrumAnalyserDisplayComponent'
 import StandAntennaSystemComponent from './StandAntennaSystemComponent'
 import AntennaSystemDisplayParameters
-  from "@/components/DevicesPanel/DysplayParametersComponents/AntennaSystemParametersDisplay";
+  from "@/components/DevicesPanel/ParametersDisplays/AntennaSystemParametersDisplay";
 import UpConverterParametersDisplay
-  from "@/components/DevicesPanel/DysplayParametersComponents/UpConverterParametersDisplay";
+  from "@/components/DevicesPanel/ParametersDisplays/UpConverterParametersDisplay";
 import AmplifierParametersDisplay
-  from "@/components/DevicesPanel/DysplayParametersComponents/AmplifierParametersDisplay";
+  from "@/components/DevicesPanel/ParametersDisplays/AmplifierParametersDisplay";
 import TestTranslatorParametersDisplay
-  from "@/components/DevicesPanel/DysplayParametersComponents/TestTranslatorParametersDisplay";
+  from "@/components/DevicesPanel/ParametersDisplays/TestTranslatorParametersDisplay";
 import DownConverterParametersDisplay
-  from "@/components/DevicesPanel/DysplayParametersComponents/DownConverterParametersDisplay";
-import LNAParametersDisplay from "@/components/DevicesPanel/DysplayParametersComponents/LNAParametersDisplay";
-import MatrixParametersDisplay from "@/components/DevicesPanel/DysplayParametersComponents/MatrixParametersDisplay";
-import CortexParametersDisplay from "@/components/DevicesPanel/DysplayParametersComponents/CortexParametersDisplay";
+  from "@/components/DevicesPanel/ParametersDisplays/DownConverterParametersDisplay";
+import LNAParametersDisplay from "@/components/DevicesPanel/ParametersDisplays/LNAParametersDisplay";
+import MatrixParametersDisplay from "@/components/DevicesPanel/ParametersDisplays/MatrixParametersDisplay";
+import CortexParametersDisplay from "@/components/DevicesPanel/ParametersDisplays/CortexParametersDisplay";
 export default {
   name: 'ContainerDeviceComponent',
   data () {

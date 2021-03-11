@@ -4,6 +4,8 @@ const state = ()=> ({
     testTranslatorDialogStatus: {status: false, focus: false},
     LNADialogStatus: {status: false, focus: false},
     upConverterDialogStatus: {status: false, focus: false},
+    matrixUpDialogStatus: {status: false, focus: false},
+    matrixDownDialogStatus: {status: false, focus: false},
 
     LANSettingsDialogStatus: {status: false, focus: false},
     protocolDialogStatus: {status: false, focus: false},
@@ -45,7 +47,20 @@ const mutations = {
             state.upConverterDialogStatus.status = payload
         }
     },
-
+    changeMatrixUpDialogStatus (state, payload) {
+        if(state.matrixUpDialogStatus.status === true && payload === true) {
+            state.matrixUpDialogStatus.focus = !state.matrixUpDialogStatus.focus
+        } else {
+            state.matrixUpDialogStatus.status = payload
+        }
+    },
+    changeMatrixDownDialogStatus (state, payload) {
+        if(state.matrixDownDialogStatus.status === true && payload === true) {
+            state.matrixDownDialogStatus.focus = !state.matrixDownDialogStatus.focus
+        } else {
+            state.matrixDownDialogStatus.status = payload
+        }
+    },
 
     changeLANSettingsDialogStatus (state, payload) {
         if(state.LANSettingsDialogStatus.status === true && payload === true) {
@@ -97,8 +112,12 @@ const actions = {
     changeApplicationSettingsDialogStatus ({commit}, payload) {
         commit('changeApplicationSettingsDialogStatus', payload)
     },
-
-
+    changeMatrixUpDialogStatus ({commit}, payload) {
+        commit('changeMatrixUpDialogStatus', payload)
+    },
+    changeMatrixDownDialogStatus ({commit}, payload) {
+        commit('changeMatrixDownDialogStatus', payload)
+    },
 }
 export default {
     namespaced: true,

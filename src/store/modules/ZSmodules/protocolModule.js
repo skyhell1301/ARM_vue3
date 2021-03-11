@@ -8,12 +8,12 @@ const mutations = {
         payload.id = state.counter
         payload.time = new Date().toLocaleTimeString()
         state.lastMessage = payload
-        if (state.logMessageList.length > 299) {
+        if (state.logMessageList.length > 99) {
             state.logMessageList.shift()
         }
 
         state.logMessageList.push(payload)
-        state.counter++
+        state.counter ++
     },
     clearProtocol(state) {
         state.logMessageList = []

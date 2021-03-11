@@ -1,9 +1,8 @@
 export default {
     methods: {
         connectToWS(address, deviceName, store) {
-            this.store = store
             let checkWebSocketConnection = store.getters['wsConnectionList/getWebSocket'](address.full)
-            let mes
+            let mes = ''
             if (checkWebSocketConnection === null && address.full !== '' || checkWebSocketConnection === undefined && address.full !== '') {
 
                 mes = 'Начало подключения к WebSocket серверу (url: ws://' + address.full + ')'
@@ -34,7 +33,7 @@ export default {
                 }
 
                 webSocketConnection.onmessage = function (event) {
-                    // console.log(event.data)
+                    // console.log(event)
                     store.dispatch('protocol/addLogMessage', {text: event.data})
                     let parameters = JSON.parse(event.data)?.DeviceParameters
                     let ZSData = JSON.parse(event.data)?.state
@@ -53,6 +52,10 @@ export default {
                     if (configuration !== null && configuration !== undefined) {
                         store.dispatch('devicesParameters/unitsConfigurationUpdate', configuration)
                     }
+                    // parameters = null
+                    // ZSData = null
+                    // lifeMark = null
+                    // configuration = null
                 }
 
                 webSocketConnection.onclose = function (event) {

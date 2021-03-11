@@ -77,11 +77,11 @@
         <AmplifierIcon class="item-icon"></AmplifierIcon>
         <div class="item-title">{{$t('Interface.um_up') + ' 2'}}</div>
       </div>
-      <div class="setting-item">
+      <div class="setting-item" @click="dialogOpen('changeMatrixUpDialogStatus')">
         <MatrixIcon class="item-icon"></MatrixIcon>
         <div class="item-title">{{$t('Interface.matrix_up')}}</div>
       </div>
-      <div class="setting-item">
+      <div class="setting-item" @click="dialogOpen('changeMatrixDownDialogStatus')">
         <MatrixIcon class="item-icon" style="transform: rotate(180deg)"></MatrixIcon>
         <div class="item-title">{{$t('Interface.matrix_down')}}</div>
       </div>
@@ -89,7 +89,7 @@
         <BURIcon class="item-icon"></BURIcon>
         <div class="item-title">{{$t('Interface.lna')}}</div>
       </div>
-      <div class="setting-item" @click="dialogOpen('changeTestTranslatorStatus')">
+      <div class="setting-item" @click="dialogOpen('changeTestTranslatorDialogStatus')">
         <TestTranslyatorIcon class="item-icon"></TestTranslyatorIcon>
         <div class="item-title">{{$t('Interface.test_translator')}}</div>
       </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="control-and-indication__wrapper">
+  <div class="control-and-indication__wrapper" aria-disabled="true">
     <clock-component class="clock"></clock-component>
     <div class="crash">
       <div class="crash-title">{{$t('Interface.crash')}}</div>

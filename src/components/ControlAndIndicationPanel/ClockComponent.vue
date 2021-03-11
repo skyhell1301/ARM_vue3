@@ -33,7 +33,6 @@ export default {
   },
   mounted () {
     this.timer = setInterval(this.updateTime, 1000)
-    // gsap.to('#rotate-background', {duration: 10, repeat: -1, rotation: 360, ease: 'linear'})
   }
 }
 </script>
@@ -43,11 +42,6 @@ export default {
   font-family: "LCD";
   src: local("LCD"),
   url(../../assets/fonts/9299.ttf) format("truetype");
-}
-@font-face {
-  font-family: "perfo";
-  src: local("perfo"),
-  url(../../assets/fonts/perfo.ttf) format("truetype");
 }
 
 .clock-wrapper {

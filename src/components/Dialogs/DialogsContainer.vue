@@ -67,6 +67,22 @@
                    @closed="closeDialog('ApplicationSettings')">
       <application-settings-dialog></application-settings-dialog>
     </window-portal>
+    <window-portal :open="matrixUpDialogStatus.status"
+                   :focus="matrixUpDialogStatus.focus"
+                   :width="600"
+                   :height="600"
+                   :title="'matrix_up'"
+                   @closed="closeDialog('MatrixUp')">
+      <matrix-up-dialog></matrix-up-dialog>
+    </window-portal>
+    <window-portal :open="matrixDownDialogStatus.status"
+                   :focus="matrixDownDialogStatus.focus"
+                   :width="600"
+                   :height="600"
+                   :title="'matrix_down'"
+                   @closed="closeDialog('MatrixDown')">
+      <matrix-down-dialog/>
+    </window-portal>
   </div>
 </template>
 
@@ -81,9 +97,13 @@ import TestTranslyatorDialog from "@/components/Dialogs/Equipment/TestTranslyato
 import MSHUDialog from "@/components/Dialogs/Equipment/MSHUDialog";
 import UpConverterDialog from "@/components/Dialogs/Equipment/UpConverterDialog";
 import ApplicationSettingsDialog from "@/components/Dialogs/Setting/ApplicationSettingsDialog";
+import MatrixUpDialog from "@/components/Dialogs/Equipment/MatrixUpDialog";
+import MatrixDownDialog from "@/components/Dialogs/Equipment/MatrixDownDialog";
 export default {
   name: 'DialogsContainer',
   components: {
+    MatrixDownDialog,
+    MatrixUpDialog,
     ApplicationSettingsDialog,
     UpConverterDialog,
     MSHUDialog,
@@ -106,6 +126,8 @@ export default {
       testTranslatorDialogStatus: state => state.dialogStatus.testTranslatorDialogStatus,
       LNADialogStatus: state => state.dialogStatus.LNADialogStatus,
       upConverterDialogStatus: state => state.dialogStatus.upConverterDialogStatus,
+      matrixUpDialogStatus: state => state.dialogStatus.matrixUpDialogStatus,
+      matrixDownDialogStatus: state => state.dialogStatus.matrixDownDialogStatus,
 
       LANSettingsDialogStatus: state => state.dialogStatus.LANSettingsDialogStatus,
       protocolDialogStatus: state => state.dialogStatus.protocolDialogStatus,

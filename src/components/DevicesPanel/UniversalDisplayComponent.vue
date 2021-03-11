@@ -28,7 +28,7 @@
 <script>
 import DeviceDisplayComponent from "@/components/DevicesPanel/DeviceDisplayComponent";
 import DisplayParametersComponent
-  from "@/components/DevicesPanel/DysplayParametersComponents/DisplayParametersComponent";
+  from "@/components/DevicesPanel/ParametersDisplays/DisplayParametersComponent";
 import ModalWindow from "@/components/WindowsControl/ModalWindow";
 import CloseIcon from "@/assets/images/SVGIconComponents/CloseIcon";
 
@@ -83,23 +83,26 @@ export default {
     },
     updateData() {
       this.parameters = []
-      for (let param in this.inputParameters.deviceParameters) {
+      for (const param in this.inputParameters.deviceParameters) {
 
-        let newParam = this.inputParameters.deviceParameters[param]
-        newParam.nameParameter = param
+        let newParam = Object.assign({}, this.inputParameters.deviceParameters[param])
         newParam.deviceType = this.deviceType
 
         if (this.localViewFields === []) {
           newParam.isView = true
         } else {
           newParam.isView = false
-          for (let i of this.localViewFields) {
-            if (i === newParam.nameParameter) {
-              newParam.isView = true
-            }
+          if(this.localViewFields.find(value => value === newParam.nameParameter)) {
+            newParam.isView = true
           }
+          // for (let i of this.localViewFields) {
+          //   if (i === newParam.nameParameter) {
+          //     newParam.isView = true
+          //   }
+          // }
         }
         this.parameters.push(newParam)
+        newParam = null
       }
     },
     updateViewParametersList() {
@@ -195,6 +198,7 @@ export default {
   margin-bottom: 20px;
 }
 .no-data__text {
+  user-select: none;
   font-size: 2.5em;
   color: rgba(130, 130, 130, 0.4);
   width: 100%;

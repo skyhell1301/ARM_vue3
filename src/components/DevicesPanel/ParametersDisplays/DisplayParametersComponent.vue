@@ -36,6 +36,9 @@ export default {
       type: Object,
       default: null
     },
+    deviceType: {
+      type: String
+    }
   },
   mixins: [unitsChange]
 }

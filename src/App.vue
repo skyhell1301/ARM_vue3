@@ -52,6 +52,7 @@ export default {
       response.json().then(function (json) {
         context.ARM1 = json.ARM1
         context.ARM2 = json.ARM2
+        context.connectToARM()
       })
 
     },
@@ -87,7 +88,7 @@ export default {
   },
   async mounted() {
     await this.someMethod()
-    this.connectToARM()
+
 
     // let a = "^((0|1\\d?\\d?|2[0-4]?\\d?|25[0-5]?|[3-9]\\d?)\\.){3}(0|1\\d?\\d?|2[0-4]?\\d?|25[0-5]?|[3-9]\\d?)$"
     // let PATTERN = new RegExp(a)

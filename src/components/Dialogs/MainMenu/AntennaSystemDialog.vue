@@ -1,6 +1,6 @@
 <template>
   <div class="antenna-device-container">
-    <display-parameters-component style="font-size: 1em;" :device-data="antennaParameters" device-type="AntennaSystem"/>
+    <DisplayParametersComponent :device-data="antennaParameters"/>
     <div class="container-control-elements">
       <select class="control-elements" v-model="selectedMode">
         <option v-for="mode in workModeList" :key="mode" :value="mode">
@@ -14,7 +14,7 @@
 
 <script>
 import DisplayParametersComponent
-  from "@/components/DevicesPanel/DysplayParametersComponents/DisplayParametersComponent";
+  from "@/components/DevicesPanel/ParametersDisplays/DisplayParametersComponent";
 import CustomButton from "@/components/CustomSimpleComponents/CustomButton";
 import RESTRequest from "@/mixins/REST";
 
@@ -56,13 +56,6 @@ export default {
     antennaParameters() {
       return this.$store.getters['devicesParameters/antennaParameters']?.deviceParameters
     },
-    getWorkModeList() {
-      if (this?.antennaParameters?.workmode) {
-        return this.antennaParameters.workmode.value_list
-      } else {
-        return this.workModeList
-      }
-    }
   },
   mounted() {
   }

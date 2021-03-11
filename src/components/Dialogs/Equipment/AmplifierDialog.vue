@@ -1,13 +1,15 @@
 <template>
   <div class="amplifier-device-container">
-    <display-parameters-component style="font-size: 1.5em;" :device-data="amplifier1DeviceById1">
+    <div>УМ 1</div>
+    <display-parameters-component style="font-size: 1em;" :device-data="amplifier1Device1.deviceParameters">
     </display-parameters-component>
+    <div style="margin-top: 10px;">УМ 2</div>
+    <display-parameters-component style="font-size: 1em;" :device-data="amplifier1Device2.deviceParameters"/>
   </div>
 </template>
 
 <script>
-import {mapState} from 'vuex'
-import DisplayParametersComponent from "@/components/DevicesPanel/DysplayParametersComponents/DisplayParametersComponent";
+import DisplayParametersComponent from "@/components/DevicesPanel/ParametersDisplays/DisplayParametersComponent";
 
 export default {
   name: 'AmplifierDialog',
@@ -18,9 +20,12 @@ export default {
     DisplayParametersComponent,
   },
   computed: {
-    ...mapState({
-      amplifier1DeviceById1: state => state.devicesParameters.amplifier1DeviceParameters1.deviceParameters
-    })
+    amplifier1Device1 () {
+      return this.$store.getters['devicesParameters/amplifierParameters1']
+    },
+    amplifier1Device2 () {
+      return this.$store.getters['devicesParameters/amplifierParameters2']
+    },
   },
   mounted() {
   }
@@ -28,6 +33,10 @@ export default {
 </script>
 
 <style scoped>
-
-
+.amplifier-device-container {
+  display: grid;
+  overflow-y: auto;
+  height: 100%;
+  width: 100%;
+}
 </style>

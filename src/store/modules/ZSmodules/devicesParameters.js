@@ -95,8 +95,10 @@ function updateUnitsFromParameters(state, device) {
             } else {
                 device[deviceNameKey].deviceParameters[parametersKey].unit = ''
             }
-
+            device[deviceNameKey].deviceParameters[parametersKey].deviceType = deviceNameKey
+            device[deviceNameKey].deviceParameters[parametersKey].nameParameter = parametersKey
         }
+
     }
     return device[deviceNameKey]
 }
