@@ -89,7 +89,6 @@ export default {
   async mounted() {
     await this.someMethod()
 
-
     // let a = "^((0|1\\d?\\d?|2[0-4]?\\d?|25[0-5]?|[3-9]\\d?)\\.){3}(0|1\\d?\\d?|2[0-4]?\\d?|25[0-5]?|[3-9]\\d?)$"
     // let PATTERN = new RegExp(a)
     // let str = "10.10.0.250";

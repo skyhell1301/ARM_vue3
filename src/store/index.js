@@ -8,6 +8,7 @@ import systemConnection from "@/store/modules/ConnectionModules/systemConnection
 import devicesParameters from "@/store/modules/ZSmodules/devicesParameters";
 
 export default createStore({
+  devtools: false,
   state: {
 
   },

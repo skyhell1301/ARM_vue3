@@ -29,6 +29,7 @@ export default {
         return 'id' + one + two + three
       })(),
       namesList: {},
+      a: {}
     }
   },
   props: {

@@ -6,7 +6,7 @@ let serveStatic = require('serve-static');
 const app = express();
 
 app.use(serveStatic(__dirname + "/dist"));
-let port = process.env.PORT || 5000;
+let port = process.env.PORT || 80;
 let hostname = '10.10.0.11';
 
 const server = http.createServer(app)

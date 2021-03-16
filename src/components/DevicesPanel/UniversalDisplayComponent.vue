@@ -91,15 +91,11 @@ export default {
         if (this.localViewFields === []) {
           newParam.isView = true
         } else {
-          newParam.isView = false
-          if(this.localViewFields.find(value => value === newParam.nameParameter)) {
+          if (this.localViewFields.find(value => value === newParam.nameParameter)) {
             newParam.isView = true
+          } else {
+            newParam.isView = false
           }
-          // for (let i of this.localViewFields) {
-          //   if (i === newParam.nameParameter) {
-          //     newParam.isView = true
-          //   }
-          // }
         }
         this.parameters.push(newParam)
         newParam = null
@@ -142,13 +138,8 @@ export default {
   },
   computed: {
     getViewParameters() {
-      let filterParameters = []
-      for (let item of this.parameters) {
-        if (item.isView) {
-          filterParameters.push(item)
-        }
-      }
-      return filterParameters
+      // return []
+      return this.parameters.filter(item => item.isView)
     }
   }
 }

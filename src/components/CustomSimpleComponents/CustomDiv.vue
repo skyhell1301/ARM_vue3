@@ -12,6 +12,7 @@ export default {
       this.$emit('divClick')
     }
   },
+  emits: ['divClick'],
   mounted() {
     this.$refs.divRef.addEventListener('click', this.pressedDiv)
   }

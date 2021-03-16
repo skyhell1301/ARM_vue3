@@ -34,28 +34,24 @@ export default {
 
                 webSocketConnection.onmessage = function (event) {
                     // console.log(event)
-                    store.dispatch('protocol/addLogMessage', {text: event.data})
-                    let parameters = JSON.parse(event.data)?.DeviceParameters
-                    let ZSData = JSON.parse(event.data)?.state
-                    let lifeMark = JSON.parse(event.data)?.livetag
-                    let configuration = JSON.parse(event.data)?.configuration
 
-                    if (lifeMark !== null && lifeMark !== undefined) {
-                        store.dispatch('wsConnectionList/lifeMarkUpdate', {lifeMark: lifeMark, url: event.target.url})
+                    let jsonData = JSON.parse(event.data)
+
+                    if ('livetag' in jsonData) {
+                        store.dispatch('wsConnectionList/lifeMarkUpdate', {lifeMark: jsonData.livetag, url: event.target.url})
                     }
-                    if (parameters !== null && parameters !== undefined) {
-                        store.dispatch('devicesParameters/parametersUpdate', parameters)
+                    if ('DeviceParameters' in jsonData) {
+                        store.dispatch('devicesParameters/parametersUpdate', jsonData.DeviceParameters)
+                    } else {
+                        store.dispatch('protocol/addLogMessage', {text: event.data})
                     }
-                    if (ZSData !== null && ZSData !== undefined) {
-                        store.dispatch('ZSParameters/ZSParametersUpdate', ZSData)
+                    if ('state' in jsonData) {
+                        store.dispatch('ZSParameters/ZSParametersUpdate', jsonData.state)
                     }
-                    if (configuration !== null && configuration !== undefined) {
-                        store.dispatch('devicesParameters/unitsConfigurationUpdate', configuration)
+                    if ('configuration' in jsonData) {
+                        store.dispatch('devicesParameters/unitsConfigurationUpdate', jsonData.configuration)
                     }
-                    // parameters = null
-                    // ZSData = null
-                    // lifeMark = null
-                    // configuration = null
+                    event = null
                 }
 
                 webSocketConnection.onclose = function (event) {
@@ -92,6 +88,7 @@ export default {
             // console.log(webSocketConnection)
             if (webSocketConnection !== null && webSocketConnection !== undefined) {
                 webSocketConnection.ws.close(1000, 'Инициализация отключения состороны клиента')
+                webSocketConnection = null
             } else {
                 let mes = 'Данного подключения не существует'
                 store.dispatch('wsConnectionList/setInfoMessage', {message: mes, status: 'error'})
