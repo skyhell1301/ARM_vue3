@@ -28,6 +28,8 @@
                    :focus="LNADialogStatus.focus"
                    :left="600"
                    :top="600"
+                   :width="800"
+                   :height="600"
                    :title="'lna'"
                    @closed="closeDialog('LNA')">
       <MSHUDialog></MSHUDialog>
