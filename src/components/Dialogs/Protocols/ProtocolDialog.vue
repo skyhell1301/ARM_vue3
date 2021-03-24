@@ -119,7 +119,20 @@ export default {
   height: 98%;
   max-width: 98%;
   max-height: 98%;
-  box-shadow: inset 0px 0px 5px 0.3px rgba(71, 208, 238, 0.8);
+  box-shadow: inset 0 0 5px 0.3px rgba(71, 208, 238, 0.8);
+}
+.protocol-messages-list::-webkit-scrollbar {
+  width: 8px;
+}
+.protocol-messages-list::-webkit-scrollbar-track {
+  border-radius: 4px;
+
+  box-shadow: inset 0px 0px 2px 0.3px rgba(71, 208, 238, 0.8);
+}
+
+.protocol-messages-list::-webkit-scrollbar-thumb {
+  background-color: #47d0ee;
+  border-radius: 4px;
 }
 
 .protocol-message {

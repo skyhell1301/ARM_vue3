@@ -30,7 +30,6 @@ export default {
   name: 'App',
   data() {
     return {
-      mode: process.env.NODE_ENV,
       ARM1: {},
       ARM2: {}
     }
@@ -65,29 +64,30 @@ export default {
         address1.full = address1.ip + ':' + address1.port + address1.url
         address1.isMain = true
         this.connectToWS(address1, 'ARM1', store)
-        let address2 = {}
-        address2.ip = this.ARM1.ip
-        address2.port = this.ARM1.port
-        address2.url = '/protocol'
-        address2.full = address2.ip + ':' + address2.port + address2.url
-        address2.isMain = false
-        this.connectToWS(address2, 'Protocol', store)
 
-        let address3 = {}
-        address3.ip = '10.10.0.16'
-        address3.port = 8081
-        address3.url = '/'
-        address3.full = address3.ip + ':' + address3.port + address3.url
-        address3.isMain = true
-        this.connectToWS(address3, 'ARM2', store)
-      } else {
-        setTimeout(this.connectToARM, 2000)
+        // let address2 = {}
+        // address2.ip = this.ARM1.ip
+        // address2.port = this.ARM1.port
+        // address2.url = '/protocol'
+        // address2.full = address2.ip + ':' + address2.port + address2.url
+        // address2.isMain = false
+        // this.connectToWS(address2, 'Protocol', store)
+
+      //   let address3 = {}
+      //   address3.ip = '10.10.0.16'
+      //   address3.port = 8081
+      //   address3.url = '/'
+      //   address3.full = address3.ip + ':' + address3.port + address3.url
+      //   address3.isMain = true
+      //   this.connectToWS(address3, 'ARM2', store)
+      // } else {
+      //   setTimeout(this.connectToARM, 2000)
       }
 
     }
   },
   async mounted() {
-    await this.someMethod()
+    // await this.someMethod()
 
     // let a = "^((0|1\\d?\\d?|2[0-4]?\\d?|25[0-5]?|[3-9]\\d?)\\.){3}(0|1\\d?\\d?|2[0-4]?\\d?|25[0-5]?|[3-9]\\d?)$"
     // let PATTERN = new RegExp(a)

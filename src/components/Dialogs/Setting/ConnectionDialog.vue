@@ -113,7 +113,7 @@ export default {
       wsUrl: '',
       wsIp: '',
       wsPort: '',
-      ipList: ['10.10.0.16', '10.10.0.11', '10.10.0.122'],
+      ipList: ['10.10.0.16', '10.10.0.11', '10.10.0.122', 'damp-forest-69158.herokuapp.com'],
       portList: [8081, 8083],
       urlList: ['/', '/state', '/protocol'],
       selectDeviceName: '',
@@ -140,7 +140,9 @@ export default {
             status: 'error'
           })
         } else {
-          if(this.wsPort === '') {
+          // if(this.wsPort === '') {
+          let c = false
+          if(c) {
             this.$store.dispatch('wsConnectionList/setInfoMessage', {
               message: 'Укажите порт',
               status: 'error'

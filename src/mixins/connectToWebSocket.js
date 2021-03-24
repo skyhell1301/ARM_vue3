@@ -45,6 +45,9 @@ export default {
                     } else {
                         store.dispatch('protocol/addLogMessage', {text: event.data})
                     }
+                    if ('cyclogram' in jsonData) {
+                        store.dispatch('cyclogramms/updateCyclogrammsList', jsonData.cyclogram)
+                    }
                     if ('state' in jsonData) {
                         store.dispatch('ZSParameters/ZSParametersUpdate', jsonData.state)
                     }

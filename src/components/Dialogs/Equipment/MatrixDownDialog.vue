@@ -38,7 +38,7 @@ export default {
   methods: {
     async setMatrixData () {
       let context = this
-      let response = await this.sendRESTCommand('http://yii-site/nomenklatura/smotrmatrixupdate/31', 'POST',
+      let response = await this.sendRESTCommand('http://' + this.getMainConnectionAddress + '/monitoring/parameters/downMatrix', 'POST',
           null, 'qqq', JSON.stringify(this.localData))
 
       if (response.ok) {
@@ -60,6 +60,9 @@ export default {
   computed: {
     MatrixUpData () {
       return this.$store.getters['devicesParameters/matrixDownParameters']?.deviceParameters
+    },
+    getMainConnectionAddress () {
+      return this.$store.getters['wsConnectionList/getMainConnectionAddress']
     }
   }
 }

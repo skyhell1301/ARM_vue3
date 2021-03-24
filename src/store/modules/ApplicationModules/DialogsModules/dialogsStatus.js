@@ -6,6 +6,7 @@ const state = ()=> ({
     upConverterDialogStatus: {status: false, focus: false},
     matrixUpDialogStatus: {status: false, focus: false},
     matrixDownDialogStatus: {status: false, focus: false},
+    cyclogrammsDialogStatus: {status: false, focus: false},
 
     LANSettingsDialogStatus: {status: false, focus: false},
     protocolDialogStatus: {status: false, focus: false},
@@ -83,6 +84,13 @@ const mutations = {
             state.applicationSettingsDialogStatus.status = payload
         }
     },
+    changeCyclogrammsDialogStatus (state, payload) {
+        if(state.cyclogrammsDialogStatus.status === true && payload === true) {
+            state.cyclogrammsDialogStatus.focus = !state.cyclogrammsDialogStatus.focus
+        } else {
+            state.cyclogrammsDialogStatus.status = payload
+        }
+    },
 }
 const getters = {
 }
@@ -117,6 +125,9 @@ const actions = {
     },
     changeMatrixDownDialogStatus ({commit}, payload) {
         commit('changeMatrixDownDialogStatus', payload)
+    },
+    changeCyclogrammsDialogStatus ({commit}, payload) {
+        commit('changeCyclogrammsDialogStatus', payload)
     },
 }
 export default {

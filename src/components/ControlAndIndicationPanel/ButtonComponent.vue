@@ -50,7 +50,8 @@ export default {
         const three = Math.floor((Math.random() * 1000000) + 1) + ''
         return 'id' + one + two + three
       })(),
-      btnStatus: false
+      btnStatus: false,
+      timer: null
     }
   },
   props: {
@@ -65,8 +66,11 @@ export default {
       this.$emit('update:activeStatus', !this.activeStatus)
       this.$emit('btnClick')
       this.btnStatus = !this.btnStatus
+      this.startTimer()
+    },
+    startTimer () {
       let context = this
-      setTimeout( () => {
+      this.timer = setTimeout( () => {
         if(context.activeStatus !== context.btnStatus) {
           context.btnStatus = context.activeStatus
         }
@@ -76,6 +80,7 @@ export default {
   watch: {
     activeStatus () {
       this.btnStatus = this.activeStatus
+      clearTimeout(this.timer)
     }
   },
   mounted() {

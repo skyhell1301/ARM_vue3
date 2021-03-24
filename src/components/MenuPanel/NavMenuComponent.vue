@@ -5,7 +5,7 @@
         <TelemetriaIcon class="item-icon"></TelemetriaIcon>
         <div class="item-title">{{$t('Interface.telemetry')}}</div>
       </div>
-      <div class="setting-item">
+      <div class="setting-item" @click="dialogOpen('changeCyclogrammsDialogStatus')">
         <CycklogrammiIcon class="item-icon"></CycklogrammiIcon>
         <div class="item-title">{{$t('Interface.cyclogramms')}}</div>
       </div>

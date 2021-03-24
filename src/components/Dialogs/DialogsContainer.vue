@@ -85,6 +85,14 @@
                    @closed="closeDialog('MatrixDown')">
       <matrix-down-dialog/>
     </window-portal>
+    <window-portal :open="cyclogrammsDialogStatus.status"
+                   :focus="cyclogrammsDialogStatus.focus"
+                   :width="1500"
+                   :height="600"
+                   :title="'cyclogramms'"
+                   @closed="closeDialog('Cyclogramms')">
+      <CyclogrammsDialog/>
+    </window-portal>
   </div>
 </template>
 
@@ -101,9 +109,11 @@ import UpConverterDialog from "@/components/Dialogs/Equipment/UpConverterDialog"
 import ApplicationSettingsDialog from "@/components/Dialogs/Setting/ApplicationSettingsDialog";
 import MatrixUpDialog from "@/components/Dialogs/Equipment/MatrixUpDialog";
 import MatrixDownDialog from "@/components/Dialogs/Equipment/MatrixDownDialog";
+import CyclogrammsDialog from "@/components/Dialogs/MainMenu/CyclogrammsDialog";
 export default {
   name: 'DialogsContainer',
   components: {
+    CyclogrammsDialog,
     MatrixDownDialog,
     MatrixUpDialog,
     ApplicationSettingsDialog,
@@ -130,6 +140,7 @@ export default {
       upConverterDialogStatus: state => state.dialogStatus.upConverterDialogStatus,
       matrixUpDialogStatus: state => state.dialogStatus.matrixUpDialogStatus,
       matrixDownDialogStatus: state => state.dialogStatus.matrixDownDialogStatus,
+      cyclogrammsDialogStatus: state => state.dialogStatus.cyclogrammsDialogStatus,
 
       LANSettingsDialogStatus: state => state.dialogStatus.LANSettingsDialogStatus,
       protocolDialogStatus: state => state.dialogStatus.protocolDialogStatus,

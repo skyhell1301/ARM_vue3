@@ -6,6 +6,7 @@ import protocolModule from "@/store/modules/ZSmodules/protocolModule";
 import windowsControl from "@/store/modules/ApplicationModules/DialogsModules/windowsControl";
 import systemConnection from "@/store/modules/ConnectionModules/systemConnection"
 import devicesParameters from "@/store/modules/ZSmodules/devicesParameters";
+import cyclogramms from "@/store/modules/ZSmodules/cyclogramms";
 
 export default createStore({
   devtools: false,
@@ -26,5 +27,6 @@ export default createStore({
     windowsControl: windowsControl,
     systemConnection: systemConnection,
     ZSParameters: ZSParameters,
+    cyclogramms: cyclogramms
   }
 })

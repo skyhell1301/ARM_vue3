@@ -1,14 +1,14 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
-import ButtonComponent from "@/components/ControlAndIndicationPanel/ButtonComponent";
+import { createRouter, createWebHistory } from 'vue-router'
 import App from "@/App";
 
+const routerHistory = createWebHistory()
+
 const routes = [
-  { name: 'test', path: '/test', component: ButtonComponent },
   { name: 'app', path: '/', component: App },
 ]
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: routerHistory,
   routes
 })
 

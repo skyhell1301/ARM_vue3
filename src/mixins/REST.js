@@ -5,7 +5,7 @@ export default {
                 if (jwttok != 'undefined') {
                     let myHeaders = new Headers();
                     myHeaders.append("Content-Type", "application/json");
-                    myHeaders.append("Authorization", jwttok);
+                    // myHeaders.append("Authorization", jwttok);
                     let requestOptions = {
                         method: method,
                         headers: myHeaders,
