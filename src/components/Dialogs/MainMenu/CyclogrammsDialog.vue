@@ -36,17 +36,28 @@
           <th>{{ $t('Interface.timeout') }}</th>
           <th>{{ $t('Interface.status') }}</th>
         </tr>
-        <custom-tr v-for="command in activeCyclogramm.cyclodata" :key="command">
+        <custom-tr v-for="command in activeCyclogramm.cyclodata"
+                   :key="command"
+                   @trClick="updateActiveCommand(command)"
+                   class="cylogramm"
+                   :class="{'activeCyclogramm': command === activeCommand}"
+        >
           <td>{{ command.NumInCicl }}</td>
           <td>{{ command.unit_type }}</td>
-          <td>{{ command.command_txt + ' (' +  command.CommandNum + ')'}}</td>
+          <td>{{ command.command_txt + ' (' + command.CommandNum + ')' }}</td>
           <td>{{ command.UnitNum }}</td>
           <td>{{ command.Params }}</td>
           <td>{{ }}</td>
           <td>{{ command.TimeOut }}</td>
-          <td>{{ }}</td>
+          <td>{{ command.status}}</td>
         </custom-tr>
       </table>
+    </div>
+    <div class="control-cyclogramms__container">
+      <custom-button class="control-cyclogramms__button">Выполнить одиночную команду</custom-button>
+      <custom-button class="control-cyclogramms__button"
+                     @buttonClick="startCyclogramm">Выполнить циклограмму
+      </custom-button>
     </div>
   </div>
 </template>
@@ -69,19 +80,38 @@ export default {
     async getCyclogrammsList() {
       this.$store.dispatch('protocol/addLogMessage', {text: 'Отправлен запрос на получение списка циклограмм'})
       this.$store.dispatch('cyclogramms/changeCyclogrammsListStatus', false)
-      let res = await this.sendRESTCommand('http://smotr/site/cyclogramapi', 'POST', null, null, JSON.stringify({cyclogram: {dialog: "open"}}))
+      let res = await this.sendRESTCommand('http://smotr/site/cyclogramapi', 'POST', null, null,
+          JSON.stringify({cyclogram: {dialog: "open", clientid: this.$store.state.app_id}}))
       if (res.ok) {
         this.$store.dispatch('protocol/addLogMessage', {text: 'Запрос на получение списка циклограмм сервером принят'})
       }
     },
     async stopGettingCyclogrammsList() {
-      let res = await this.sendRESTCommand('http://smotr/site/cyclogramapi', 'POST', null, null, JSON.stringify({cyclogram: {dialog: "close"}}))
+      let res = await this.sendRESTCommand('http://smotr/site/cyclogramapi', 'POST', null, null,
+          JSON.stringify({cyclogram: {dialog: "close", clientid: this.$store.state.app_id}}))
       if (res.ok) {
         this.$store.dispatch('protocol/addLogMessage', {text: 'Получение списка циклограмм от сервера остановлено'})
       }
     },
-    updateActiveCyclogramm (data) {
-      this.activeCyclogramm = this.activeCyclogramm === data ? null : data
+    updateActiveCyclogramm(cyclo) {
+      this.activeCyclogramm = this.activeCyclogramm === cyclo ? null : cyclo
+    },
+    updateActiveCommand(command) {
+      this.activeCommand = this.activeCommand === command ? null : command
+    },
+    async startCyclogramm() {
+      if (this.activeCyclogramm) {
+        let reqBody = {
+          command: {
+            cyclogram_id: this.activeCyclogramm.id,
+            cyclogram_name: this.activeCyclogramm.name,
+            executionType: "fullCyclogram"
+          }
+        }
+        let res = await this.sendRESTCommand('http://smotr/site/cyclogramapi',
+            'POST', null, null, JSON.stringify(reqBody))
+        console.log(res)
+      }
     }
   },
   watch: {
@@ -99,11 +129,14 @@ export default {
     },
     cyclogrammsListStatus() {
       return this.$store.state.cyclogramms.cyclogrammsListStatus
+    },
+    cyclogrammExecuteStatus() {
+      return this.$store.state.cyclogramms.cyclogrammExecuteStatus
     }
   },
   mounted() {
     if (!this.cyclogrammsStatus) {
-      // this.getCyclogrammsList()
+      this.getCyclogrammsList()
     }
   }
 }
@@ -113,42 +146,61 @@ export default {
 .cylogramms-dialog__wrapper {
   width: 100%;
   height: 100%;
-  overflow-y: auto;
+  display: grid;
+  grid-template-columns: 80% 20%;
+  background: #f6f1f5;
 }
 
 .cylogramms-dialog__container {
-  width: 80%;
-  margin: 10px 10% 0 10%;
-
+  overflow-y: auto;
+  width: 100%;
 }
 
 .tables__container {
   width: 100%;
+
 }
 
 .cylogramms-dialog__container table {
   user-select: none;
   width: 100%;
-  border: 1px solid gray;
   margin-bottom: 20px;
 }
+
 .cylogramm:hover {
   cursor: pointer;
-  background: var(--contrasr-color);
+  color: var(--main-color);
 }
+
 .activeCyclogramm {
-  background: green;
+  background: var(--good-color);
 }
 
 .cylogramms-dialog__container th {
-  border: 1px solid gray;
+  background: var(--main-color);
+  color: #f6f1f5;
 }
 
 .cylogramms-dialog__container td {
-  border: 1px solid gray;
+  box-shadow: 0 0 5px 0.3px rgba(180, 180, 180, 0.8);
   text-align: center;
 }
 
 
+.control-cyclogramms__container {
+  width: 20%;
+  height: 100%;
+  position: fixed;
+  left: 80%;
+  top: 0;
+  box-shadow: 0 0 5px 0.3px rgba(180, 180, 180, 0.8);
+  display: flex;
+  flex-direction: column;
+}
 
+.control-cyclogramms__button {
+  margin: 10px 0;
+  align-self: center;
+  width: 80%;
+}
 </style>

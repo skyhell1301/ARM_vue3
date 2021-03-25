@@ -30,6 +30,7 @@ export default {
                         lifeMark: new Date().toString(),
                     }
                     store.dispatch('wsConnectionList/newConnectionToWS', connectWS)
+                    webSocketConnection.send(JSON.stringify({'clientid': store.state.app_id}))
                 }
 
                 webSocketConnection.onmessage = function (event) {
@@ -47,6 +48,9 @@ export default {
                     }
                     if ('cyclogram' in jsonData) {
                         store.dispatch('cyclogramms/updateCyclogrammsList', jsonData.cyclogram)
+                    }
+                    if ('cyclogramstatus' in jsonData) {
+                        store.dispatch('cyclogramms/updateCommandExecuteStatus', jsonData.cyclogramstatus)
                     }
                     if ('state' in jsonData) {
                         store.dispatch('ZSParameters/ZSParametersUpdate', jsonData.state)

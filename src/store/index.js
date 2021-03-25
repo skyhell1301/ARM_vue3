@@ -11,7 +11,7 @@ import cyclogramms from "@/store/modules/ZSmodules/cyclogramms";
 export default createStore({
   devtools: false,
   state: {
-
+    app_id: navigator.userAgent + Date.now()
   },
   mutations: {
 

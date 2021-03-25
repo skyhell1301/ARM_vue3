@@ -43,7 +43,7 @@ const getters = {
     ARM1Status: state => {
         let status = {connection: false, status: 'none'}
         const ws = state.webSocketConnectionList.find(webSocket => webSocket.deviceName === 'ARM1')
-        if (ws !== undefined) {
+        if (ws) {
             status.connection = true
             status.status = ws.status
         }
