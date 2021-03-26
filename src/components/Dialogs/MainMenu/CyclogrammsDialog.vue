@@ -49,7 +49,9 @@
           <td>{{ command.Params }}</td>
           <td>{{ }}</td>
           <td>{{ command.TimeOut }}</td>
-          <td>{{ command.status}}</td>
+          <td v-if="command.status === 2">{{ '✅' }}</td>
+          <td v-else-if="command.status === 1">{{ '🏃💨' }}</td>
+          <td v-else>{{ command.status }}</td>
         </custom-tr>
       </table>
     </div>
@@ -57,6 +59,9 @@
       <custom-button class="control-cyclogramms__button">Выполнить одиночную команду</custom-button>
       <custom-button class="control-cyclogramms__button"
                      @buttonClick="startCyclogramm">Выполнить циклограмму
+      </custom-button>
+      <custom-button class="control-cyclogramms__button"
+                     @buttonClick="clearStatuses">Очистить статусы
       </custom-button>
     </div>
   </div>
@@ -99,32 +104,32 @@ export default {
     updateActiveCommand(command) {
       this.activeCommand = this.activeCommand === command ? null : command
     },
+    clearStatuses() {
+      this.$store.dispatch('cyclogramms/clearStatuses')
+    },
     async startCyclogramm() {
       if (this.activeCyclogramm) {
+        this.clearStatuses()
         let reqBody = {
           command: {
             cyclogram_id: this.activeCyclogramm.id,
             cyclogram_name: this.activeCyclogramm.name,
-            executionType: "fullCyclogram"
-          }
+            executionType: "fullCyclogram",
+            clientid: this.$store.state.app_id
+          },
+
         }
         let res = await this.sendRESTCommand('http://smotr/site/cyclogramapi',
             'POST', null, null, JSON.stringify(reqBody))
-        console.log(res)
+        if(res.ok) {
+          this.$store.dispatch('protocol/addLogMessage', {text: `Выполняется циклограмма ${this.activeCyclogramm.name}`})
+        }
       }
     }
-  },
-  watch: {
-    cyclogrammsListStatus() {
-      if (this.cyclogrammsListStatus) {
-        this.stopGettingCyclogrammsList()
-      }
-    },
   },
   mixins: [REST],
   computed: {
     cyclogrammsList() {
-      console.log(this.$store.state.cyclogramms.cyclogrammsList)
       return this.$store.state.cyclogramms.cyclogrammsList
     },
     cyclogrammsListStatus() {
