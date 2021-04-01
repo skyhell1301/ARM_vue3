@@ -1,16 +1,14 @@
 <template>
-  <div class="switch-container" @click="rotateStart">
+  <div class="switch-container">
     <div class="background-div"></div>
     <div class="background-rectangle"></div>
-    <svg class="svg-element" viewBox="0 0 30 30" preserveAspectRatio="none" :class="{'rotate': isRotate}">
+    <svg class="svg-element" viewBox="0 0 30 30" preserveAspectRatio="none" :class="{'rotate': isReserved}">
       <g>
-        <path class="arc-line" d="M 0 15 C 10 15 15 10 15 0"></path>
-        <path class="arc-line" d="M 15 30 C 15 20 20 15 30 15"></path>
+        <path class="arc-line connect-status" :d="pathForLine1"></path>
+        <path class="arc-line" :d="pathForLine2"></path>
+<!--        <line x1="15" y1="0" x2="15" y2="30" stroke-width="2px" stroke="black"></line>-->
+<!--        <line x1="0" y1="15" x2="30" y2="15" stroke-width="2px" stroke="black"></line>-->
       </g>
-<!--      <text style="fill: rgb(51, 51, 51); font-family: Roboto Slab; font-size: 5px; white-space: pre;" x="10" y="16">1</text>-->
-<!--      <text style="fill: rgb(51, 51, 51); font-family: Roboto Slab; font-size: 5px; white-space: pre;" x="14" y="12">2</text>-->
-<!--      <text style="fill: rgb(51, 51, 51); font-family: Roboto Slab; font-size: 5px; white-space: pre;" x="31" y="26">3</text>-->
-<!--      <text style="fill: rgb(51, 51, 51); font-family: Roboto Slab; font-size: 5px; white-space: pre;" x="24" y="34">4</text>-->
     </svg>
   </div>
 </template>
@@ -20,31 +18,15 @@ export default {
   name: 'SwitchComponent',
   data () {
     return {
-      ID: (function () {
-        const one = Math.floor((Math.random() * 1000000) + 1) + ''
-        const two = Math.floor((Math.random() * 1000000) + 1) + ''
-        const three = Math.floor((Math.random() * 1000000) + 1) + ''
-        return 'id' + one + two + three
-      })(),
       pathForLine1: 'M 0 15 C 10 15 15 10 15 0',
       pathForLine2: 'M 15 30 C 15 20 20 15 30 15',
-      rotateValue: 0,
-      isRotate: false
     }
   },
   props: {
-    port_in_1: {
-      type: Number
-    },
-    port_in_2: {
-      type: Number
+    isReserved: {
+      type: Boolean,
+      default: false
     }
-  },
-  methods: {
-    rotateStart () {
-      this.rotateValue = this.rotateValue === 90 ? 0 : 90
-      this.isRotate = !this.isRotate
-    },
   },
 }
 </script>
@@ -52,15 +34,16 @@ export default {
 <style scoped>
 .switch-container {
   display: grid;
-  position: relative;
   cursor: default;
+  justify-items: center;
+  align-items: center;
 }
 .svg-element {
   grid-row: 1;
   grid-column: 1;
-  justify-self: center;
-  align-self: center;
   transition: all 0.3s;
+  width: 100%;
+  height: 100%;
 }
 .background-div {
   height: 100%;
@@ -68,8 +51,9 @@ export default {
   grid-row: 1;
   grid-column: 1;
   background: #d9d9d9;
-  box-shadow: 0px 0px 3px 1px rgba(130, 130, 130, 0.8);
-  border-radius: 25%;
+  box-shadow: 0 0 0.5px 0.5px rgba(130, 130, 130, 0.8);
+  /*border: 0.5px solid rgba(130, 130, 130, 0.8);*/
+  border-radius: 5px;
 }
 .background-rectangle {
   grid-row: 1;
@@ -79,16 +63,19 @@ export default {
   justify-self: center;
   align-self: center;
   background: #d9d9d9;
-  box-shadow: 0px 0px 3px 1px rgba(130, 130, 130, 0.8);
-  border-radius: 25%;
+  box-shadow: 0px 0px 3px 1px rgba(180, 180, 180, 0.8);
+  border-radius: 5px;
 }
 .arc-line {
   stroke: #285876;
-  stroke-width: 2px;
+  stroke-width: 0.1vmax;
   shape-rendering: geometricPrecision;
   fill: none;
 }
 .rotate {
   transform: rotate(90deg);
+}
+.connect-status {
+  stroke: var(--line-connect-color);
 }
 </style>

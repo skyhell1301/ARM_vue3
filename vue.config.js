@@ -1,5 +1,3 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-
 module.exports = {
     publicPath: '/',
     devServer: {
@@ -8,18 +6,13 @@ module.exports = {
         hot: true,
         clientLogLevel: 'info'
     },
+    assetsDir: 'assets',
     configureWebpack: {
-        plugins: [
-            new HtmlWebpackPlugin({
-                title: 'ARM',
-                template: 'public/index.html'
-            })
-        ]
+        optimization: {
+            splitChunks: {
+                chunks: 'all'
+            }
+        },
     },
-    pwa: {
-       manifestOptions: {
-           icons: [],
-           content_security_policy: "default-src 'self' style-src 'self' 'unsafe-inline';"
-       }
-    },
+
 }

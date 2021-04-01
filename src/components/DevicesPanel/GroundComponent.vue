@@ -1,9 +1,7 @@
 <template>
-  <div class="ground-container" :id="'ground-container-' + ID">
-    <svg class="svg-ground-element" viewBox="0 0 30 15" preserveAspectRatio="none">
-      <line x1="15" y1="0" x2="15" y2="30" stroke="#285876" stroke-width="2px"></line>
-      <line x1="0" y1="14" x2="30" y2="14" stroke="#285876" stroke-width="3px"></line>
-    </svg>
+  <div class="ground-container">
+    <div class="ground-line vertical-ground-line"></div>
+    <div class="ground-line horizontal-ground-line"></div>
   </div>
 </template>
 
@@ -12,22 +10,8 @@ export default {
   name: 'GroundComponent',
   data () {
     return {
-      ID: (function () {
-        const one = Math.floor((Math.random() * 1000000) + 1) + ''
-        const two = Math.floor((Math.random() * 1000000) + 1) + ''
-        const three = Math.floor((Math.random() * 1000000) + 1) + ''
-        return 'id' + one + two + three
-      })()
     }
   },
-  props: {
-    rotateAngle: {
-      type: Number,
-      default: 0
-    }
-  },
-  mounted () {
-  }
 }
 </script>
 
@@ -35,7 +19,22 @@ export default {
 .ground-container {
   display: grid;
 }
-.svg-ground-element {
-  justify-self: end;
+.ground-line {
+  background: var(--main-color);
 }
+.vertical-ground-line {
+  width: 0.1vmax;
+  height: 100%;
+  grid-row: 1;
+  grid-column: 1;
+  justify-self: center;
+}
+.horizontal-ground-line {
+  width: 100%;
+  height: 0.2vmax;
+  grid-row: 1;
+  grid-column: 1;
+  align-self: end;
+}
+
 </style>

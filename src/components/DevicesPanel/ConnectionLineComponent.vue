@@ -1,17 +1,6 @@
 <template>
   <g class="connect-line-component" id="connect-line-component-id">
-    <filter id="dropshadow" height="130%">
-      <feGaussianBlur in="SourceAlpha" stdDeviation="3"/> <!-- stdDeviation is how much to blur -->
-      <feOffset dx="0" dy="0" result="offsetblur"/> <!-- how much to offset -->
-      <feComponentTransfer>
-        <feFuncA type="linear" slope="0.3"/> <!-- slope is the opacity of the shadow -->
-      </feComponentTransfer>
-      <feMerge>
-        <feMergeNode/> <!-- this contains the offset blurred image -->
-        <feMergeNode in="SourceGraphic"/> <!-- this contains the element that the filter is applied to -->
-      </feMerge>
-    </filter>
-    <path filter="url(#dropshadow)" :d="pathForLine" class="path-line"/>
+    <path :d="pathForLine" class="path-line" :class="{'active-connect-line': isActive}"/>
   </g>
 </template>
 
@@ -57,6 +46,10 @@ export default {
       type: Boolean,
       default: false
     },
+    isActive: {
+      type: Boolean,
+      default: false
+    },
     // (точка соединения объекта) connectionPoint = {side: 'left', percent: 50}
     // side - сторона (left, top, right, bottom)
     // percent - процент от длины стороны
@@ -81,10 +74,11 @@ export default {
     updateLine: function () {
       let coordinate1 = this.calculateCoordinates(this.object_1, this.connectionPoint_1)
       let coordinate2 = this.calculateCoordinates(this.object_2, this.connectionPoint_2)
-      this.xSvg = document.getElementById('line-container-id').getBoundingClientRect().x
-      this.ySvg = document.getElementById('line-container-id').getBoundingClientRect().y
-      this.widthSVG = document.getElementById('line-container-id').getBoundingClientRect().width
-      this.heightSVG = document.getElementById('line-container-id').getBoundingClientRect().height
+      // console.log(this.$el.parentNode)
+      this.xSvg = this.$el.parentNode.getBoundingClientRect().x
+      this.ySvg = this.$el.parentNode.getBoundingClientRect().y
+      this.widthSVG = this.$el.parentNode.getBoundingClientRect().width
+      this.heightSVG = this.$el.parentNode.getBoundingClientRect().height
       this.x1 = coordinate1.x - this.xSvg
       this.y1 = coordinate1.y - this.ySvg
       this.x2 = coordinate2.x - this.xSvg
@@ -177,8 +171,13 @@ export default {
   mounted () {
     this.object_1 = document.getElementById(this.id_1)
     this.object_2 = document.getElementById(this.id_2)
-    this.updateLine()
-    window.addEventListener('resize', this.updateLine)
+    if(this.object_1 && this.object_2) {
+      this.updateLine()
+      window.addEventListener('resize', this.updateLine)
+    }
+  },
+  unmounted() {
+    window.removeEventListener('resize', this.updateLine)
   }
 }
 </script>
@@ -190,7 +189,10 @@ export default {
 }
 .path-line {
   stroke: #285876;
-  stroke-width: 2px;
+  stroke-width: 0.1vmax;
   fill: none;
+}
+.active-connect-line {
+  stroke: var(--line-connect-color);
 }
 </style>

@@ -175,7 +175,7 @@ export default {
   height: 100%;
   box-shadow: 0px 0px 3px .5px rgba(88, 88, 88, 0.8);
   border-radius: 7px;
-  background: linear-gradient(135deg, #f6f1f5 0%, #fcf7fb 100%);
+  background: var(--netral-interface-color);
 }
 
 .btn-2 {

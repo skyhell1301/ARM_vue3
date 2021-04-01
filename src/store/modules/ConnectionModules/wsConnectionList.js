@@ -7,7 +7,7 @@ const state = () => ({
 })
 const mutations = {
     newConnectionToWS(state, payload) {
-        let pushAllowed = state.webSocketConnectionList.find(wsConn => wsConn.realUrl === payload.realUrl) === undefined ? true : false
+        let pushAllowed = state.webSocketConnectionList.find(wsConn => wsConn.realUrl === payload.realUrl) === undefined
         if (pushAllowed) {
             if (payload.isMain) {
                 state.webSocketConnectionList.forEach(function (item) {
@@ -37,8 +37,7 @@ const mutations = {
 }
 const getters = {
     getWebSocket: state => url => {
-        let ws = state.webSocketConnectionList.find(wsCon => wsCon.userUrl === url)
-        return ws
+        return state.webSocketConnectionList.find(wsCon => wsCon.userUrl === url)
     },
     ARM1Status: state => {
         let status = {connection: false, status: 'none'}

@@ -30,6 +30,7 @@ export default {
                         lifeMark: new Date().toString(),
                     }
                     store.dispatch('wsConnectionList/newConnectionToWS', connectWS)
+                    //Отправка уникального ID окна клиента
                     webSocketConnection.send(JSON.stringify({'clientid': store.state.app_id}))
                 }
 
@@ -44,6 +45,9 @@ export default {
                     if ('DeviceParameters' in jsonData) {
                         store.dispatch('devicesParameters/parametersUpdate', jsonData.DeviceParameters)
                     } else {
+                        if(!store.state.ZSParameters.monitoringState) {
+                            store.dispatch('devicesParameters/parametersUpdate', null)
+                        }
                         store.dispatch('protocol/addLogMessage', {text: event.data})
                     }
                     if ('cyclogram' in jsonData) {
@@ -74,6 +78,12 @@ export default {
                         store.dispatch('protocol/addLogMessage', {text: mes})
                     }
                     store.dispatch('wsConnectionList/closeConnectionToWS', event.target.url)
+                    const ARM1status = store.getters['wsConnectionList/ARM1Status']
+                    const ARM2status = store.getters['wsConnectionList/ARM2Status']
+                    if(!ARM1status.connection && !ARM2status.connection) {
+                        store.dispatch('devicesParameters/clearParameters')
+                        store.dispatch('ZSParameters/ZSParametersUpdate', 'Off')
+                    }
                 }
             } else {
                 if (address.full !== '') {

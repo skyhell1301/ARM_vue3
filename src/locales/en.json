@@ -15,7 +15,7 @@
       "currenttrippointshighfaultvalue_body": "Current trip points HFVB",
       "currenttrippointshighfaultvalue_heater": "Current trip points HFVH",
       "currenttrippointslowfaultvalue_heater": "Current trip points LFVH",
-      "DevState": "Dev state",
+      "devstate": "Device state",
       "differential_temperature": "Differential temp.",
       "highalarmvalue": "High alarm val.",
       "highfaulttrippoint_reflectedrf": "HF trip point reflected RF",
@@ -34,7 +34,19 @@
       "standbyvoltagefault_beam": "Standby vol. fault beam",
       "titleUI": "Amplifier %{type}",
       "voltage_beam": "Voltage beam",
-      "voltage_heater": "Voltage heater"
+      "voltage_heater": "Voltage heater",
+      "values": {
+        "Fault": "Fault",
+        "PowerOn": "Power on",
+        "Initialize": "Initialize",
+        "Ready": "Ready",
+        "HeaterTimeDelay": "Heater time delay",
+        "FauStandbylt": "FauStandbylt",
+        "BeamOnSequence": "Beam on sequence",
+        "Transmit": "Transmit",
+        "BeamOffSequence": "Beam off sequence",
+        "ColdTransmit": "Cold transmit"
+      }
     },
     "AntennaSystem": {
       "angle": "Angle",
@@ -78,7 +90,9 @@
         "50": 50,
         "70": 70,
         "75": 75,
-        "140": 140
+        "140": 140,
+        "UnMute": "Unmute",
+        "Mute": "Mute"
       }
     },
     "MatrixUp": {

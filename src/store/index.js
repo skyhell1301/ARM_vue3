@@ -7,11 +7,12 @@ import windowsControl from "@/store/modules/ApplicationModules/DialogsModules/wi
 import systemConnection from "@/store/modules/ConnectionModules/systemConnection"
 import devicesParameters from "@/store/modules/ZSmodules/devicesParameters";
 import cyclogramms from "@/store/modules/ZSmodules/cyclogramms";
+const md5 = require('md5')
 
 export default createStore({
   devtools: false,
   state: {
-    app_id: navigator.userAgent + Date.now()
+    app_id: md5(navigator.userAgent + Date.now())
   },
   mutations: {
 

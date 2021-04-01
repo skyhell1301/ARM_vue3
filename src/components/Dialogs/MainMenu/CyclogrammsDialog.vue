@@ -56,13 +56,18 @@
       </table>
     </div>
     <div class="control-cyclogramms__container">
-      <custom-button class="control-cyclogramms__button">Выполнить одиночную команду</custom-button>
+      <custom-button class="control-cyclogramms__button"
+                     @buttonClick="startCommand"
+      >
+        Выполнить одиночную команду
+      </custom-button>
       <custom-button class="control-cyclogramms__button"
                      @buttonClick="startCyclogramm">Выполнить циклограмму
       </custom-button>
       <custom-button class="control-cyclogramms__button"
                      @buttonClick="clearStatuses">Очистить статусы
       </custom-button>
+      <input class="control-cyclogramms__button" v-model="valueCommand">
     </div>
   </div>
 </template>
@@ -78,7 +83,8 @@ export default {
   data() {
     return {
       activeCyclogramm: null,
-      activeCommand: null
+      activeCommand: null,
+      valueCommand: '2;'
     }
   },
   methods: {
@@ -86,14 +92,14 @@ export default {
       this.$store.dispatch('protocol/addLogMessage', {text: 'Отправлен запрос на получение списка циклограмм'})
       this.$store.dispatch('cyclogramms/changeCyclogrammsListStatus', false)
       let res = await this.sendRESTCommand('http://smotr/site/cyclogramapi', 'POST', null, null,
-          JSON.stringify({cyclogram: {dialog: "open", clientid: this.$store.state.app_id}}))
+          JSON.stringify({cyclogram: {dialog: "open", clientid: this.appId}}))
       if (res.ok) {
         this.$store.dispatch('protocol/addLogMessage', {text: 'Запрос на получение списка циклограмм сервером принят'})
       }
     },
     async stopGettingCyclogrammsList() {
       let res = await this.sendRESTCommand('http://smotr/site/cyclogramapi', 'POST', null, null,
-          JSON.stringify({cyclogram: {dialog: "close", clientid: this.$store.state.app_id}}))
+          JSON.stringify({cyclogram: {dialog: "close", clientid: this.appId}}))
       if (res.ok) {
         this.$store.dispatch('protocol/addLogMessage', {text: 'Получение списка циклограмм от сервера остановлено'})
       }
@@ -109,6 +115,7 @@ export default {
     },
     async startCyclogramm() {
       if (this.activeCyclogramm) {
+
         this.clearStatuses()
         let reqBody = {
           command: {
@@ -119,6 +126,26 @@ export default {
           },
 
         }
+        let res = await this.sendRESTCommand('http://smotr/site/cyclogramapi',
+            'POST', null, null, JSON.stringify(reqBody))
+        if(res.ok) {
+          this.$store.dispatch('protocol/addLogMessage', {text: `Выполняется циклограмма ${this.activeCyclogramm.name}`})
+        }
+      }
+    },
+    async startCommand() {
+      if (this.activeCommand) {
+        this.clearStatuses()
+        let reqBody = {
+          command: {
+            cyclogram_id: this.activeCyclogramm.id,
+            cyclogram_name: this.activeCyclogramm.name,
+            executionType: "singleCommand",
+            clientid: this.$store.state.app_id,
+            command: this.activeCommand
+          },
+        }
+        reqBody.command.command.Params = this.valueCommand
         let res = await this.sendRESTCommand('http://smotr/site/cyclogramapi',
             'POST', null, null, JSON.stringify(reqBody))
         if(res.ok) {
@@ -137,6 +164,9 @@ export default {
     },
     cyclogrammExecuteStatus() {
       return this.$store.state.cyclogramms.cyclogrammExecuteStatus
+    },
+    appId() {
+      return this.$store.state.app_id
     }
   },
   mounted() {

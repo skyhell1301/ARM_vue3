@@ -46,34 +46,39 @@ export default {
   },
   watch: {
     inputParameters() {
-      this.AlarmList.TemperatureAlarm = this.inputParameters.deviceParameters?.TemperatureAlarm
-      delete this.inputParameters.deviceParameters.TemperatureAlarm
+      if(this.inputParameters?.deviceParameters) {
+        this.AlarmList.TemperatureAlarm = this.inputParameters?.deviceParameters?.TemperatureAlarm
+        delete this.inputParameters?.deviceParameters.TemperatureAlarm
 
-      this.AlarmList.LoggedAlarm = this.inputParameters.deviceParameters?.LoggedAlarm
-      delete this.inputParameters.deviceParameters.LoggedAlarm
+        this.AlarmList.LoggedAlarm = this.inputParameters?.deviceParameters?.LoggedAlarm
+        delete this.inputParameters?.deviceParameters.LoggedAlarm
 
-      this.AlarmList.LocalOscillatorLockAlarm = this.inputParameters.deviceParameters?.LocalOscillatorLockAlarm
-      delete this.inputParameters.deviceParameters.LocalOscillatorLockAlarm
+        this.AlarmList.LocalOscillatorLockAlarm = this.inputParameters?.deviceParameters?.LocalOscillatorLockAlarm
+        delete this.inputParameters?.deviceParameters.LocalOscillatorLockAlarm
 
-      this.AlarmList.PowerSupplyAlarm = this.inputParameters.deviceParameters?.PowerSupplyAlarm
-      delete this.inputParameters.deviceParameters.PowerSupplyAlarm
+        this.AlarmList.PowerSupplyAlarm = this.inputParameters?.deviceParameters?.PowerSupplyAlarm
+        delete this.inputParameters?.deviceParameters.PowerSupplyAlarm
 
-      this.AlarmList.LocalOscillatorLevelAlarm = this.inputParameters.deviceParameters?.LocalOscillatorLevelAlarm
-      delete this.inputParameters.deviceParameters.LocalOscillatorLevelAlarm
+        this.AlarmList.LocalOscillatorLevelAlarm = this.inputParameters?.deviceParameters?.LocalOscillatorLevelAlarm
+        delete this.inputParameters?.deviceParameters.LocalOscillatorLevelAlarm
 
-      this.AlarmList.AmlifierCurrentAlarm = this.inputParameters.deviceParameters?.AmlifierCurrentAlarm
-      delete this.inputParameters.deviceParameters.AmlifierCurrentAlarm
+        this.AlarmList.AmlifierCurrentAlarm = this.inputParameters?.deviceParameters?.AmlifierCurrentAlarm
+        delete this.inputParameters?.deviceParameters.AmlifierCurrentAlarm
 
-      this.AlarmList.ExternalAlarm = this.inputParameters.deviceParameters?.ExternalAlarm
-      delete this.inputParameters.deviceParameters.ExternalAlarm
+        this.AlarmList.ExternalAlarm = this.inputParameters?.deviceParameters?.ExternalAlarm
+        delete this.inputParameters?.deviceParameters.ExternalAlarm
 
-      this.AlarmList.ModuleCommunicationsAlarm = this.inputParameters.deviceParameters?.ModuleCommunicationsAlarm
-      delete this.inputParameters.deviceParameters.ModuleCommunicationsAlarm
+        this.AlarmList.ModuleCommunicationsAlarm = this.inputParameters?.deviceParameters?.ModuleCommunicationsAlarm
+        delete this.inputParameters?.deviceParameters.ModuleCommunicationsAlarm
 
-      this.AlarmList.UserTestAlarm = this.inputParameters.deviceParameters?.UserTestAlarm
-      delete this.inputParameters.deviceParameters.UserTestAlarm
+        this.AlarmList.UserTestAlarm = this.inputParameters?.deviceParameters?.UserTestAlarm
+        delete this.inputParameters?.deviceParameters.UserTestAlarm
 
-      this.isLamp = true
+        this.isLamp = true
+      } else {
+        this.isLamp = false
+        this.AlarmList = {}
+      }
     }
   }
 }

@@ -15,7 +15,7 @@
       "currenttrippointshighfaultvalue_body": "currenttrippointshighfaultvalue_body",
       "currenttrippointshighfaultvalue_heater": "currenttrippointshighfaultvalue_heater",
       "currenttrippointslowfaultvalue_heater": "currenttrippointslowfaultvalue_heater",
-      "DevState": "Cостояние разраб.",
+      "devstate": "Состояние",
       "differential_temperature": "Перепад темп.",
       "highalarmvalue": "Высшее значение тревоги",
       "highfaulttrippoint_reflectedrf": "Высшая точка отключения при КЗ",
@@ -35,7 +35,19 @@
       "standbyvoltagefault_beam": "standbyvoltagefault_beam",
       "titleUI": "УМ %{type}",
       "voltage_beam": "Напряжение луча",
-      "voltage_heater": "Напряжение обогревателя"
+      "voltage_heater": "Напряжение обогревателя",
+      "values": {
+        "Fault": "Неисправность",
+        "PowerOn": "Включен",
+        "Initialize": "Инициализация",
+        "Ready": "Готов",
+        "HeaterTimeDelay": "Ожидание нагревателя",
+        "Standby": "Standby",
+        "BeamOnSequence": "Beam on sequence",
+        "Transmit": "Передача",
+        "BeamOffSequence": "Beam off sequence",
+        "ColdTransmit": "Холодная передача"
+      }
     },
     "AntennaSystem": {
       "angle": "Угол места",
@@ -75,13 +87,15 @@
       "titleUI": "Конвертер вверх {type} | Конвертер вниз {type} ",
       "UserTestAlarm": "Тревога пользователя",
       "Voltage15Positive": "Напряжение +5В",
+      "MuteState": "Подавление несущей",
       "values": {
         "50": "50",
         "70": "70",
         "75": "75",
-        "140": "140"
+        "140": "140",
+        "UnMute": "Не заглушен",
+        "Mute": "Заглушен"
       }
-
     },
     "MatrixUp": {
       "titleUI": "Матрица 8x8 вверх"
@@ -96,7 +110,7 @@
       "AnySwitchAlarm": "Неисправность переключателя",
       "ControlMode": "Режим упр.",
       "Mode": "Режим",
-      "Status":"Статус резерв.",
+      "Status": "Статус резерв.",
       "Current": "Значение тока",
       "MaxCurrent": "Макс. зн. тока",
       "MinCurrent": "Мин. зн. тока",
@@ -122,6 +136,7 @@
       "LocalOscillatorLockAlarm": "Сигнализация блокировки гетеродина",
       "LoggedAlarm": "Тревога журнала",
       "ModuleCommunicationsAlarm": "Тревога модуля связи",
+      "MuteState": "Подавление несущей",
       "OutputFrequency": "Вых. частота",
       "PowerSupplyAlarm": "Тревога БП",
       "slope": "Slope",
@@ -129,8 +144,13 @@
       "titleUI": "Тест-транслятор %{type}",
       "UserTestAlarm": "Тревога пользователя",
       "Voltage5PositiveBusA": "Напряжение +5В шина A",
+      "Voltage5PositiveBusB": "Напряжение +5В шина B",
       "Voltage15Negative": "Напряжение -5В",
-      "Voltage15Positive": "Напряжение +5В"
+      "Voltage15Positive": "Напряжение +5В",
+      "values": {
+        "UnMute": "Не заглушен",
+        "Mute": "Заглушен"
+      }
     }
   },
   "Interface": {

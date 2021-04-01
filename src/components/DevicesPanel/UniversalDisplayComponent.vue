@@ -1,8 +1,11 @@
 <template>
   <DeviceDisplayComponent :title-device="title" :settings-button="isSettingsButton" :is-footer="isFooter" @buttonClick="openSettingMenu">
-    <DisplayParametersComponent :device-data="getViewParameters" @dblclick="openDialog">
-      <div class="no-data__text" v-if="!isData">{{ $t('Interface.no_data') }}</div>
-    </DisplayParametersComponent>
+    <div class="universal__no-data-text" v-if="!isData">
+      <div>
+        {{ $t('Interface.no_data') }}
+      </div>
+    </div>
+    <DisplayParametersComponent v-else :device-data="getViewParameters" @dblclick="openDialog"/>
     <ModalWindow v-if="showModal">
       <div class="modal-content-wrapper">
         <close-icon class="close-modal-button" @click="showModal = false"></close-icon>
@@ -83,22 +86,27 @@ export default {
     },
     updateData() {
       this.parameters = []
-      for (const param in this.inputParameters.deviceParameters) {
+      if(this.inputParameters?.deviceParameters) {
+        this.isData = true
+        for (const param in this.inputParameters.deviceParameters) {
 
-        let newParam = Object.assign({}, this.inputParameters.deviceParameters[param])
-        newParam.deviceType = this.deviceType
+          let newParam = Object.assign({}, this.inputParameters.deviceParameters[param])
+          newParam.deviceType = this.deviceType
 
-        if (this.localViewFields === []) {
-          newParam.isView = true
-        } else {
-          if (this.localViewFields.find(value => value === newParam.nameParameter)) {
+          if (this.localViewFields === []) {
             newParam.isView = true
           } else {
-            newParam.isView = false
+            if (this.localViewFields.find(value => value === newParam.nameParameter)) {
+              newParam.isView = true
+            } else {
+              newParam.isView = false
+            }
           }
+          this.parameters.push(newParam)
+          newParam = null
         }
-        this.parameters.push(newParam)
-        newParam = null
+      } else {
+        this.isData = false
       }
     },
     updateViewParametersList() {
@@ -188,11 +196,14 @@ export default {
   width: 3%;
   margin-bottom: 20px;
 }
-.no-data__text {
+.universal__no-data-text {
   user-select: none;
-  font-size: 2.5em;
+  font-size: 1.5em;
   color: rgba(130, 130, 130, 0.4);
   width: 100%;
-  align-self: center;
+  height: 100%;
+  display: grid;
+  align-items: center;
+  justify-items: center;
 }
 </style>

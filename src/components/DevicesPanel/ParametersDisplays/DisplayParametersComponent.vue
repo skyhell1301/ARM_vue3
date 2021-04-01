@@ -1,6 +1,5 @@
 <template>
   <div class="wrapper_parameters"
-       :id="'Parameters-' + ID"
   >
     <div class="table_parameters"
          v-for="data in deviceData"
@@ -22,14 +21,7 @@ export default {
   name: 'DisplayParametersComponent',
   data () {
     return {
-      ID: (function () {
-        const one = Math.floor((Math.random() * 1000000) + 1) + ''
-        const two = Math.floor((Math.random() * 1000000) + 1) + ''
-        const three = Math.floor((Math.random() * 1000000) + 1) + ''
-        return 'id' + one + two + three
-      })(),
       namesList: {},
-      a: {}
     }
   },
   props: {

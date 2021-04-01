@@ -4,14 +4,15 @@ const state = () => ({
 })
 const mutations = {
     parametersUpdate(state, payload) {
-        if (payload !== '') {
-            state.parameters = payload
-        }
+        state.parameters = payload
     },
     unitsConfigurationUpdate(state, payload) {
         state.unitsConfiguration = payload
 
     },
+    clearParameters(state) {
+        state.parameters = null
+    }
 }
 const getters = {
     LNAParameters: state => number => {
@@ -33,31 +34,57 @@ const getters = {
         return updateUnitsFromParameters(state, {'AntennaSystem': state.parameters?.AntennaSystem})
     },
     amplifierParameters1: state => {
-        return updateUnitsFromParameters(state, {'Amplifier': state.parameters?.amplifierDeviceData[1]})
+        return updateUnitsFromParameters(state, {'Amplifier': state.parameters?.amplifierDeviceData ? state.parameters.amplifierDeviceData[1] : undefined})
     },
     amplifierParameters2: state => {
-        return updateUnitsFromParameters(state, {'Amplifier': state.parameters?.amplifierDeviceData[2]})
+        return updateUnitsFromParameters(state,
+            {'Amplifier': state.parameters?.amplifierDeviceData ? state.parameters.amplifierDeviceData[2] : undefined})
     },
     downConverterParameters1: state => {
-        return updateUnitsFromParameters(state, {'DownConverter': state.parameters?.downConverterDeviceData[1]})
+        return updateUnitsFromParameters(state,
+            {'DownConverter':state.parameters?.downConverterDeviceData ? state.parameters.downConverterDeviceData[1] : undefined})
     },
     downConverterParameters2: state => {
-        return updateUnitsFromParameters(state, {'DownConverter': state.parameters?.downConverterDeviceData[2]})
+        return updateUnitsFromParameters(state,
+            {'DownConverter': state.parameters?.downConverterDeviceData ? state.parameters.downConverterDeviceData[2] : undefined})
     },
     testTranslyatorParameters: state => {
         return updateUnitsFromParameters(state, {'Ttranslator': state.parameters?.testTranslyatorDeviceData})
     },
     upConverterParameters1: state => {
-        return updateUnitsFromParameters(state, {'UpConverter': state.parameters?.upConverterDeviceData[1]})
+        return updateUnitsFromParameters(state,
+            {'UpConverter': state.parameters?.upConverterDeviceData ? state.parameters.upConverterDeviceData[1] : undefined})
     },
     upConverterParameters2: state => {
-        return updateUnitsFromParameters(state, {'UpConverter': state.parameters?.upConverterDeviceData[2]})
+        return updateUnitsFromParameters(state,
+            {'UpConverter': state.parameters?.upConverterDeviceData ? state.parameters.upConverterDeviceData[2] : undefined})
     },
     matrixUpParameters: state => {
-        return state.parameters?.matrixDeviceData[1]
+        return state.parameters?.matrixDeviceData ? state.parameters.matrixDeviceData[1] : undefined
     },
     matrixDownParameters: state => {
-        return state.parameters?.matrixDeviceData[2]
+        return state.parameters?.matrixDeviceData ? state.parameters.matrixDeviceData[2] : undefined
+    },
+    convertorRedundancy1: state => {
+        if(state.parameters?.convRedundancyData) {
+            return state.parameters?.convRedundancyData[1]?.deviceParameters
+        } else {
+            return undefined
+        }
+    },
+    convertorRedundancy2: state => {
+        if(state.parameters?.convRedundancyData) {
+            return state.parameters?.convRedundancyData[2]?.deviceParameters
+        } else {
+            return undefined
+        }
+    },
+    reservedStatusLNA: state => {
+        return state.parameters?.MSHUDeviceData?.deviceParameters?.Status.valueParameter === 1
+    },
+    reservedStatusAmplifier: state => {
+        // console.log(state.parameters?.amplifierDeviceData.redundancy.deviceParameters.SwitchStatus.valueParameter)
+        return state.parameters?.amplifierDeviceData?.redundancy?.deviceParameters?.SwitchStatus?.valueParameter === 2
     }
 }
 
@@ -68,6 +95,9 @@ const actions = {
     unitsConfigurationUpdate({commit}, payload) {
         commit('unitsConfigurationUpdate', payload)
     },
+    clearParameters({commit}) {
+        commit('clearParameters')
+    }
 }
 
 function updateUnitsFromParameters(state, device) {
