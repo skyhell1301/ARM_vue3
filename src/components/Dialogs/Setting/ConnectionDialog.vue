@@ -70,27 +70,29 @@
     <div class="list-connection__wrapper">
       <div class="list-connection__title">Список подключений</div>
       <div class="list-connection__container">
-      <div class="list-connection__table-row" style="align-self: end">
-        <div class="list-connection__cell">Устройство</div>
-        <div class="list-connection__cell">Адрес</div>
-        <div class="list-connection__cell">Метка жизни</div>
+        <div class="list-connection__table-row" style="align-self: end">
+          <div class="list-connection__cell">Устройство</div>
+          <div class="list-connection__cell">Адрес</div>
+          <div class="list-connection__cell">Метка жизни</div>
+        </div>
+        <div v-for="ws in connectWSList"
+             :key="ws.id"
+             class="list-connection__table-row"
+        >
+          <custom-div class="list-connection__cell" @divClick="wsUrl = ws.url, wsIp = ws.ip,
+        wsPort = ws.port, selectDeviceName = ws.deviceName">{{ ws.deviceName }}
+          </custom-div>
+          <custom-div class="list-connection__cell" @divClick="wsUrl = ws.url, wsIp = ws.ip,
+        wsPort = ws.port, selectDeviceName = ws.deviceName">{{ ws.userUrl }}
+          </custom-div>
+          <div class="list-connection__cell">{{ ws.lifeMark }}</div>
+        </div>
       </div>
-      <div v-for="ws in connectWSList"
-           :key="ws.id"
-           class="list-connection__table-row"
-      >
-        <custom-div class="list-connection__cell" @divClick="wsUrl = ws.url, wsIp = ws.ip,
-        wsPort = ws.port, selectDeviceName = ws.deviceName">{{ ws.deviceName }}</custom-div>
-        <custom-div class="list-connection__cell" @divClick="wsUrl = ws.url, wsIp = ws.ip,
-        wsPort = ws.port, selectDeviceName = ws.deviceName">{{ ws.userUrl }}</custom-div>
-        <div class="list-connection__cell">{{ ws.lifeMark }}</div>
-      </div>
-    </div>
     </div>
     <input type="text" v-model="igorUrl" style="margin-top: 20px;">
     <custom-button @buttonClick="setIgorUrl">Установить URL Игоря</custom-button>
     <div style="margin-top: 10px;">Установлен:</div>
-    <div>{{$store.state.ZSParameters.igorUrl}}</div>
+    <div>{{ $store.state.ZSParameters.igorUrl }}</div>
   </div>
 </template>
 
@@ -134,7 +136,7 @@ export default {
         })
         this.$refs.nameDeviceSelect.focus()
       } else {
-        if(this.wsIp === '') {
+        if (this.wsIp === '') {
           this.$store.dispatch('wsConnectionList/setInfoMessage', {
             message: 'Укажите IP-адрес',
             status: 'error'
@@ -142,18 +144,18 @@ export default {
         } else {
           // if(this.wsPort === '') {
           let c = false
-          if(c) {
+          if (c) {
             this.$store.dispatch('wsConnectionList/setInfoMessage', {
               message: 'Укажите порт',
               status: 'error'
             })
-        } else {
-            if(this.wsUrl === '') {
+          } else {
+            if (this.wsUrl === '') {
               this.$store.dispatch('wsConnectionList/setInfoMessage', {
                 message: 'Укажите URL',
                 status: 'error'
               })
-          } else {
+            } else {
               this.saveInputDataInLocalStorage()
               let address = {}
               address.ip = this.wsIp
@@ -176,7 +178,7 @@ export default {
       address.full = this.wsIp + ':' + this.wsPort + this.wsUrl
       this.closeConnectToWS(address, this.$store)
     },
-    async setControllerConfiguration() {
+    setControllerConfiguration: async function () {
       if (this.getMainConnectionAddress !== null && this.getMainConnectionAddress !== undefined) {
         let context = this
         this.controllerMessage.message = 'Устанавливаются значения контроллера'
@@ -186,42 +188,40 @@ export default {
         message.ip = this.controllerIP
         message.port = this.controllerPort
         message.period = this.controllerPeriod
-        let response = await this.sendRESTCommand('http://' + this.getMainConnectionAddress + '/settings/controller',
-            'POST', null, 'qqq', JSON.stringify(message))
+        const response = await this.sendRESTCommand(`http://${this.getMainConnectionAddress}/settings/controller`,
+            'POST', null, null, JSON.stringify(message))
         if (response.ok) {
           context.controllerMessage.message = 'Конфигурация установлена'
           this.$store.dispatch('protocol/addLogMessage', {text: this.controllerMessage.message})
           context.controllerMessage.status = 'ok'
         } else {
-          response.text().then(function (text) {
-            context.controllerMessage.message = text
-            context.controllerMessage.status = 'error'
-          })
+          const resText = await response.text()
+          this.controllerMessage.message = resText
+          this.controllerMessage.status = 'error'
         }
       } else {
         this.controllerMessage.message = 'Подключитесь к AРМу'
         this.controllerMessage.status = 'error'
         this.$store.dispatch('protocol/addLogMessage', {text: this.controllerMessage.message})
-        console.log(this.controllerMessage.message)
       }
     },
-    saveInputDataInLocalStorage () {
+    saveInputDataInLocalStorage() {
       localStorage.setItem('wsIp', this.wsIp);
       localStorage.setItem('wsPort', this.wsPort);
       localStorage.setItem('wsUrl', this.wsUrl);
     },
-    setIgorUrl () {
+    setIgorUrl() {
       this.$store.dispatch('ZSParameters/setIgorUrl', this.igorUrl)
     }
   },
   mounted() {
-    if(localStorage.getItem('wsIp')) {
+    if (localStorage.getItem('wsIp')) {
       this.wsIp = localStorage.getItem('wsIp')
     }
-    if(localStorage.getItem('wsPort')) {
+    if (localStorage.getItem('wsPort')) {
       this.wsPort = localStorage.getItem('wsPort')
     }
-    if(localStorage.getItem('wsUrl')) {
+    if (localStorage.getItem('wsUrl')) {
       this.wsUrl = localStorage.getItem('wsUrl')
     }
   },
@@ -241,7 +241,7 @@ export default {
       })
       return list
     },
-    getMainConnectionAddress () {
+    getMainConnectionAddress() {
       return this.$store.getters['wsConnectionList/getMainConnectionAddress']
     }
   }
@@ -259,6 +259,7 @@ export default {
   align-items: center;
   font-size: 2.5vmin;
 }
+
 .LVSsettings__wrapper-title {
   margin-top: 15px;
   margin-bottom: 5px;
@@ -270,6 +271,7 @@ export default {
   padding: 20px;
   height: 15%;
 }
+
 .controller-connection__container {
   display: grid;
   grid-template-columns: 60% 35%;
@@ -277,12 +279,14 @@ export default {
   width: 100%;
   grid-column-gap: 5%;
 }
+
 .controller-connection__inputs-container {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
 
 }
+
 .controller-connection__buttons-container {
   display: flex;
   flex-direction: column;

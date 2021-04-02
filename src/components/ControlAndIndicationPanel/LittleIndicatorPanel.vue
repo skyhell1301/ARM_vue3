@@ -1,6 +1,6 @@
 <template>
   <div class="little-indicator-panel__wrapper">
-    <div class="little-indicator-panel__container" :class="'color-' + getIndicatorStatus">
+    <div class="little-indicator-panel__container" :class="'color-' + status">
       <div class="little-indicator-panel__title">
         <div>{{title}}</div>
       </div>
@@ -19,18 +19,9 @@ export default {
       type: String,
       default: 'TITLE'
     },
-    connection: {
-      type: Boolean,
-      default: false
-    },
     status: {
       type: String,
       default: 'none'
-    }
-  },
-  computed: {
-    getIndicatorStatus () {
-      return this.connection ? 'ok' : 'none'
     }
   }
 }

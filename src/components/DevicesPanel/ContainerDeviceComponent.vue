@@ -7,7 +7,7 @@
                                  id_2="switch-id-1"
                                  :connection-point_2="{side: 'top', percent: 50}"
                                  :point-edges-array="lineAntennaSystemToSwitch1"
-                                 :is-active="true"
+                                 :is-active="monitoringStatus"
       >
       </connection-line-component>
       <connection-line-component id_1="antenna-system-id"
@@ -15,7 +15,7 @@
                                  id_2="LNAReserved"
                                  :connection-point_2="{side: 'top', percent: 50}"
                                  :point-edges-array="lineAntennaSystemToSwitch2"
-                                 :is-active="true"
+                                 :is-active="monitoringStatus"
       >
       </connection-line-component>
       <connection-line-component id_1="test-translator-id"
@@ -23,7 +23,7 @@
                                  id_2="switch-id-1"
                                  :connection-point_2="{side: 'top', percent: 50}"
                                  :point-edges-array="lineTestTranslyatorToSwitch1"
-                                 :is-active="true"
+                                 :is-active="monitoringStatus"
       >
       </connection-line-component>
       <connection-line-component id_1="test-translator-id"
@@ -31,7 +31,7 @@
                                  id_2="LNAReserved"
                                  :connection-point_2="{side: 'top', percent: 50}"
                                  :point-edges-array="lineTestTranslyatorToSwitch2"
-                                 :is-active="true"
+                                 :is-active="monitoringStatus"
       >
       </connection-line-component>
       <connection-line-component id_1="switch-id-1"
@@ -39,7 +39,7 @@
                                  id_2="amplifier-device-1-id"
                                  :connection-point_2="{side: 'top', percent: 50}"
                                  :point-edges-array="lineSwitch1ToUM1"
-                                 :is-active="!reservedStatusAmplifier"
+                                 :is-active="reservedStatusAmplifier === 1"
       >
       </connection-line-component>
       <connection-line-component id_1="switch-id-1"
@@ -47,7 +47,7 @@
                                  id_2="amplifier-device-2-id"
                                  :connection-point_2="{side: 'top', percent: 50}"
                                  :point-edges-array="lineSwitch1ToUM2"
-                                 :is-active="reservedStatusAmplifier"
+                                 :is-active="reservedStatusAmplifier === 2"
       >
       </connection-line-component>
       <connection-line-component id_1="LNAReserved"
@@ -55,7 +55,7 @@
                                  id_2="LNA-device-id-1"
                                  :connection-point_2="{side: 'top', percent: 50}"
                                  :point-edges-array="lineSwitch1ToUM1"
-                                 :is-active="!reservedStatusLNA"
+                                 :is-active="reservedStatusLNA === 1"
       >
       </connection-line-component>
       <connection-line-component id_1="LNAReserved"
@@ -63,7 +63,7 @@
                                  id_2="LNA-device-id-2"
                                  :connection-point_2="{side: 'top', percent: 50}"
                                  :point-edges-array="lineSwitch1ToUM2"
-                                 :is-active="reservedStatusLNA"
+                                 :is-active="reservedStatusLNA === 2"
       >
       </connection-line-component>
       <connection-line-component id_1="amplifier-device-1-id"
@@ -71,7 +71,7 @@
                                  id_2="convertorUpReserved"
                                  :connection-point_2="{side: 'top', percent: 50}"
                                  :point-edges-array="lineUM1ToSwitch3"
-                                 :is-active="!reservedStatusAmplifier"
+                                 :is-active="reservedStatusAmplifier === 1"
       >
       </connection-line-component>
       <connection-line-component id_1="amplifier-device-2-id"
@@ -79,7 +79,7 @@
                                  id_2="convertorUpReserved"
                                  :connection-point_2="{side: 'top', percent: 50}"
                                  :point-edges-array="lineUM2ToSwitch3"
-                                 :is-active="reservedStatusAmplifier"
+                                 :is-active="reservedStatusAmplifier === 2"
       >
       </connection-line-component>
       <connection-line-component id_1="LNA-device-id-1"
@@ -87,7 +87,7 @@
                                  id_2="LNAReserved"
                                  :connection-point_2="{side: 'left', percent: 90}"
                                  :point-edges-array="lineUpConvertor1ToSwitch5"
-                                 :is-active="!reservedStatusLNA"
+                                 :is-active="reservedStatusLNA === 1"
       >
       </connection-line-component>
       <connection-line-component id_1="LNA-device-id-2"
@@ -95,7 +95,7 @@
                                  id_2="LNAReserved"
                                  :connection-point_2="{side: 'right', percent: 90}"
                                  :point-edges-array="lineUpConvertor1ToSwitch5"
-                                 :is-active="reservedStatusLNA"
+                                 :is-active="reservedStatusLNA === 2"
       >
       </connection-line-component>
       <connection-line-component id_1="LNAReserved"
@@ -103,7 +103,7 @@
                                  id_2="convertorDownReserved"
                                  :connection-point_2="{side: 'top', percent: 50}"
                                  :point-edges-array="[{direction: 'down', isArc: false, value: 100}]"
-                                 :is-active="true"
+                                 :is-active="monitoringStatus"
       >
       </connection-line-component>
       <connection-line-component id_1="convertorUpReserved"
@@ -111,7 +111,7 @@
                                  id_2="up-converter-id-1"
                                  :connection-point_2="{side: 'top', percent: 50}"
                                  :point-edges-array="lineSwitch1ToUM1"
-                                 :is-active="reservedStatusConverterUp"
+                                 :is-active="reservedStatusConverterUp === 1"
       >
       </connection-line-component>
       <connection-line-component id_1="convertorUpReserved"
@@ -119,7 +119,7 @@
                                  id_2="up-converter-id-2"
                                  :connection-point_2="{side: 'top', percent: 50}"
                                  :point-edges-array="lineSwitch1ToUM2"
-                                 :is-active="!reservedStatusConverterUp"
+                                 :is-active="reservedStatusConverterUp === 2"
       >
       </connection-line-component>
       <connection-line-component id_1="convertorDownReserved"
@@ -127,7 +127,7 @@
                                  id_2="down-converter-id-1"
                                  :connection-point_2="{side: 'top', percent: 50}"
                                  :point-edges-array="lineSwitch1ToUM1"
-                                 :is-active="reservedStatusConverterDown"
+                                 :is-active="reservedStatusConverterDown === 1"
       >
       </connection-line-component>
       <connection-line-component id_1="convertorDownReserved"
@@ -135,7 +135,7 @@
                                  id_2="down-converter-id-2"
                                  :connection-point_2="{side: 'top', percent: 50}"
                                  :point-edges-array="lineSwitch1ToUM2"
-                                 :is-active="!reservedStatusConverterDown"
+                                 :is-active="reservedStatusConverterDown === 2"
       >
       </connection-line-component>
       <connection-line-component id_1="up-converter-id-1"
@@ -143,7 +143,7 @@
                                  id_2="convertorUpReserved"
                                  :connection-point_2="{side: 'left', percent: 90}"
                                  :point-edges-array="lineUpConvertor1ToSwitch5"
-                                 :is-active="reservedStatusConverterUp"
+                                 :is-active="reservedStatusConverterUp === 1"
       >
       </connection-line-component>
       <connection-line-component id_1="up-converter-id-2"
@@ -151,7 +151,7 @@
                                  id_2="convertorUpReserved"
                                  :connection-point_2="{side: 'right', percent: 90}"
                                  :point-edges-array="lineUpConvertor1ToSwitch5"
-                                 :is-active="!reservedStatusConverterUp"
+                                 :is-active="reservedStatusConverterUp === 2"
       >
       </connection-line-component>
       <connection-line-component id_1="down-converter-id-1"
@@ -159,7 +159,7 @@
                                  id_2="convertorDownReserved"
                                  :connection-point_2="{side: 'left', percent: 90}"
                                  :point-edges-array="lineUpConvertor1ToSwitch5"
-                                 :is-active="reservedStatusConverterDown"
+                                 :is-active="reservedStatusConverterDown === 1"
       >
       </connection-line-component>
       <connection-line-component id_1="down-converter-id-2"
@@ -167,7 +167,7 @@
                                  id_2="convertorDownReserved"
                                  :connection-point_2="{side: 'right', percent: 90}"
                                  :point-edges-array="lineUpConvertor1ToSwitch5"
-                                 :is-active="!reservedStatusConverterDown"
+                                 :is-active="reservedStatusConverterDown === 2"
       >
       </connection-line-component>
       <connection-line-component id_1="convertorUpReserved"
@@ -175,7 +175,7 @@
                                  id_2="up-matrix-id"
                                  :connection-point_2="{side: 'left', percent: 50}"
                                  :point-edges-array="lineUpConvertor1ToSwitch5"
-                                 :is-active="true"
+                                 :is-active="monitoringStatus"
       >
       </connection-line-component>
       <connection-line-component id_1="convertorDownReserved"
@@ -183,7 +183,7 @@
                                  id_2="down-matrix-id"
                                  :connection-point_2="{side: 'bottom', percent: 80}"
                                  :point-edges-array="lineSwitch6ToDownMatrix"
-                                 :is-active="true"
+                                 :is-active="monitoringStatus"
       >
       </connection-line-component>
       <connection-line-component id_1="up-matrix-id"
@@ -191,6 +191,7 @@
                                  id_2="cortex-id-1"
                                  :connection-point_2="{side: 'top', percent: 35}"
                                  :point-edges-array="lineUpMatrixToCortex1"
+                                 :is-active="monitoringStatus"
       >
       </connection-line-component>
       <connection-line-component id_1="up-matrix-id"
@@ -198,6 +199,7 @@
                                  id_2="cortex-id-2"
                                  :connection-point_2="{side: 'top', percent: 35}"
                                  :point-edges-array="lineUpMatrixToCortex2"
+                                 :is-active="monitoringStatus"
       >
       </connection-line-component>
       <connection-line-component id_1="down-matrix-id"
@@ -205,6 +207,7 @@
                                  id_2="cortex-id-1"
                                  :connection-point_2="{side: 'top', percent: 65}"
                                  :point-edges-array="lineDownMatrixToCortex1"
+                                 :is-active="monitoringStatus"
       >
       </connection-line-component>
       <connection-line-component id_1="down-matrix-id"
@@ -212,6 +215,7 @@
                                  id_2="cortex-id-2"
                                  :connection-point_2="{side: 'top', percent: 65}"
                                  :point-edges-array="lineDownMatrixToCortex2"
+                                 :is-active="monitoringStatus"
       >
       </connection-line-component>
       <connection-line-component id_1="down-matrix-id"
@@ -219,6 +223,7 @@
                                  id_2="spectrum-analyzer-id"
                                  :connection-point_2="{side: 'top', percent: 50}"
                                  :point-edges-array="lineDownMatrixToSpectrumAnalyser"
+                                 :is-active="monitoringStatus"
       >
       </connection-line-component>
       <connection-line-component id_1="down-matrix-id"
@@ -226,6 +231,7 @@
                                  id_2="as-stand-id"
                                  :connection-point_2="{side: 'bottom', percent: 50}"
                                  :point-edges-array="lineDownMatrixToASStoyka"
+                                 :is-active="monitoringStatus"
       >
       </connection-line-component>
       <connection-line-component id_1="down-matrix-id"
@@ -233,6 +239,7 @@
                                  id_2="down-matrix-id"
                                  :connection-point_2="{side: 'bottom', percent: 32}"
                                  :point-edges-array="lineDownMatrixToDownMatrix"
+                                 :is-active="monitoringStatus"
       >
       </connection-line-component>
       <defs>
@@ -295,7 +302,7 @@
     </DeviceDisplayComponent>
     <StandAntennaSystemComponent id="as-stand-id" class="as-stand"></StandAntennaSystemComponent>
     <SwitchComponent id="switch-id-1" class="switch-1"
-                     :is-reserved="reservedStatusAmplifier"
+                     :is-reserved="reservedStatusAmplifier === 2"
     >
     </SwitchComponent>
     <ConvertorUpReservedControlDisplay id="convertorUpReserved" class="convertor-up-reserved"/>
@@ -665,10 +672,10 @@ export default {
       return this.$store.getters['devicesParameters/matrixDownParameters']
     },
     reservedStatusConverterUp() {
-      return this.$store.getters['devicesParameters/convertorRedundancy1']?.Status.valueParameter === 0
+      return this.$store.getters['devicesParameters/convertorRedundancy1']
     },
     reservedStatusConverterDown() {
-      return this.$store.getters['devicesParameters/convertorRedundancy2']?.Status.valueParameter === 0
+      return this.$store.getters['devicesParameters/convertorRedundancy2']
     },
     reservedStatusLNA() {
       return this.$store.getters['devicesParameters/reservedStatusLNA']
@@ -676,6 +683,9 @@ export default {
     reservedStatusAmplifier() {
       return this.$store.getters['devicesParameters/reservedStatusAmplifier']
     },
+    monitoringStatus() {
+      return this.$store.state.ZSParameters.monitoringState
+    }
   },
 }
 </script>

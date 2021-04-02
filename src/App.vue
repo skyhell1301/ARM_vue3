@@ -30,8 +30,7 @@ export default {
   name: 'App',
   data() {
     return {
-      ARM1: {},
-      ARM2: {}
+      ARMConfig: null,
     }
   },
   mixins: [connectToWebSocket],
@@ -44,19 +43,13 @@ export default {
   },
   methods: {
     async someMethod() {
-      let context = this
       const baseUrl = process.env.BASE_URL;
-
       let response = await fetch(baseUrl + 'ARMConfiguration.json')
-      response.json().then(function (json) {
-        context.ARM1 = json.ARM1
-        context.ARM2 = json.ARM2
-        context.connectToARM()
-      })
-
+      this.ARMConfig = await response.json()
+      this.connectToARM()
     },
     connectToARM() {
-      if (this.ARM1.ip !== undefined) {
+      if (this.ARMConfig) {
         // let address1 = {}
         // address1.ip = this.ARM1.ip
         // address1.port = this.ARM1.port
@@ -86,8 +79,8 @@ export default {
 
     }
   },
-  async mounted() {
-    await this.someMethod()
+  mounted() {
+    this.someMethod()
 
     // let a = "^((0|1\\d?\\d?|2[0-4]?\\d?|25[0-5]?|[3-9]\\d?)\\.){3}(0|1\\d?\\d?|2[0-4]?\\d?|25[0-5]?|[3-9]\\d?)$"
     // let PATTERN = new RegExp(a)

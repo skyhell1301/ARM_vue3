@@ -9,7 +9,7 @@ export default {
   components: {ReserveControlComponent},
   computed: {
     reservedStatus() {
-      return this.$store.getters['devicesParameters/reservedStatusLNA'] ? 1 : 0
+      return this.$store.getters['devicesParameters/reservedStatusLNA']
     }
   }
 }

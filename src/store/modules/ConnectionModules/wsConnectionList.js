@@ -3,7 +3,7 @@ const state = () => ({
     infoMessage: {
         message: '',
         status: ''
-    }
+    },
 })
 const mutations = {
     newConnectionToWS(state, payload) {
@@ -67,10 +67,13 @@ const getters = {
     getMainConnectionAddress: state => {
         let address = null
         const ws = state.webSocketConnectionList.find(webSocket => webSocket.isMain)
-        if (ws !== undefined) {
+        if (ws) {
             address = ws.ip + ':' + ws.port
         }
         return address
+    },
+    isARMConnect: (state, getters) => {
+        return getters.ARM1Status.connection || getters.ARM2Status.connection
     }
 }
 const actions = {

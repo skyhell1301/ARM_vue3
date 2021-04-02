@@ -1,5 +1,5 @@
 <template>
-  <ReserveControlComponent :redundancy-status="reservedStatus"  title="Управление резервом конвертора вверх"/>
+  <ReserveControlComponent :redundancy-status="redundancyData"  title="Управление резервом конвертора вверх"/>
 </template>
 
 <script>

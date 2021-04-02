@@ -2,8 +2,8 @@
   <div class="matrix-up-dialog__wrapper">
     <MatrixView class="matrix-up-dialog__matrix" :input-parameters="localData"></MatrixView>
     <div class="matrix-up-dialog__control-container" ref="output_input">
-      <div v-for="out in localData" :key="out" >
-        <label>Output {{out.nameParameter}}</label>
+      <div v-for="out in localData" :key="out">
+        <label>Output {{ out.nameParameter }}</label>
         <input type="number" max="8" min="0" v-model="out.valueParameter">
       </div>
       <custom-button @buttonClick="setMatrixData">Установить</custom-button>
@@ -34,9 +34,9 @@ export default {
     }
   },
   components: {CustomButton, MatrixView},
-  mixins:[REST],
+  mixins: [REST],
   methods: {
-    async setMatrixData () {
+    async setMatrixData() {
       let context = this
       // 'http://yii-site/nomenklatura/smotrmatrixupdate/30'
       let response = await this.sendRESTCommand('http://' + this.getMainConnectionAddress + '/monitoring/parameters/upMatrix', 'POST',
@@ -44,29 +44,28 @@ export default {
       if (response.ok) {
         context.$store.dispatch('protocol/addLogMessage', {text: 'Конфигурация установлена'})
       } else {
-        response.text().then(function (text) {
-          context.$store.dispatch('protocol/addLogMessage', {text: text})
-        })
+        const resText = await response.text()
+        this.$store.dispatch('protocol/addLogMessage', {text: resText})
       }
     }
   },
   mounted() {
-    if(this.MatrixUpData) {
-      for(let outKey in this.MatrixUpData) {
+    if (this.MatrixUpData) {
+      for (let outKey in this.MatrixUpData) {
         this.localData[outKey].valueParameter = this.MatrixUpData[outKey].valueParameter
       }
     }
   },
   computed: {
-    MatrixUpData () {
+    MatrixUpData() {
       return this.$store.getters['devicesParameters/matrixUpParameters']?.deviceParameters
     },
-    getMainConnectionAddress () {
+    getMainConnectionAddress() {
       return this.$store.getters['wsConnectionList/getMainConnectionAddress']
     }
   },
   watch: {
-    localData () {
+    localData() {
       console.log(this.localData)
     }
   }

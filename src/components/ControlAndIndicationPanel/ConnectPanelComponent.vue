@@ -1,10 +1,10 @@
 <template>
   <div class="connect-panel">
     <div class="connect-panel-title">{{$t('Interface.connections')}}</div>
-    <LittleIndicatorPanel :connection="ARM1Status.connection" class="ARM-1 little-panel" :title="$t('Interface.arm') + ' 1'">
+    <LittleIndicatorPanel :status="ARM1Status" class="ARM-1 little-panel" :title="$t('Interface.arm') + ' 1'">
       <PCIcon class="connect-panel__icon"></PCIcon>
     </LittleIndicatorPanel>
-    <LittleIndicatorPanel :connection="ARM2Status.connection" class="ARM-2 little-panel" :title="$t('Interface.arm') + ' 2'">
+    <LittleIndicatorPanel :status="ARM2Status" class="ARM-2 little-panel" :title="$t('Interface.arm') + ' 2'">
       <PCIcon class="connect-panel__icon"></PCIcon>
     </LittleIndicatorPanel>
     <LittleIndicatorPanel class="CONTROLLER-1 little-panel" :title="$t('Interface.controller') +  ' 1'">
@@ -41,10 +41,10 @@ export default {
   },
   computed: {
     ARM1Status () {
-      return this.$store.getters['wsConnectionList/ARM1Status']
+      return this.$store.state.systemConnection.ARM1Status
     },
     ARM2Status () {
-      return this.$store.getters['wsConnectionList/ARM2Status']
+      return this.$store.state.systemConnection.ARM2Status
     },
   }
 }

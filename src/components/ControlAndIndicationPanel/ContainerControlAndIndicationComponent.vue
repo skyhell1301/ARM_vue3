@@ -2,23 +2,25 @@
   <div class="control-and-indication__wrapper" aria-disabled="true">
     <clock-component class="clock"></clock-component>
     <div class="crash">
-      <div class="crash-title">{{$t('Interface.crash')}}</div>
+      <div class="crash-title">{{ $t('Interface.crash') }}</div>
       <ButtonComponent class="btn-1"></ButtonComponent>
       <EmergencySignalComponent class="signal-bell" status="ok"></EmergencySignalComponent>
     </div>
     <ControlPanelComponent style="grid-row: 5; width: 95%"></ControlPanelComponent>
     <div class="control-background" style="grid-row: 7;">
-      <div class="ind-title">{{$t('Interface.ground_station')}}</div>
-      <ButtonComponent class="btn-2" :active-status="monitoringState" @btnClick="sendZSMonitoringStatus"></ButtonComponent>
-      <StatusIndicatorComponent class="ind-1" :is-active="monitoringState" :status="monitoringType"></StatusIndicatorComponent>
+      <div class="ind-title">{{ $t('Interface.ground_station') }}</div>
+      <ButtonComponent class="btn-2" :active-status="monitoringState"
+                       @btnClick="sendZSMonitoringStatus"></ButtonComponent>
+      <StatusIndicatorComponent class="ind-1" :is-active="monitoringState"
+                                :status="monitoringType"></StatusIndicatorComponent>
     </div>
     <div class="control-background" style="grid-row: 9;">
-      <div class="ind-title">{{$t('Interface.onboard_telemetry')}}</div>
+      <div class="ind-title">{{ $t('Interface.onboard_telemetry') }}</div>
       <ButtonComponent class="btn-2" :active-status="monitoringState" @btnClick="sendIgorRequest"></ButtonComponent>
       <StatusIndicatorComponent class="ind-1" :is-active="monitoringState"></StatusIndicatorComponent>
     </div>
     <div class="control-background" style="grid-row: 11;">
-      <div class="ind-title">{{$t('Interface.antenna_system')}}</div>
+      <div class="ind-title">{{ $t('Interface.antenna_system') }}</div>
       <ButtonComponent class="btn-2" v-model:active-status="testVar3"></ButtonComponent>
       <StatusIndicatorComponent class="ind-1" :is-active="testVar3"></StatusIndicatorComponent>
     </div>
@@ -29,7 +31,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import {mapState} from 'vuex';
 import ButtonComponent from './ButtonComponent'
 import EmergencySignalComponent from './EmergencySignalComponent'
 import StatusIndicatorComponent from './StatusIndicatorComponent'
@@ -39,6 +41,7 @@ import TargetDesignationPanelComponent from './TargetDesignationPanelComponent'
 import ProtocolButtonComponent from './ProtocolButtonComponent'
 import ClockComponent from "@/components/ControlAndIndicationPanel/ClockComponent";
 import REST from "@/mixins/REST";
+
 export default {
   name: 'ContainerControlAndIndicationComponent',
   components: {
@@ -51,7 +54,7 @@ export default {
     EmergencySignalComponent,
     ButtonComponent
   },
-  data () {
+  data() {
     return {
       ZSMonitoringStatus: false,
       testVar2: false,
@@ -72,28 +75,24 @@ export default {
         message.state = !context.monitoringState
         message.type = 'gsMonitoring'
         let response = await this.sendRESTCommand('http://' + this.getMainConnectionAddress + '/monitoring/state', 'POST', null, 'qqq', JSON.stringify(message))
-        response.text().then(function (text) {
-          console.log(text)
-          context.$store.dispatch('protocol/addLogMessage', {text: text})
-        })
+        const resText = await response.text()
+        console.log(resText)
+        this.$store.dispatch('protocol/addLogMessage', {text: resText})
       }
     },
-    async sendIgorRequest () {
+    async sendIgorRequest() {
       let context = this
       let message = {}
       message.state = !context.monitoringState
       message.type = 'gsMonitoring'
       let response = await this.sendRESTCommand(this.igorUrl, 'POST', null, 'qqq', JSON.stringify(message))
       // let response = RESTRequest.methods.sendCommand('api/monitoring/state', 'POST', null, 'qqq', JSON.stringify(message))
-      // console.log(response)
-      response.text().then(function (text) {
-        console.log(text)
-        context.$store.dispatch('protocol/addLogMessage', {text: text})
-      })
+      const resText = await response.text()
+      console.log(resText)
+      this.$store.dispatch('protocol/addLogMessage', {text: resText})
     }
   },
-  watch: {
-  },
+  watch: {},
   computed: {
     ...mapState({
       protocolDialogStatus: state => state.dialogStatus.protocolDialogStatus,
@@ -101,7 +100,7 @@ export default {
       monitoringType: state => state.ZSParameters.monitoringType,
       igorUrl: state => state.ZSParameters.igorUrl
     }),
-    getMainConnectionAddress () {
+    getMainConnectionAddress() {
       return this.$store.getters['wsConnectionList/getMainConnectionAddress']
     }
   }
@@ -123,6 +122,7 @@ export default {
   font-size: .8em;
   color: var(--main-color);
 }
+
 .clock {
   width: 95%;
   height: 100%;
@@ -150,6 +150,7 @@ export default {
   align-self: center;
   justify-self: center;
 }
+
 .signal-bell {
   grid-row: 2;
   grid-column: 2;
@@ -158,6 +159,7 @@ export default {
   align-self: center;
   justify-self: center;
 }
+
 .crash-title {
   text-transform: uppercase;
   grid-column-start: 1;
@@ -167,6 +169,7 @@ export default {
   width: 100%;
   font-weight: bold;
 }
+
 .control-background {
   display: grid;
   grid-template-columns: 50% 50%;

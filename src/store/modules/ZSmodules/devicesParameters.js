@@ -66,25 +66,36 @@ const getters = {
         return state.parameters?.matrixDeviceData ? state.parameters.matrixDeviceData[2] : undefined
     },
     convertorRedundancy1: state => {
-        if(state.parameters?.convRedundancyData) {
-            return state.parameters?.convRedundancyData[1]?.deviceParameters
+        const status = state?.parameters?.convRedundancyData
+        if(status) {
+            return status[1]?.deviceParameters?.Status?.valueParameter === 2 ? 2 : 1
         } else {
-            return undefined
+            return 0
         }
     },
     convertorRedundancy2: state => {
-        if(state.parameters?.convRedundancyData) {
-            return state.parameters?.convRedundancyData[2]?.deviceParameters
+        const status = state?.parameters?.convRedundancyData
+        if(status) {
+            return status[2]?.deviceParameters?.Status?.valueParameter === 2 ? 2 : 1
         } else {
-            return undefined
+            return 0
         }
     },
     reservedStatusLNA: state => {
-        return state.parameters?.MSHUDeviceData?.deviceParameters?.Status.valueParameter === 1
+        const status = state.parameters?.MSHUDeviceData?.deviceParameters?.Status?.valueParameter
+        if(status) {
+            return status === 2 ? 2 : 1
+        } else {
+            return 0
+        }
     },
     reservedStatusAmplifier: state => {
-        // console.log(state.parameters?.amplifierDeviceData.redundancy.deviceParameters.SwitchStatus.valueParameter)
-        return state.parameters?.amplifierDeviceData?.redundancy?.deviceParameters?.SwitchStatus?.valueParameter === 2
+        const status = state.parameters?.amplifierDeviceData?.redundancy?.deviceParameters?.SwitchStatus?.valueParameter
+        if(status) {
+            return status === 2 ? 2 : 1
+        } else {
+            return 0
+        }
     }
 }
 

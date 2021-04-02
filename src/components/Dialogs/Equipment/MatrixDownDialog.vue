@@ -44,9 +44,8 @@ export default {
       if (response.ok) {
         context.$store.dispatch('protocol/addLogMessage', {text: 'Конфигурация установлена'})
       } else {
-        response.text().then(function (text) {
-          context.$store.dispatch('protocol/addLogMessage', {text: text})
-        })
+        const resText = await response.text()
+        this.$store.dispatch('protocol/addLogMessage', {text: resText})
       }
     }
   },

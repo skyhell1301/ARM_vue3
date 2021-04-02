@@ -1,6 +1,6 @@
 <template>
   <div class="reserve-control__wrapper">
-    <div class="vertical-line-up connect-line-status"></div>
+    <div class="vertical-line-up" :class="{'connect-line-status': isMonitoring}"></div>
     <div class="reserve-control__container">
       <div class="reserve-control__switch-container switch-container-in">
         <SwitchComponent :is-reserved="isReserved" class="switch switch-up"/>
@@ -14,7 +14,7 @@
         <SwitchComponent :is-reserved="!isReserved" class="switch switch-down"/>
       </div>
     </div>
-    <div class="vertical-line-down connect-line-status"></div>
+    <div class="vertical-line-down" :class="{'connect-line-status': isMonitoring}"></div>
   </div>
 </template>
 
@@ -36,7 +36,10 @@ export default {
   },
   computed: {
     isReserved() {
-      return this.redundancyStatus === 1
+      return this.redundancyStatus === 2
+    },
+    isMonitoring() {
+      return this.$store.state.ZSParameters.monitoringState
     }
   }
 }
@@ -57,6 +60,7 @@ export default {
   width: 0.1vmax;
   height: 10%;
   align-self: start;
+  background: var(--main-color);
 }
 .vertical-line-down {
   grid-row: 1;
@@ -64,6 +68,7 @@ export default {
   width: 0.1vmax;
   height: 10%;
   align-self: end;
+  background: var(--main-color);
 }
 .reserve-control__container {
   height: 95%;
