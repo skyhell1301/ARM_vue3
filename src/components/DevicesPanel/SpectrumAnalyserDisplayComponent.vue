@@ -6,7 +6,7 @@
             class="spectrum-path"
             fill="none"
             stroke="red"
-            stroke-width="1px"
+            stroke-width="2px"
       />
     </svg>
     <div v-else ref="testtt" class="three__container">
@@ -33,7 +33,6 @@ export default {
   data() {
     return {
       animationStatus: false,
-      v: this.testVar
     }
   },
   watch: {
@@ -49,9 +48,15 @@ export default {
   methods: {
     updateAnimationStatus() {
       this.animationStatus = !this.animationStatus
-      setTimeout(()=>{
-        if(this.animationStatus) this.init()
-      }, 10)
+      if(this.animationStatus) {
+        setTimeout(()=>{
+          if(this.animationStatus) this.init()
+        }, 10)
+      } else {
+        this.scene = null
+        this.renderer = null
+      }
+
 
     },
     init() {

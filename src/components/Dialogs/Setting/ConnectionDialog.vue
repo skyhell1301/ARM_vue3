@@ -162,7 +162,7 @@ export default {
               address.port = this.wsPort
               address.url = this.wsUrl
               address.full = this.wsIp + ':' + this.wsPort + this.wsUrl
-              address.isMain = this.selectDeviceName.substring(0, this.selectDeviceName.length - 1) === 'ARM' ? true : false
+              address.isMain = this.selectDeviceName.substring(0, this.selectDeviceName.length - 1) === 'ARM'
               this.connectToWS(address, this.selectDeviceName, this.$store)
               this.selectDeviceName = ''
             }

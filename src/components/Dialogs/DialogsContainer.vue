@@ -109,7 +109,7 @@ import UpConverterDialog from "@/components/Dialogs/Equipment/UpConverterDialog"
 import ApplicationSettingsDialog from "@/components/Dialogs/Setting/ApplicationSettingsDialog";
 import MatrixUpDialog from "@/components/Dialogs/Equipment/MatrixUpDialog";
 import MatrixDownDialog from "@/components/Dialogs/Equipment/MatrixDownDialog";
-import CyclogrammsDialog from "@/components/Dialogs/MainMenu/CyclogrammsDialog";
+import CyclogrammsDialog from "@/components/Dialogs/MainMenu/CyclorgammsDialog/CyclogrammsDialog";
 export default {
   name: 'DialogsContainer',
   components: {

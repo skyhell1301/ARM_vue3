@@ -8,8 +8,8 @@
 export default {
   name: 'CustomButton',
   methods: {
-    pressedButton () {
-      this.$emit('buttonClick')
+    pressedButton (e) {
+      this.$emit('buttonClick', e)
     }
   },
   emits:['buttonClick'],

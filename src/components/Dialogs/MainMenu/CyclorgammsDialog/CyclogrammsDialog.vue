@@ -5,55 +5,11 @@
         <custom-button @buttonClick="getCyclogrammsList">Получить список циклограмм</custom-button>
       </div>
       <div v-else class="tables__container">
-        <table class="cyclogramms_table">
-          <tr>
-            <th>№</th>
-            <th>{{ $t('Interface.cyclogramm_name') }}</th>
-            <th>{{ $t('Interface.created_date') }}</th>
-            <th>{{ $t('Interface.description') }}</th>
-          </tr>
-          <custom-tr class="cylogramm"
-                     v-for="cyclogramm in cyclogrammsList"
-                     :key="cyclogramm.id"
-                     @trClick="updateActiveCyclogramm(cyclogramm)"
-                     :class="{'activeCyclogramm': cyclogramm === activeCyclogramm}"
-          >
-            <td>{{ cyclogramm.id }}</td>
-            <td>{{ cyclogramm.name }}</td>
-            <td>{{ cyclogramm.created }}</td>
-            <td>{{ cyclogramm.descr }}</td>
-          </custom-tr>
-        </table>
+        <CyclogrammsTable :cyclogramms-list="cyclogrammsList" @updateActiveCyclo="updateActiveCyclo"/>
       </div>
-      <table class="cyclogramms_table" v-if="activeCyclogramm !== null">
-        <tr>
-          <th>№</th>
-          <th>{{ $t('Interface.device_name') }}</th>
-          <th>{{ $t('Interface.command_name') }}</th>
-          <th>{{ $t('Interface.device_number') }}</th>
-          <th>{{ $t('Interface.set_value') }}</th>
-          <th>{{ $t('Interface.address') }}</th>
-          <th>{{ $t('Interface.timeout') }}</th>
-          <th>{{ $t('Interface.status') }}</th>
-        </tr>
-        <custom-tr v-for="command in activeCyclogramm.cyclodata"
-                   :key="command"
-                   @trClick="updateActiveCommand(command)"
-                   class="cylogramm"
-                   :class="{'activeCyclogramm': command === activeCommand}"
-        >
-          <td>{{ command.NumInCicl }}</td>
-          <td>{{ command.unit_type }}</td>
-          <td>{{ command.command_txt + ' (' + command.CommandNum + ')' }}</td>
-          <td>{{ command.UnitNum }}</td>
-          <td>{{ command.Params }}</td>
-          <td>{{ }}</td>
-          <td>{{ command.TimeOut }}</td>
-          <td v-if="command.status === 2">{{ '✅' }}</td>
-          <td v-else-if="command.status === 1">{{ '🏃💨' }}</td>
-          <td v-else>{{ command.status }}</td>
-        </custom-tr>
-      </table>
+      <div class="tables__container">
+        <CommandsCycloTable v-if="activeCyclogramm !== null" :active-cyclogramm="activeCyclogramm" @updateActiveCommand="updateActiveCommand"/>
+      </div>
     </div>
     <div class="control-cyclogramms__container">
       <custom-button class="control-cyclogramms__button"
@@ -74,12 +30,14 @@
 
 <script>
 import REST from "@/mixins/REST";
-import CustomTr from "@/components/CustomSimpleComponents/CustomTr";
 import CustomButton from "@/components/CustomSimpleComponents/CustomButton";
+import CyclogrammsTable from "@/components/Dialogs/MainMenu/CyclorgammsDialog/CyclogrammsTable";
+
+import CommandsCycloTable from "@/components/Dialogs/MainMenu/CyclorgammsDialog/CommandsCycloTable";
 
 export default {
   name: 'CyclogrammsDialog',
-  components: {CustomButton, CustomTr},
+  components: {CommandsCycloTable, CyclogrammsTable, CustomButton},
   data() {
     return {
       activeCyclogramm: null,
@@ -104,8 +62,8 @@ export default {
         this.$store.dispatch('protocol/addLogMessage', {text: 'Получение списка циклограмм от сервера остановлено'})
       }
     },
-    updateActiveCyclogramm(cyclo) {
-      this.activeCyclogramm = this.activeCyclogramm === cyclo ? null : cyclo
+    updateActiveCyclo(cyclo) {
+      this.activeCyclogramm = cyclo
     },
     updateActiveCommand(command) {
       this.activeCommand = this.activeCommand === command ? null : command
@@ -128,10 +86,13 @@ export default {
         }
         let res = await this.sendRESTCommand('http://smotr/site/cyclogramapi',
             'POST', null, null, JSON.stringify(reqBody))
-        if(res.ok) {
+        if (res.ok) {
           this.$store.dispatch('protocol/addLogMessage', {text: `Выполняется циклограмма ${this.activeCyclogramm.name}`})
         }
       }
+    },
+    async editCyclogramm() {
+
     },
     async startCommand() {
       if (this.activeCommand) {
@@ -148,7 +109,7 @@ export default {
         reqBody.command.command.Params = this.valueCommand
         let res = await this.sendRESTCommand('http://smotr/site/cyclogramapi',
             'POST', null, null, JSON.stringify(reqBody))
-        if(res.ok) {
+        if (res.ok) {
           this.$store.dispatch('protocol/addLogMessage', {text: `Выполняется циклограмма ${this.activeCyclogramm.name}`})
         }
       }
@@ -170,7 +131,7 @@ export default {
     }
   },
   mounted() {
-    if (!this.cyclogrammsStatus) {
+    if (!this.cyclogrammsListStatus) {
       this.getCyclogrammsList()
     }
   }
