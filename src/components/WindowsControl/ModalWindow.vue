@@ -16,6 +16,7 @@
 <script>
 export default {
   name: 'ModalWindow',
+  emits: ['close'],
   methods: {
     clickClose() {
       this.$emit('close')
@@ -47,7 +48,7 @@ export default {
   display: flex;
   flex-direction: row;
   width: 40%;
-  margin: 0px auto;
+  margin: 0 auto;
   //padding: 20px 30px;
   background-color: #fff;
   border-radius: 5px;

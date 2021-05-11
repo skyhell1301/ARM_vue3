@@ -8,22 +8,58 @@
         <CyclogrammsTable :cyclogramms-list="cyclogrammsList" @updateActiveCyclo="updateActiveCyclo"/>
       </div>
       <div class="tables__container">
-        <CommandsCycloTable v-if="activeCyclogramm !== null" :active-cyclogramm="activeCyclogramm" @updateActiveCommand="updateActiveCommand"/>
+        <CommandsCycloTable v-if="activeCyclogramm !== null"
+                            :active-cyclogramm="activeCyclogramm"
+                            @updateActiveCommand="updateActiveCommand"
+                            ref="commandCycloTable"
+        />
       </div>
     </div>
     <div class="control-cyclogramms__container">
+      <div class="control-cyclogramms__title">Управление циклограммой</div>
       <custom-button class="control-cyclogramms__button"
-                     @buttonClick="startCommand"
+                     @buttonClick="startCyclogramm"
+                     v-if="activeCyclogramm"
       >
-        Выполнить одиночную команду
+        Выполнить циклограмму
       </custom-button>
       <custom-button class="control-cyclogramms__button"
-                     @buttonClick="startCyclogramm">Выполнить циклограмму
+                     @buttonClick="addNewCommand"
+                     v-if="activeCyclogramm"
+      >
+        Добавить новую команду
       </custom-button>
-      <custom-button class="control-cyclogramms__button"
-                     @buttonClick="clearStatuses">Очистить статусы
-      </custom-button>
-      <input class="control-cyclogramms__button" v-model="valueCommand">
+      <div class="control-cyclogramms__commands-container"
+           v-if="activeCommand"
+      >
+        <div class="control-cyclogramms__title">Управление командой</div>
+        <custom-button class="control-cyclogramms__button"
+                       @buttonClick="startCommand"
+        >
+          Выполнить одиночную команду
+        </custom-button>
+
+        <custom-button class="control-cyclogramms__button"
+                       @buttonClick="clearStatuses">Очистить статусы
+        </custom-button>
+        <div>Устройство:</div>
+        <CustomSelect ref="deviceSelect" @onChange="setSelectDevice($event.target.value)" class="control-cyclogramms__select">
+          <option v-for="device in devicesList" :key="device.NameEq"
+                  :selected="checkSelect(device.NameEq)"
+                  :value="device.NameEq"
+          >
+            {{ device.NameEq }}
+          </option>
+        </CustomSelect>
+        <div v-if="selectDevice">Команда:</div>
+        <select class="control-cyclogramms__select">
+          <option v-for="command in selectDevice?.comlist" :key="command.NUMCMD">
+            {{ command.NAMECMD }}
+          </option>
+        </select>
+        <div>Параметры:</div>
+        <input class="control-cyclogramms__button" :value="activeCommand.Params">
+      </div>
     </div>
   </div>
 </template>
@@ -34,15 +70,17 @@ import CustomButton from "@/components/CustomSimpleComponents/CustomButton";
 import CyclogrammsTable from "@/components/Dialogs/MainMenu/CyclorgammsDialog/CyclogrammsTable";
 
 import CommandsCycloTable from "@/components/Dialogs/MainMenu/CyclorgammsDialog/CommandsCycloTable";
+import CustomSelect from "@/components/CustomSimpleComponents/CustomSelect";
 
 export default {
   name: 'CyclogrammsDialog',
-  components: {CommandsCycloTable, CyclogrammsTable, CustomButton},
+  components: {CustomSelect, CommandsCycloTable, CyclogrammsTable, CustomButton},
   data() {
     return {
       activeCyclogramm: null,
       activeCommand: null,
-      valueCommand: '2;'
+      selectDevice: null,
+      selectStatus: true
     }
   },
   methods: {
@@ -55,25 +93,45 @@ export default {
         this.$store.dispatch('protocol/addLogMessage', {text: 'Запрос на получение списка циклограмм сервером принят'})
       }
     },
-    async stopGettingCyclogrammsList() {
-      let res = await this.sendRESTCommand('http://smotr/site/cyclogramapi', 'POST', null, null,
-          JSON.stringify({cyclogram: {dialog: "close", clientid: this.appId}}))
-      if (res.ok) {
-        this.$store.dispatch('protocol/addLogMessage', {text: 'Получение списка циклограмм от сервера остановлено'})
-      }
-    },
     updateActiveCyclo(cyclo) {
       this.activeCyclogramm = cyclo
+      if (this.activeCommand) this.$refs.commandCycloTable.updateActiveCommand(this.activeCommand)
     },
     updateActiveCommand(command) {
+      if(command !== this.activeCommand) this.selectStatus = true
       this.activeCommand = this.activeCommand === command ? null : command
+      if(!this.activeCommand) {
+        this.selectDevice = null
+        this.selectStatus = true
+      }
+    },
+    checkSelect(device) {
+      if(this.selectStatus) {
+        const isSelect = this.activeCommand.unit_type === device
+        if (isSelect) {
+          this.selectStatus = false
+          this.setSelectDevice(device)
+          console.log(isSelect)
+          return isSelect
+        }
+        return false
+      } else {
+        return false
+      }
     },
     clearStatuses() {
       this.$store.dispatch('cyclogramms/clearStatuses')
     },
+    setSelectDevice(deviceName) {
+      for(let dev in this.devicesList) {
+        if(this.devicesList[dev].NameEq === deviceName) {
+          this.selectDevice = this.devicesList[dev]
+          console.log(this.selectDevice)
+        }
+      }
+    },
     async startCyclogramm() {
       if (this.activeCyclogramm) {
-
         this.clearStatuses()
         let reqBody = {
           command: {
@@ -90,9 +148,6 @@ export default {
           this.$store.dispatch('protocol/addLogMessage', {text: `Выполняется циклограмма ${this.activeCyclogramm.name}`})
         }
       }
-    },
-    async editCyclogramm() {
-
     },
     async startCommand() {
       if (this.activeCommand) {
@@ -113,12 +168,31 @@ export default {
           this.$store.dispatch('protocol/addLogMessage', {text: `Выполняется циклограмма ${this.activeCyclogramm.name}`})
         }
       }
+    },
+    async addNewCommand() {
+      let reqBody = {
+        command: {
+          command: null,
+          cyclogram_name: this.activeCyclogramm.name,
+          cyclogram_id: this.activeCyclogramm.id,
+          executionType: 'addCommand',
+          clientid: this.$store.state.app_id
+        }
+      }
+      let res = await this.sendRESTCommand('http://smotr/site/cyclogramapi',
+          'POST', null, null, JSON.stringify(reqBody))
+      if (res.ok) {
+        this.$store.dispatch('protocol/addLogMessage', {text: `Добавлена новая команда`})
+      }
     }
   },
   mixins: [REST],
   computed: {
     cyclogrammsList() {
       return this.$store.state.cyclogramms.cyclogrammsList
+    },
+    devicesList() {
+      return this.$store.state.cyclogramms.devicesList
     },
     cyclogrammsListStatus() {
       return this.$store.state.cyclogramms.cyclogrammsListStatus
@@ -192,11 +266,27 @@ export default {
   box-shadow: 0 0 5px 0.3px rgba(180, 180, 180, 0.8);
   display: flex;
   flex-direction: column;
+  align-items: center;
+}
+
+.control-cyclogramms__commands-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .control-cyclogramms__button {
   margin: 10px 0;
   align-self: center;
+  width: 80%;
+}
+
+.control-cyclogramms__title {
+  margin-top: 20px;
+}
+
+.control-cyclogramms__select {
   width: 80%;
 }
 </style>

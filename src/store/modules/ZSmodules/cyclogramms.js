@@ -5,6 +5,7 @@ const state = () => ({
 const mutations = {
     updateCyclogrammsList(state, payload) {
         state.cyclogrammsList = payload?.list
+        state.devicesList = payload?.devlist
         state.cyclogrammsListStatus = true
     },
     updateCommandExecuteStatus(state, payload) {
